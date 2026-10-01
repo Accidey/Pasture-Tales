@@ -1,0 +1,21 @@
+{
+  "animalflee.configuration.title": "Animal Flee Configs",
+  "animalflee.configuration.section.animalflee.common.toml": "Animal Flee Configs",
+  "animalflee.configuration.section.animalflee.common.toml.title": "Animal Flee Configs",
+  "animalflee.configuration.fleeTriggerDistance": "Flee Trigger Distance",
+  "animalflee.configuration.passiveMobFlee": "Passive Mob Flee",
+  "animalflee.configuration.aquaticMobFlee": "Aquatic Mob Flee",
+  "animalflee.configuration.blacklistedMobs": "Blacklisted Mob IDs",
+  "jade.animalflee.gender": "Gender: %s",
+  "jade.animalflee.gender.male": "Male",
+  "jade.animalflee.gender.female": "Female",
+  "jade.animalflee.gender.unknown": "Gender: Unknown",
+  "jade.animalflee.pregnant": "Pregnant",
+  "jade.animalflee.pregnancy_progress": "Pregnant: %s",
+  "jade.animalflee.hunger": "Hunger: %s",
+  "jade.animalflee.starving": "Hunger: Starving!",
+  "jade.animalflee.domesticated": "Domesticated",
+  "tooltip.animalflee.fish_bait": "Can be used as fish bait. Drop it into natural water to attract fish (spawns fish after 0.5~1 day)",
+  "tooltip.animalflee.fertilized_egg": "Fertilized egg: place on a sheltered hay block to hatch in about 1 MC day",
+  "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch"
+}

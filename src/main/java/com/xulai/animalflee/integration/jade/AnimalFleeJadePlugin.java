@@ -1,0 +1,22 @@
+package com.xulai.animalflee.integration.jade;
+
+import net.minecraft.world.entity.animal.Animal;
+import snownee.jade.api.IWailaClientRegistration;
+import snownee.jade.api.IWailaCommonRegistration;
+import snownee.jade.api.IWailaPlugin;
+import snownee.jade.api.WailaPlugin;
+
+@WailaPlugin
+public class AnimalFleeJadePlugin implements IWailaPlugin {
+
+    @Override
+    public void register(IWailaCommonRegistration registration) {
+        registration.registerEntityDataProvider(AnimalStatusProvider.INSTANCE, Animal.class);
+    }
+
+    @Override
+    public void registerClient(IWailaClientRegistration registration) {
+        registration.registerEntityComponent(AnimalStatusProvider.INSTANCE, Animal.class);
+        registration.markAsClientFeature(AnimalStatusProvider.UID);
+    }
+}

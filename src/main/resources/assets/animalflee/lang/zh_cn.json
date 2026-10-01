@@ -1,0 +1,21 @@
+{
+  "animalflee.configuration.title": "动物逃跑配置",
+  "animalflee.configuration.section.animalflee.common.toml": "动物逃跑配置",
+  "animalflee.configuration.section.animalflee.common.toml.title": "动物逃跑配置",
+  "animalflee.configuration.fleeTriggerDistance": "触发逃跑距离",
+  "animalflee.configuration.passiveMobFlee": "被动生物是否逃跑",
+  "animalflee.configuration.aquaticMobFlee": "水生生物是否逃跑",
+  "animalflee.configuration.blacklistedMobs": "不逃跑的生物黑名单",
+  "jade.animalflee.gender": "性别：%s",
+  "jade.animalflee.gender.male": "雄性",
+  "jade.animalflee.gender.female": "雌性",
+  "jade.animalflee.gender.unknown": "性别：未知",
+  "jade.animalflee.pregnant": "怀孕中",
+  "jade.animalflee.pregnancy_progress": "怀孕中：%s",
+  "jade.animalflee.hunger": "饥饿度：%s",
+  "jade.animalflee.starving": "饥饿度：挨饿中！",
+  "jade.animalflee.domesticated": "家养",
+  "tooltip.animalflee.fish_bait": "可以作为鱼饵，丢入自然水域可吸引鱼群（0.5~1 天后生成鱼）",
+  "tooltip.animalflee.fertilized_egg": "受精蛋：放在不见天日的干草块上，约 1 个 MC 天后孵出小鸡",
+  "tooltip.animalflee.normal_egg": "普通鸡蛋：无法孵化出小鸡"
+}
