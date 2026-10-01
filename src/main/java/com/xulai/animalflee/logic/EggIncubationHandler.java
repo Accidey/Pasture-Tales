@@ -3,6 +3,7 @@ package com.xulai.animalflee.logic;
 import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.util.TriState;
@@ -81,6 +83,29 @@ public class EggIncubationHandler {
         egg.discard();
         if (!player.addItem(stack)) {
             player.drop(stack, false);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getLevel().isClientSide) return;
+        if (!(event.getHitVec() instanceof BlockHitResult blockHit)) return;
+        if (blockHit.getDirection() != Direction.UP) return;
+
+        BlockPos hay = blockHit.getBlockPos();
+        if (!event.getLevel().getBlockState(hay).is(Blocks.HAY_BLOCK)) return;
+
+        ItemEntity existing = EggGridHelper.findGridEgg(event.getLevel(), hay,
+                hay.getX() + 0.5, hay.getZ() + 0.5);
+        if (existing == null) return;
+
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        Player player = event.getEntity();
+        ItemStack picked = existing.getItem().copy();
+        existing.discard();
+        if (!player.addItem(picked)) {
+            player.drop(picked, false);
         }
     }
 

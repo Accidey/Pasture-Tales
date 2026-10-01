@@ -42,18 +42,6 @@ public class EggItemUseMixin {
             }
 
             if (!level.isClientSide) {
-                ItemEntity existing = EggGridHelper.findGridEgg(level, hay,
-                        hay.getX() + 0.5, hay.getZ() + 0.5);
-                if (existing != null) {
-                    ItemStack picked = existing.getItem().copy();
-                    existing.discard();
-                    if (!player.addItem(picked)) {
-                        player.drop(picked, false);
-                    }
-                    cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide));
-                    return;
-                }
-
                 BitSet occupied = EggGridHelper.collectOccupiedSlots(level, hay);
                 int placeCount = Math.min(stack.getCount(), EggGridHelper.GRID_SIZE);
                 int placed = 0;
