@@ -23,7 +23,6 @@ public class AnimalMobInteractMixin {
     private void animalflee$onMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         if (player.level().isClientSide) return;
         Animal animal = (Animal) (Object) this;
-        if (animal.isBaby()) return;
 
         ItemStack stack = player.getItemInHand(hand);
         if (stack.isEmpty()) {
@@ -34,6 +33,14 @@ public class AnimalMobInteractMixin {
             cir.setReturnValue(InteractionResult.PASS);
             return;
         }
+
+        if (animal.isBaby()) {
+            HungerSystem.feed(animal, stack);
+            stack.shrink(1);
+            cir.setReturnValue(InteractionResult.SUCCESS);
+            return;
+        }
+
         if (animal.getAge() != 0) {
             cir.setReturnValue(InteractionResult.PASS);
             return;

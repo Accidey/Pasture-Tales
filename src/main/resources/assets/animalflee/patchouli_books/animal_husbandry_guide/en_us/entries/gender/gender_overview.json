@@ -1,0 +1,18 @@
+{
+  "name": "Genders Explained",
+  "icon": "minecraft:player_head",
+  "category": "animalflee:gender",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Male & Female",
+      "text": "Every animal is randomly assigned a gender at birth: 50% male, 50% female.$(br2)Males are slightly larger (110%~120% size), while females are a bit smaller (90%~100%).$(br2)You can see the gender by looking at the animal with Jade installed."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:sheep",
+      "text": "Male sheep are visibly bigger. Gender matters for breeding — only a male and a female can produce offspring."
+    }
+  ]
+}

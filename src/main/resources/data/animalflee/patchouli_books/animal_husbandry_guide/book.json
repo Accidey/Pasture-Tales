@@ -1,0 +1,13 @@
+{
+  "name": "item.animalflee.animal_husbandry_guide.name",
+  "landing_text": "book.animalflee.animal_husbandry_guide.landing",
+  "book_texture": "patchouli:textures/gui/book_green.png",
+  "model": "patchouli:book_green",
+  "subtitle": "item.animalflee.animal_husbandry_guide.subtitle",
+  "creative_tab": "minecraft:tools_and_utilities",
+  "use_resource_pack": true,
+  "show_progress": false,
+  "pause_game": true,
+  "text_overflow_mode": "resize",
+  "version": "1"
+}

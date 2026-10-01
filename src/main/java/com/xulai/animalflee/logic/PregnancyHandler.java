@@ -13,15 +13,15 @@ public class PregnancyHandler {
     @SubscribeEvent
     public static void onEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
-        if (!(event.getEntity() instanceof Animal animal)) return;
-        PregnancySystem.tickPregnancy(animal);
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
+        PregnancySystem.tickPregnancy((Animal) event.getEntity());
     }
 
     @SubscribeEvent
     public static void onIncomingDamage(LivingIncomingDamageEvent event) {
         if (event.getEntity().level().isClientSide) return;
-        if (!(event.getEntity() instanceof Animal animal)) return;
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
         if (event.getAmount() <= 0.0F) return;
-        PregnancySystem.tryMiscarriage(animal);
+        PregnancySystem.tryMiscarriage((Animal) event.getEntity());
     }
 }

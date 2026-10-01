@@ -1,0 +1,24 @@
+{
+  "name": "Taming Your First Animal",
+  "icon": "minecraft:carrot",
+  "category": "animalflee:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "How to Tame",
+      "text": "Every wild animal starts with hunger between 50% and 80% of its max. This means they are always willing to eat.$(br2)Hold the right food and right-click the animal. Its hunger rises, and it becomes $(bold)domesticated$() forever."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:carrot",
+      "title": "What to Feed",
+      "text": "Different animals eat different foods. Check the $(l:animalflee:diet/diet_overview)Diet$() category to learn what each animal prefers. Feeding the wrong food simply won't work."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:pig",
+      "text": "Pigs are omnivores. They will eat almost anything, including crops and even meat!"
+    }
+  ]
+}

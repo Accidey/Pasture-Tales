@@ -15,15 +15,15 @@ public class GenderHandler {
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide) return;
-        if (event.getEntity() instanceof Animal animal) {
-            GenderLogic.initGender(animal);
-        }
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
+        GenderLogic.initGender((Animal) event.getEntity());
     }
 
     @SubscribeEvent
     public static void onEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
-        if (!(event.getEntity() instanceof Animal animal)) return;
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
+        Animal animal = (Animal) event.getEntity();
         if (animal.tickCount % SCALE_RECHECK_INTERVAL != 0) return;
         if (GenderLogic.isScaleApplied(animal)) return;
         GenderLogic.initGender(animal);

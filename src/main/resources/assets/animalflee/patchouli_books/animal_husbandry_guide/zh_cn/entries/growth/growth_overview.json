@@ -1,0 +1,29 @@
+{
+  "name": "幼崽如何长大",
+  "icon": "minecraft:wheat_seeds",
+  "category": "animalflee:growth",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "成长需要真实时间",
+      "text": "幼崽不再像原版那样十几分钟就自动长成。它们需要按天数计算的成长时间：$(br2)牛幼崽的基准是 7 个 MC 天，上下浮动 2 天，也就是实际 5~9 天。$(br2)体型越小的动物长得越快——鸡比牛快得多，大象般的体型则要更久。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:hay_block",
+      "title": "吃饱才会成长",
+      "text": "幼崽的饥饿达到最大饥饿的 50% 时，才会累计成长时间。$(br2)饿了成长就完全停滞，喂饱之后才会继续。停滞期间的时间不会补回来，所以越早喂饱越好。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "查看成长进度",
+      "text": "装上 Jade 后，准星看向幼崽就能看到成长进度百分比。若显示「饥饿不足，成长停滞」，就说明该喂食了。$(br2)另外，幼崽只会跟着自己的母亲走，而不是随便跟一只成年同类——认准妈妈，别把它和母亲分开。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cow",
+      "text": "在围栏里常备干草块或小麦，让幼崽随时能吃饱。它们长成成年后才会参与繁殖。"
+    }
+  ]
+}

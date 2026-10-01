@@ -1,0 +1,24 @@
+{
+  "name": "驯服第一只动物",
+  "icon": "minecraft:carrot",
+  "category": "animalflee:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "如何驯服",
+      "text": "每只野生动物的初始饥饿都在最大值的 50%~80% 之间，这意味着它们总是愿意进食。$(br2)拿着正确的食物右键动物，它的饥饿就会上升，并$(bold)永久家养$()。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:carrot",
+      "title": "喂什么",
+      "text": "不同动物吃不同食物。查看$(l:animalflee:diet/diet_overview)食性$()分类了解每种动物的偏好。喂错食物不会生效。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:pig",
+      "text": "猪是杂食动物，几乎什么都吃——包括作物甚至肉！"
+    }
+  ]
+}

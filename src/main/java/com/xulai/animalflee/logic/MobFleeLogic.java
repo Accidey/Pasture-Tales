@@ -135,6 +135,7 @@ public class MobFleeLogic {
     }
 
     private static boolean shouldFlee(Mob mob) {
+        if (AnimalFleeEntityHelper.isMaidEntity(mob)) return false;
         if (HungerSystem.isDomesticated(mob)) return false;
         if (isBlacklisted(mob)) return false;
         if (isEnclosed(mob)) return false;
@@ -528,9 +529,14 @@ public class MobFleeLogic {
                 if (state.isAir()) continue;
                 VoxelShape shape = state.getCollisionShape(entity.level(), pos);
                 if (shape.isEmpty()) continue;
-                if (!shape.move(pos.getX(), pos.getY(), pos.getZ()).intersects(probeBox)) {
-                    continue;
+                boolean intersects = false;
+                for (AABB part : shape.toAabbs()) {
+                    if (part.move(pos.getX(), pos.getY(), pos.getZ()).intersects(probeBox)) {
+                        intersects = true;
+                        break;
+                    }
                 }
+                if (!intersects) continue;
                 double top = shape.max(Direction.Axis.Y) + pos.getY();
                 if (top > stepTopY) {
                     return true;

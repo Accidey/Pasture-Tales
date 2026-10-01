@@ -1,0 +1,18 @@
+{
+  "name": "Integrated Mods",
+  "icon": "minecraft:lead",
+  "category": "animalflee:integration",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Maids Feed For You",
+      "text": "With Touhou Little Maid installed, the maid's \"feed animal\" task follows this mod's rules:$(br2)she only feeds domesticated animals below half hunger; she only uses food that the animal's diet allows and that actually has nutrition; and she keeps feeding until the animal is full.$(br2)Babies count too - a maid will fill them up so stalled growth resumes."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Jade Shows the Real State",
+      "text": "With Jade installed, look at an animal to see its gender, domestication, pregnancy progress, post-birth cooldown, baby growth progress and hunger.$(br2)This mod hides Jade's built-in \"time until grown\" countdown - vanilla growth timing no longer applies, so that number would be wrong."
+    }
+  ]
+}

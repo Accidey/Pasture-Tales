@@ -1,0 +1,24 @@
+{
+  "name": "Diet Overview",
+  "icon": "minecraft:apple",
+  "category": "animalflee:diet",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Herbivore / Carnivore / Omnivore",
+      "text": "Every animal has a diet:$(br)$(bold)Herbivores$() eat only plants — crops, seeds, hay, apples, sugar.$(br2)$(bold)Carnivores$() eat only meat and fish.$(br2)$(bold)Omnivores$() eat everything."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:beef",
+      "title": "Meat & Fish",
+      "text": "Meat and fish are detected using vanilla tags plus NeoForge's common 'c:' tags, so modded meat and fish are recognized automatically."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:wolf",
+      "text": "Wolves are carnivores. Feed them raw or cooked meat, or fish."
+    }
+  ]
+}

@@ -4,6 +4,9 @@ import com.xulai.animalflee.Config;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,12 +20,19 @@ import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public final class AnimalFoods {
+
+    public enum Diet {
+        HERBIVORE,
+        CARNIVORE,
+        OMNIVORE
+    }
 
     private static final Set<Item> CROP_ITEMS = Set.of(
             Items.WHEAT,
@@ -53,12 +63,17 @@ public final class AnimalFoods {
     private static final float SUGAR_SATURATION = 1.0F;
 
     private static Map<String, Float> customFoodCache = null;
+    private static Map<String, Diet> dietCache = null;
 
     private AnimalFoods() {
     }
 
     public static void resetCustomFoodCache() {
         customFoodCache = null;
+    }
+
+    public static void resetDietCache() {
+        dietCache = null;
     }
 
     private static Map<String, Float> getCustomFoodCache() {
@@ -116,7 +131,21 @@ public final class AnimalFoods {
     }
 
     public static boolean isMeat(ItemStack stack) {
-        return !stack.isEmpty() && stack.is(ItemTags.MEAT);
+        if (stack.isEmpty()) return false;
+        return stack.is(ItemTags.MEAT)
+                || stack.is(Tags.Items.FOODS_RAW_MEAT)
+                || stack.is(Tags.Items.FOODS_COOKED_MEAT);
+    }
+
+    public static boolean isFish(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        return stack.is(ItemTags.FISHES)
+                || stack.is(Tags.Items.FOODS_RAW_FISH)
+                || stack.is(Tags.Items.FOODS_COOKED_FISH);
+    }
+
+    public static boolean isMeatOrFish(ItemStack stack) {
+        return isMeat(stack) || isFish(stack);
     }
 
     public static float getSaturation(ItemStack stack) {
@@ -140,6 +169,46 @@ public final class AnimalFoods {
         if (isSeed(stack)) return SEED_SATURATION;
         if (isCrop(stack)) return CROP_DEFAULT_SATURATION;
         return 0.0F;
+    }
+
+    public static Diet getDiet(EntityType<?> type) {
+        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+        if (key == null) return Diet.OMNIVORE;
+        return getDietCache().getOrDefault(key.toString(), Diet.OMNIVORE);
+    }
+
+    public static Diet getDiet(Mob mob) {
+        return getDiet(mob.getType());
+    }
+
+    public static boolean canEatByDiet(Animal animal, ItemStack stack) {
+        Diet diet = getDiet(animal);
+        boolean meatOrFish = isMeatOrFish(stack);
+        return switch (diet) {
+            case HERBIVORE -> !meatOrFish;
+            case CARNIVORE -> meatOrFish;
+            case OMNIVORE -> true;
+        };
+    }
+
+    private static Map<String, Diet> getDietCache() {
+        if (dietCache == null) {
+            Map<String, Diet> map = new HashMap<>();
+            for (String id : Config.HERBIVORE_MOBS.get()) {
+                String trimmed = id.trim();
+                if (!trimmed.isEmpty()) {
+                    map.put(trimmed, Diet.HERBIVORE);
+                }
+            }
+            for (String id : Config.CARNIVORE_MOBS.get()) {
+                String trimmed = id.trim();
+                if (!trimmed.isEmpty()) {
+                    map.put(trimmed, Diet.CARNIVORE);
+                }
+            }
+            dietCache = map;
+        }
+        return dietCache;
     }
 
     private static boolean isSeed(ItemStack stack) {

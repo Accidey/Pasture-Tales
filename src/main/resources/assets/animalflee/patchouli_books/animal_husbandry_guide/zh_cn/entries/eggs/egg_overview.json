@@ -1,0 +1,24 @@
+{
+  "name": "鸡蛋与孵化",
+  "icon": "minecraft:chicken",
+  "category": "animalflee:eggs",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "下蛋",
+      "text": "只有雌性鸡会下蛋。母鸡大约每个游戏天产一枚蛋（外加随机 1~3 小时）。$(br2)如果附近有合格的公鸡，她会产下$(bold)受精蛋$()；否则产普通蛋。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:egg",
+      "title": "受精蛋",
+      "text": "受精蛋有特殊提示。要孵化它，把它放在$(bold)干草块$()上，且该位置$(bold)不能见天空$()。1 个游戏天（20 分钟）后，小鸡就会孵出来。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "注意事项",
+      "text": "普通鸡蛋扔出永远不会孵化。受精蛋暴露在天空下或不在干草块上时不会孵化。孵化期间，蛋不能被正常拾取——右键它才能收集。"
+    }
+  ]
+}

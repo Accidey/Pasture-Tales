@@ -1,0 +1,24 @@
+{
+  "name": "Fishing & Fish Farming",
+  "icon": "minecraft:fishing_rod",
+  "category": "animalflee:fishing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Natural Water Only",
+      "text": "You can only catch fish in $(bold)natural$() water: rivers, oceans, beaches, or large natural lakes (64+ connected water blocks).$(br2)Player-made ponds never yield fish!"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Real Fish Entities",
+      "text": "Fishing only works if real fish entities exist near your hook. When you catch a fish, an actual fish entity is pulled to your feet — kill it to get the drops. Each catch consumes one fish from the area."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:wheat_seeds",
+      "title": "Feeding Fish",
+      "text": "Drop seeds or crops into natural water to feed the fish. After 0.5~1 in-game day, 2~5 fish will spawn at that spot. This lets you build your own fishing grounds!"
+    }
+  ]
+}

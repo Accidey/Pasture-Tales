@@ -1,0 +1,19 @@
+{
+  "name": "饥饿系统",
+  "icon": "minecraft:cooked_beef",
+  "category": "animalflee:hunger",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "家养动物会饿",
+      "text": "一旦你喂过动物，它就变成家养，并开始随时间消耗饥饿。$(br2)每天按配置的百分比消耗饥饿（默认每天 50%）。怀孕动物消耗速度 ×1.5。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:beef",
+      "title": "喂食恢复饥饿",
+      "text": "右键饥饿的动物并给予食物即可恢复饥饿。不同食物恢复量不同。如果饥饿归零，动物会进入挨饿状态并在 3 天内持续掉血——赶紧喂食救它！"
+    }
+  ]
+}

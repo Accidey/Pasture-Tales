@@ -9,7 +9,9 @@
     "ThrownEggHatchMixin",
     "EggItemUseMixin",
     "AbstractHorseFeedMixin",
-    "ChickenEggLayMixin"
+    "ChickenEggLayMixin",
+    "FollowParentGoalMixin",
+    "AgeableMobGrowthMixin"
   ],
   "injectors": {
     "defaultRequire": 1

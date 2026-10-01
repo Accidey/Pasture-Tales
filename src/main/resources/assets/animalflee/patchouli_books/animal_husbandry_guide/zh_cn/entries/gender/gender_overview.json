@@ -1,0 +1,18 @@
+{
+  "name": "性别详解",
+  "icon": "minecraft:player_head",
+  "category": "animalflee:gender",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "雄性与雌性",
+      "text": "每只动物出生时随机分配性别：50% 雄性，50% 雌性。$(br2)雄性体型稍大（110%~120%），雌性稍小（90%~100%）。$(br2)安装 Jade 后，看向动物即可看到性别。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:sheep",
+      "text": "雄性羊明显更大。性别对繁殖很重要——只有雄性和雌性才能孕育后代。"
+    }
+  ]
+}

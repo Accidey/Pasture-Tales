@@ -1,6 +1,8 @@
 package com.xulai.animalflee.integration.jade;
 
+import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import com.xulai.animalflee.logic.GenderLogic;
+import com.xulai.animalflee.logic.GrowthSystem;
 import com.xulai.animalflee.logic.HungerSystem;
 import com.xulai.animalflee.logic.PregnancySystem;
 import net.minecraft.nbt.CompoundTag;
@@ -26,10 +28,13 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     private static final String KEY_MAX_HUNGER = "af_max_hunger";
     private static final String KEY_COOLDOWN_REMAINING = "af_cooldown_remaining";
     private static final String KEY_DOMESTICATED = "af_domesticated";
+    private static final String KEY_GROWTH_PROGRESS = "af_growth_progress";
+    private static final String KEY_GROWTH_PAUSED = "af_growth_paused";
 
     @Override
     public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
         if (!(accessor.getEntity() instanceof Animal)) return;
+        if (AnimalFleeEntityHelper.isMaidEntity(accessor.getEntity())) return;
 
         CompoundTag data = accessor.getServerData();
         if (!data.contains(KEY_GENDER)) {
@@ -64,6 +69,15 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             tooltip.add(Component.translatable("jade.animalflee.cooldown", minutes, seconds));
         }
 
+        if (accessor.getEntity() instanceof Animal animal && animal.isBaby()) {
+            if (data.contains(KEY_GROWTH_PROGRESS)) {
+                tooltip.add(Component.translatable("jade.animalflee.growth_progress",
+                        String.format("%.0f%%", data.getFloat(KEY_GROWTH_PROGRESS) * 100.0F)));
+            } else {
+                tooltip.add(Component.translatable("jade.animalflee.growth_paused"));
+            }
+        }
+
         if (data.contains(KEY_HUNGER)) {
             float hunger = data.getFloat(KEY_HUNGER);
             if (hunger <= 0.0F) {
@@ -78,6 +92,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     @Override
     public void appendServerData(CompoundTag tag, EntityAccessor accessor) {
         if (!(accessor.getEntity() instanceof Animal animal)) return;
+        if (AnimalFleeEntityHelper.isMaidEntity(animal)) return;
 
         GenderLogic.initGender(animal);
         String gender = GenderLogic.getGender(animal);
@@ -99,6 +114,13 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
                 tag.putLong(KEY_COOLDOWN_REMAINING, cooldown);
             }
         }
+        if (animal.isBaby()) {
+            tag.putFloat(KEY_GROWTH_PROGRESS, GrowthSystem.getProgress(animal));
+            if (!GrowthSystem.hasEnoughHunger(animal)) {
+                tag.putBoolean(KEY_GROWTH_PAUSED, true);
+            }
+        }
+
         if (persistent.contains(KEY_HUNGER)) {
             tag.putFloat(KEY_HUNGER, persistent.getFloat(KEY_HUNGER));
         }

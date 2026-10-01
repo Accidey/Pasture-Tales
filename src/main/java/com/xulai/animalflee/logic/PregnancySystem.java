@@ -131,7 +131,7 @@ public final class PregnancySystem {
         return candidates.get(ThreadLocalRandom.current().nextInt(candidates.size()));
     }
 
-    private static boolean isCompatibleMate(Animal mother, Animal candidate) {
+    public static boolean isCompatibleMate(Animal mother, Animal candidate) {
         if (mother.getType() == candidate.getType()) return true;
         return isHorseDonkeyPair(mother.getType(), candidate.getType());
     }

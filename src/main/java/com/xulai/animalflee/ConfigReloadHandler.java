@@ -18,6 +18,7 @@ public class ConfigReloadHandler {
     public static void onConfigReload(ModConfigEvent.Reloading event) {
         MobFleeLogic.resetBlacklistCache();
         AnimalFoods.resetCustomFoodCache();
+        AnimalFoods.resetDietCache();
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) return;
         for (ServerLevel level : server.getAllLevels()) {

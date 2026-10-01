@@ -36,5 +36,21 @@
   "jade.animalflee.domesticated": "Domesticated",
   "tooltip.animalflee.fish_bait": "Can be used as fish bait. Drop it into natural water to attract fish (spawns fish after 0.5~1 day)",
   "tooltip.animalflee.fertilized_egg": "Fertilized egg: place on a sheltered hay block to hatch in about 1 MC day",
-  "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch"
+  "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch",
+  "animalflee.diet.player_only": "Only players can run this command",
+  "animalflee.diet.not_spawn_egg": "You must hold a spawn egg in your main hand",
+  "animalflee.diet.unknown_type": "Could not identify the entity type of the spawn egg",
+  "animalflee.diet.herbivore": "Herbivore",
+  "animalflee.diet.carnivore": "Carnivore",
+  "animalflee.diet.omnivore": "Omnivore",
+  "animalflee.diet.current": "%s diet: %s",
+  "animalflee.diet.already_present": "%s is already %s",
+  "animalflee.diet.not_present": "%s is not in the %s list",
+  "animalflee.diet.added": "Set %s as %s",
+  "animalflee.diet.removed": "Removed %s from the %s list",
+  "item.animalflee.animal_husbandry_guide.name": "Animal Husbandry Guide",
+  "item.animalflee.animal_husbandry_guide.subtitle": "Complete Manual of Livestock Breeding",
+  "book.animalflee.animal_husbandry_guide.landing": "$(bold)Welcome to the Animal Husbandry Guide!$()\n\nThis book will teach you how to run a ranch: tame wild animals, learn their genders and diets, feed your livestock, let them breed, and master fishing and fish farming.\n\n$(bold)Before you start:$()\nAnimals will flee from you! Hold food and right-click an animal to feed and tame it.",
+  "jade.animalflee.growth_progress": "Growth: %s",
+  "jade.animalflee.growth_paused": "Too hungry, growth paused"
 }

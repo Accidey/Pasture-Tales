@@ -36,5 +36,21 @@
   "jade.animalflee.domesticated": "家养",
   "tooltip.animalflee.fish_bait": "可以作为鱼饵，丢入自然水域可吸引鱼群（0.5~1 天后生成鱼）",
   "tooltip.animalflee.fertilized_egg": "受精蛋：放在不见天日的干草块上，约 1 个 MC 天后孵出小鸡",
-  "tooltip.animalflee.normal_egg": "普通鸡蛋：无法孵化出小鸡"
+  "tooltip.animalflee.normal_egg": "普通鸡蛋：无法孵化出小鸡",
+  "animalflee.diet.player_only": "此命令必须由玩家执行（需要读取主手物品）",
+  "animalflee.diet.not_spawn_egg": "主手必须持有刷怪蛋",
+  "animalflee.diet.unknown_type": "无法识别刷怪蛋的实体类型",
+  "animalflee.diet.herbivore": "草食",
+  "animalflee.diet.carnivore": "肉食",
+  "animalflee.diet.omnivore": "杂食",
+  "animalflee.diet.current": "%s 当前食性：%s",
+  "animalflee.diet.already_present": "%s 已是%s动物",
+  "animalflee.diet.not_present": "%s 不在%s动物列表中",
+  "animalflee.diet.added": "已将 %s 设为%s动物",
+  "animalflee.diet.removed": "已将 %s 移出%s动物列表",
+  "item.animalflee.animal_husbandry_guide.name": "牧业指南",
+  "item.animalflee.animal_husbandry_guide.subtitle": "动物养殖完全手册",
+  "book.animalflee.animal_husbandry_guide.landing": "$(bold)欢迎阅读《牧业指南》！$()\n\n本书将指导你如何在这片大陆上经营牧场：驯服野生动物、了解它们的性别与食性、喂养家畜、让它们繁衍后代，以及掌握钓鱼与鱼群养殖的秘诀。\n\n$(bold)开始之前：$()\n动物见到你会逃跑！手持饲料靠近并右键动物即可喂养并驯服它。",
+  "jade.animalflee.growth_progress": "成长进度：%s",
+  "jade.animalflee.growth_paused": "饥饿不足，成长停滞"
 }

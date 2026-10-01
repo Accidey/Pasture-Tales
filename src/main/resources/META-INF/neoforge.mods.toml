@@ -54,6 +54,12 @@ Adds gender system with visual size differences and Jade tooltip support.
 [[mixins]]
 config="${mod_id}.mixins.json"
 
+[[mixins]]
+config="${mod_id}.maid.mixins.json"
+
+[[mixins]]
+config="${mod_id}.jade.mixins.json"
+
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
 #[[accessTransformers]]

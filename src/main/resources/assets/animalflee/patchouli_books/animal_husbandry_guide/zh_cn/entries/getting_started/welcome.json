@@ -1,0 +1,24 @@
+{
+  "name": "欢迎来到牧场",
+  "icon": "minecraft:wheat",
+  "category": "animalflee:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "欢迎！",
+      "text": "本模组把被动的动物变成活生生的养殖模拟。动物有性别、饥饿、食性、怀孕，甚至会下蛋孵化。$(br2)开始吧：手里拿任意食物，右键动物即可喂食。就这么简单！"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cow",
+      "text": "牛是草食动物。喂它们小麦、干草、苹果或任何作物。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:wheat",
+      "title": "为什么动物会逃跑",
+      "text": "野生动物靠近你时会逃跑！悄悄靠近或把它们赶进角落。一旦喂食，它们就永久家养，不再逃跑。"
+    }
+  ]
+}

@@ -7,324 +7,440 @@ import java.util.List;
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.DoubleValue FLEE_TRIGGER_DISTANCE = BUILDER
-            .comment(
-                    "触发逃跑距离（格）",
-                    "Flee trigger distance (blocks)",
-                    "",
-                    "玩家靠近到这个距离时，被动/水生生物开始逃跑。",
-                    "Passive and aquatic mobs start fleeing when the player gets within this distance.",
-                    "",
-                    "Default: 10.0 / 默认：10.0",
-                    "Range: 1.0 ~ 64.0"
-            )
-            .defineInRange("fleeTriggerDistance", 10.0, 1.0, 64.0);
+    static {
+        FLEE_TRIGGER_DISTANCE = BUILDER
+                .comment(
+                        "触发逃跑距离（格）",
+                        "Flee trigger distance (blocks)",
+                        "玩家靠近到这个距离时，被动/水生生物开始逃跑。",
+                        "Passive and aquatic mobs start fleeing when the player gets within this distance.",
+                        "Default: 10.0 / 默认：10.0",
+                        "Range: 1.0 ~ 64.0"
+                )
+                .defineInRange("fleeTriggerDistance", 10.0, 1.0, 64.0);
 
-    public static final ModConfigSpec.BooleanValue PASSIVE_MOB_FLEE = BUILDER
-            .comment(
-                    "被动生物是否逃跑",
-                    "Whether passive mobs flee",
-                    "",
-                    "被动生物包括猪、牛、羊、鸡、兔、蝙蝠等。",
-                    "Passive mobs include pigs, cows, sheep, chickens, rabbits, bats, etc.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("passiveMobFlee", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue AQUATIC_MOB_FLEE = BUILDER
-            .comment(
-                    "水生生物是否逃跑",
-                    "Whether aquatic mobs flee",
-                    "",
-                    "水生生物包括鱼、鱿鱼、海豚、蝾螈等。",
-                    "Aquatic mobs include fish, squid, dolphins, axolotls, etc.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("aquaticMobFlee", true);
+        PASSIVE_MOB_FLEE = BUILDER
+                .comment(
+                        "被动生物是否逃跑",
+                        "Whether passive mobs flee",
+                        "被动生物包括猪、牛、羊、鸡、兔、蝙蝠等。",
+                        "Passive mobs include pigs, cows, sheep, chickens, rabbits, bats, etc.",
+                        "Default: true / 默认：true"
+                )
+                .define("passiveMobFlee", true);
 
-    public static final ModConfigSpec.BooleanValue FLOCK_FLEE = BUILDER
-            .comment(
-                    "逃跑时是否启用群体行为（Boids 群聚算法）",
-                    "Whether fleeing mobs use flocking behavior (Boids algorithm)",
-                    "",
-                    "开启后，逃跑中的同类生物会互相分离、对齐、聚合，",
-                    "受惊的鱼群会成群结队地逃窜，而不是各自盲目乱跑。",
-                    "When enabled, fleeing mobs of the same species separate, align and cohere,",
-                    "so a startled school scatters together instead of each one running blindly.",
-                    "",
-                    "逃跑方向始终优先：群聚力只作为转向扰动叠加，",
-                    "若群聚方向与逃跑方向相反，其影响会被大幅削弱，绝不会把生物拉回玩家身边。",
-                    "The flee direction always takes priority. Flocking is only a steering nudge,",
-                    "and any flock force opposing the flee direction is heavily damped,",
-                    "so it can never pull a mob back toward the player.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("flockFlee", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER = BUILDER
-            .comment(
-                    "钓鱼是否要求自然水域",
-                    "Whether fishing requires natural water bodies",
-                    "",
-                    "开启后，只有在河流、海洋、海滩生物群系，",
-                    "或者连通水面达到一定大小的自然湖泊/池塘中才能钓到鱼。",
-                    "When enabled, fish can only be caught in river, ocean or beach biomes,",
-                    "or in natural lakes/ponds whose connected water surface is large enough.",
-                    "",
-                    "玩家自己挖的小坑、人造水池无论等多久都钓不到鱼。",
-                    "Small pits or artificial pools dug by players will never yield fish.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("fishingRequiresNaturalWater", true);
+        AQUATIC_MOB_FLEE = BUILDER
+                .comment(
+                        "水生生物是否逃跑",
+                        "Whether aquatic mobs flee",
+                        "水生生物包括鱼、鱿鱼、海豚、蝾螈等。",
+                        "Aquatic mobs include fish, squid, dolphins, axolotls, etc.",
+                        "Default: true / 默认：true"
+                )
+                .define("aquaticMobFlee", true);
 
-    public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME = BUILDER
-            .comment(
-                    "自然湖泊最小连通水方块数量（格）",
-                    "Minimum connected water blocks for a natural lake",
-                    "",
-                    "当不在河流/海洋/海滩生物群系时，钩子周围连通的源水方块达到该数量才视为自然湖泊。",
-                    "Outside river/ocean/beach biomes, the connected source water blocks around the hook",
-                    "must reach this count to be treated as a natural lake.",
-                    "",
-                    "Default: 64 / 默认：64",
-                    "Range: 16 ~ 1024"
-            )
-            .defineInRange("fishingMinWaterVolume", 64, 16, 1024);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS = BUILDER
-            .comment(
-                    "钓鱼时扫描鱼实体的半径（格）",
-                    "Radius to scan for fish entities when fishing",
-                    "",
-                    "鱼漂周围这个范围内必须有真实的鱼实体才能钓到鱼，",
-                    "每钓上一条鱼，范围内就会减少一条鱼实体，直到钓完。",
-                    "Fishing only works when real fish entities exist within this radius around the hook;",
-                    "each caught fish removes one fish entity from the area until none remain.",
-                    "",
-                    "Default: 16 / 默认：16",
-                    "Range: 4 ~ 64"
-            )
-            .defineInRange("fishScanRadius", 16, 4, 64);
+        FLOCK_FLEE = BUILDER
+                .comment(
+                        "逃跑时是否启用群体行为（Boids 群聚算法）",
+                        "Whether fleeing mobs use flocking behavior (Boids algorithm)",
+                        "开启后，逃跑中的同类生物会互相分离、对齐、聚合，",
+                        "受惊的鱼群会成群结队地逃窜，而不是各自盲目乱跑。",
+                        "When enabled, fleeing mobs of the same species separate, align and cohere,",
+                        "so a startled school scatters together instead of each one running blindly.",
+                        "逃跑方向始终优先：群聚力只作为转向扰动叠加，",
+                        "若群聚方向与逃跑方向相反，其影响会被大幅削弱，绝不会把生物拉回玩家身边。",
+                        "The flee direction always takes priority. Flocking is only a steering nudge,",
+                        "and any flock force opposing the flee direction is heavily damped,",
+                        "so it can never pull a mob back toward the player.",
+                        "Default: true / 默认：true"
+                )
+                .define("flockFlee", true);
 
-    public static final ModConfigSpec.BooleanValue HUNGER_ENABLED = BUILDER
-            .comment(
-                    "是否启用动物饥饿系统",
-                    "Whether the animal hunger system is enabled",
-                    "",
-                    "开启后，被玩家喂养过的家养动物会随时间消耗饥饿值。",
-                    "When enabled, domesticated animals (fed once by a player) lose hunger over time.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("hungerEnabled", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT = BUILDER
-            .comment(
-                    "动物可繁殖所需的最低饥饿百分比",
-                    "Minimum hunger percentage for animals to breed",
-                    "",
-                    "动物需要达到该百分比（占其最大饥饿值）才能参与繁殖/交配。",
-                    "Animals must be at or above this percentage of their max hunger to breed.",
-                    "",
-                    "Default: 80 / 默认：80",
-                    "Range: 0 ~ 100"
-            )
-            .defineInRange("breedMinHungerPercent", 80, 0, 100);
+        FISHING_REQUIRES_NATURAL_WATER = BUILDER
+                .comment(
+                        "钓鱼是否要求自然水域",
+                        "Whether fishing requires natural water bodies",
+                        "开启后，只有在河流、海洋、海滩生物群系，",
+                        "或者连通水面达到一定大小的自然湖泊/池塘中才能钓到鱼。",
+                        "When enabled, fish can only be caught in river, ocean or beach biomes,",
+                        "or in natural lakes/ponds whose connected water surface is large enough.",
+                        "玩家自己挖的小坑、人造水池无论等多久都钓不到鱼。",
+                        "Small pits or artificial pools dug by players will never yield fish.",
+                        "Default: true / 默认：true"
+                )
+                .define("fishingRequiresNaturalWater", true);
 
-    public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT = BUILDER
-            .comment(
-                    "家养动物每天消耗的饥饿值百分比",
-                    "Percent of a domesticated animal's hunger consumed per day",
-                    "",
-                    "每只动物每天（1 MC 天）按最大饥饿值的该百分比消耗。",
-                    "Each animal consumes this percentage of its max hunger per in-game day.",
-                    "",
-                    "每只动物还有独立的代谢系数（0.8~1.2 随机浮动），实际消耗在此基础上上下浮动。",
-                    "Each animal also has a fixed metabolism factor (0.8~1.2) that varies the actual drain.",
-                    "",
-                    "Default: 50 / 默认：50",
-                    "Range: 1 ~ 100"
-            )
-            .defineInRange("dailyHungerDrainPercent", 50, 1, 100);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.IntValue HUNGER_STARVE_DAYS = BUILDER
-            .comment(
-                    "饥饿值归零后，还能存活的天数",
-                    "Days a domesticated animal survives after hunger reaches zero",
-                    "",
-                    "归零后动物不会立刻死亡，而是进入挨饿状态缓慢掉血，",
-                    "在这段时间内喂食可以救回来。",
-                    "After hunger reaches zero the animal does not die instantly;",
-                    "it enters a starving state and slowly loses health,",
-                    "and can be saved by feeding it during this window.",
-                    "",
-                    "Default: 3 / 默认：3",
-                    "Range: 1 ~ 30"
-            )
-            .defineInRange("hungerStarveDays", 3, 1, 30);
+        FISHING_MIN_WATER_VOLUME = BUILDER
+                .comment(
+                        "自然湖泊最小连通水方块数量（格）",
+                        "Minimum connected water blocks for a natural lake",
+                        "当不在河流/海洋/海滩生物群系时，钩子周围连通的源水方块达到该数量才视为自然湖泊。",
+                        "Outside river/ocean/beach biomes, the connected source water blocks around the hook",
+                        "must reach this count to be treated as a natural lake.",
+                        "Default: 64 / 默认：64",
+                        "Range: 16 ~ 1024"
+                )
+                .defineInRange("fishingMinWaterVolume", 64, 16, 1024);
 
-    public static final ModConfigSpec.IntValue COW_PREGNANCY_MINUTES = BUILDER
-            .comment(
-                    "牛基准孕期（分钟）",
-                    "Base cow pregnancy duration in minutes",
-                    "",
-                    "其它生物按体型等比例缩放。",
-                    "Other animals scale this by body size.",
-                    "",
-                    "Default: 120 / 默认：120",
-                    "Range: 5 ~ 1440"
-            )
-            .defineInRange("cowPregnancyMinutes", 120, 5, 1440);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.IntValue PREGNANCY_FLOAT_MINUTES = BUILDER
-            .comment(
-                    "孕期浮动（分钟）",
-                    "Pregnancy duration random float in minutes",
-                    "",
-                    "实际孕期在基准值上额外加上 0~浮动值 之间的随机分钟。",
-                    "Actual duration adds a random 0~float minutes on top of the base.",
-                    "",
-                    "Default: 20 / 默认：20",
-                    "Range: 0 ~ 720"
-            )
-            .defineInRange("pregnancyFloatMinutes", 20, 0, 720);
+        FISH_FISH_SCAN_RADIUS = BUILDER
+                .comment(
+                        "钓鱼时扫描鱼实体的半径（格）",
+                        "Radius to scan for fish entities when fishing",
+                        "鱼漂周围这个范围内必须有真实的鱼实体才能钓到鱼，",
+                        "每钓上一条鱼，范围内就会减少一条鱼实体，直到钓完。",
+                        "Fishing only works when real fish entities exist within this radius around the hook;",
+                        "each caught fish removes one fish entity from the area until none remain.",
+                        "Default: 16 / 默认：16",
+                        "Range: 4 ~ 64"
+                )
+                .defineInRange("fishScanRadius", 16, 4, 64);
 
-    public static final ModConfigSpec.DoubleValue MISCARRIAGE_CHANCE = BUILDER
-            .comment(
-                    "怀孕期间受伤导致流产的概率",
-                    "Chance of miscarriage when a pregnant animal is hurt",
-                    "",
-                    "0.0 = 永不流产，1.0 = 必然流产。",
-                    "0.0 = never, 1.0 = always.",
-                    "",
-                    "Default: 0.2 / 默认：0.2",
-                    "Range: 0.0 ~ 1.0"
-            )
-            .defineInRange("miscarriageChance", 0.2, 0.0, 1.0);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.IntValue COOLDOWN_MINUTES = BUILDER
-            .comment(
-                    "产后冷却基准（分钟）",
-                    "Post-birth/post-miscarriage cooldown in minutes",
-                    "",
-                    "生产或流产后，动物在该时间内无法再次怀孕。",
-                    "After giving birth or miscarrying, the animal cannot become pregnant again for this long.",
-                    "",
-                    "Default: 120 / 默认：120",
-                    "Range: 1 ~ 1440"
-            )
-            .defineInRange("cooldownMinutes", 120, 1, 1440);
+        HUNGER_ENABLED = BUILDER
+                .comment(
+                        "是否启用动物饥饿系统",
+                        "Whether the animal hunger system is enabled",
+                        "开启后，被玩家喂养过的家养动物会随时间消耗饥饿值。",
+                        "When enabled, domesticated animals (fed once by a player) lose hunger over time.",
+                        "Default: true / 默认：true"
+                )
+                .define("hungerEnabled", true);
 
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> OVIPAROUS_MOBS = BUILDER
-            .comment(
-                    "卵生动物列表（实体ID列表）",
-                    "List of oviparous mob IDs",
-                    "",
-                    "这些动物生产时生成受精蛋物品而不是直接生成幼年实体。",
-                    "These animals lay fertilized eggs instead of giving live birth.",
-                    "",
-                    "Default: [\"minecraft:chicken\"]",
-                    "格式：每个ID用双引号包裹，逗号分隔。",
-                    "Format: comma-separated quoted IDs."
-            )
-            .defineListAllowEmpty("oviparousMobs", List.of(
-                    "minecraft:chicken"
-            ), () -> "", obj -> obj instanceof String);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue BLOCK_NORMAL_EGG_HATCHING = BUILDER
-            .comment(
-                    "是否阻止普通鸡蛋扔出后孵化小鸡",
-                    "Whether to block normal eggs from hatching when thrown",
-                    "",
-                    "开启后，普通鸡蛋扔出不再随机孵出小鸡；",
-                    "只有由怀孕卵生动物产下的受精蛋才能孵出小鸡。",
-                    "When enabled, normal eggs no longer randomly hatch when thrown;",
-                    "only fertilized eggs laid by pregnant oviparous animals can hatch.",
-                    "",
-                    "Default: true / 默认：true"
-            )
-            .define("blockNormalEggHatching", true);
+        BREED_MIN_HUNGER_PERCENT = BUILDER
+                .comment(
+                        "动物可繁殖所需的最低饥饿百分比",
+                        "Minimum hunger percentage for animals to breed",
+                        "动物需要达到该百分比（占其最大饥饿值）才能参与繁殖/交配。",
+                        "Animals must be at or above this percentage of their max hunger to breed.",
+                        "Default: 80 / 默认：80",
+                        "Range: 0 ~ 100"
+                )
+                .defineInRange("breedMinHungerPercent", 80, 0, 100);
 
-    public static final ModConfigSpec.IntValue EGG_INCUBATION_MINUTES = BUILDER
-            .comment(
-                    "受精蛋孵化所需的游戏内时间（分钟）",
-                    "In-game minutes required for a fertilized egg to hatch",
-                    "",
-                    "受精蛋必须放在「不能见天空的干草块」上才会孵化；",
-                    "离开干草块或重见天空会重置进度。",
-                    "1 MC 天 = 20 分钟。",
-                    "A fertilized egg only hatches when placed on a hay block that cannot see the sky;",
-                    "moving it off the hay block or exposing it to the sky resets the progress.",
-                    "1 MC day = 20 minutes.",
-                    "",
-                    "Default: 20 (1 MC day) / 默认：20（1 MC 天）",
-                    "Range: 1 ~ 1440"
-            )
-            .defineInRange("eggIncubationMinutes", 20, 1, 1440);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_MOBS = BUILDER
-            .comment(
-                    "不会逃跑的生物黑名单（实体ID列表）",
-                    "Blacklist of mob IDs that will never flee.",
-                    "",
-                    "这些生物即使属于被动/水生类别也不会逃跑。",
-                    "Mobs in this list will not flee even if they are passive/aquatic.",
-                    "",
-                    "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:parrot\", \"minecraft:horse\", ...]",
-                    "格式：每个ID用双引号包裹，逗号分隔。",
-                    "Format: comma-separated quoted IDs."
-            )
-            .defineListAllowEmpty("blacklistedMobs", List.of(
-                    "minecraft:wolf",
-                    "minecraft:parrot",
-                    "minecraft:donkey",
-                    "minecraft:mule",
-                    "minecraft:skeleton_horse",
-                    "minecraft:zombie_horse",
-                    "minecraft:llama",
-                    "minecraft:trader_llama",
-                    "minecraft:ocelot",
-                    "minecraft:dolphin",
-                    "minecraft:polar_bear",
-                    "minecraft:bee",
-                    "minecraft:axolotl",
-                    "minecraft:panda",
-                    "minecraft:iron_golem",
-                    "minecraft:snow_golem"
-            ), () -> "", obj -> obj instanceof String);
+        HUNGER_DAILY_DRAIN_PERCENT = BUILDER
+                .comment(
+                        "家养动物每天消耗的饥饿值百分比",
+                        "Percent of a domesticated animal's hunger consumed per day",
+                        "每只动物每天（1 MC 天）按最大饥饿值的该百分比消耗。",
+                        "Each animal consumes this percentage of its max hunger per in-game day.",
+                        "每只动物还有独立的代谢系数（0.8~1.2 随机浮动），实际消耗在此基础上上下浮动。",
+                        "Each animal also has a fixed metabolism factor (0.8~1.2) that varies the actual drain.",
+                        "Default: 50 / 默认：50",
+                        "Range: 1 ~ 100"
+                )
+                .defineInRange("dailyHungerDrainPercent", 50, 1, 100);
 
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_ANIMAL_FOODS = BUILDER
-            .comment(
-                    "自定义动物饲料列表（物品ID:饱食度值）",
-                    "Custom animal food list (itemID:saturation)",
-                    "",
-                    "玩家可指定任意物品作为动物饲料，并为其设定饱食度值。",
-                    "Players can designate any item as animal food and set its saturation value.",
-                    "",
-                    "格式：每个条目用双引号包裹，逗号分隔。两种写法：",
-                    "Format: each entry wrapped in double quotes, comma-separated. Two forms:",
-                    "  1. 只写物品ID（无值）：仅当该物品本身有饱食度（原版可吃）时生效，使用原版营养值。",
-                    "     1. Item ID only (no value): only works if the item has vanilla saturation;",
-                    "        the vanilla nutrition value is used.",
-                    "  2. 物品ID:值（带值）：强制指定饱食度值，会覆盖原版值。",
-                    "     2. Item ID:value (with value): forces the saturation value, overriding vanilla.",
-                    "",
-                    "示例 Examples:",
-                    "  [\"minecraft:apple\"]                       -> 苹果，用原版 4 点",
-                    "  [\"minecraft:stick:1.5\"]                  -> 木棍，强制 1.5 点",
-                    "  [\"minecraft:apple:6\", \"minecraft:stone:2\"] -> 苹果覆盖为 6 点，石头 2 点",
-                    "",
-                    "注意：只写 ID 且该物品没有原版饱食度时，无法作为饲料（会被忽略）。",
-                    "Note: an ID-only entry whose item has no vanilla saturation is ignored",
-                    "(cannot be used as food).",
-                    "",
-                    "Default: [] / 默认：[]"
-            )
-            .defineListAllowEmpty("customAnimalFoods", List.of(), () -> "", obj -> obj instanceof String);
+        BUILDER.comment(" ");
+
+        HUNGER_STARVE_DAYS = BUILDER
+                .comment(
+                        "饥饿值归零后，还能存活的天数",
+                        "Days a domesticated animal survives after hunger reaches zero",
+                        "归零后动物不会立刻死亡，而是进入挨饿状态缓慢掉血，",
+                        "在这段时间内喂食可以救回来。",
+                        "After hunger reaches zero the animal does not die instantly;",
+                        "it enters a starving state and slowly loses health,",
+                        "and can be saved by feeding it during this window.",
+                        "Default: 3 / 默认：3",
+                        "Range: 1 ~ 30"
+                )
+                .defineInRange("hungerStarveDays", 3, 1, 30);
+
+        BUILDER.comment(" ");
+
+        COW_PREGNANCY_MINUTES = BUILDER
+                .comment(
+                        "牛基准孕期（分钟）",
+                        "Base cow pregnancy duration in minutes",
+                        "其它生物按体型等比例缩放。",
+                        "Other animals scale this by body size.",
+                        "Default: 120 / 默认：120",
+                        "Range: 5 ~ 1440"
+                )
+                .defineInRange("cowPregnancyMinutes", 120, 5, 1440);
+
+        BUILDER.comment(" ");
+
+        PREGNANCY_FLOAT_MINUTES = BUILDER
+                .comment(
+                        "孕期浮动（分钟）",
+                        "Pregnancy duration random float in minutes",
+                        "实际孕期在基准值上额外加上 0~浮动值 之间的随机分钟。",
+                        "Actual duration adds a random 0~float minutes on top of the base.",
+                        "Default: 20 / 默认：20",
+                        "Range: 0 ~ 720"
+                )
+                .defineInRange("pregnancyFloatMinutes", 20, 0, 720);
+
+        BUILDER.comment(" ");
+
+        MISCARRIAGE_CHANCE = BUILDER
+                .comment(
+                        "怀孕期间受伤导致流产的概率",
+                        "Chance of miscarriage when a pregnant animal is hurt",
+                        "0.0 = 永不流产，1.0 = 必然流产。",
+                        "0.0 = never, 1.0 = always.",
+                        "Default: 0.2 / 默认：0.2",
+                        "Range: 0.0 ~ 1.0"
+                )
+                .defineInRange("miscarriageChance", 0.2, 0.0, 1.0);
+
+        BUILDER.comment(" ");
+
+        COOLDOWN_MINUTES = BUILDER
+                .comment(
+                        "产后冷却基准（分钟）",
+                        "Post-birth/post-miscarriage cooldown in minutes",
+                        "生产或流产后，动物在该时间内无法再次怀孕。",
+                        "After giving birth or miscarrying, the animal cannot become pregnant again for this long.",
+                        "Default: 120 / 默认：120",
+                        "Range: 1 ~ 1440"
+                )
+                .defineInRange("cooldownMinutes", 120, 1, 1440);
+
+        BUILDER.comment(" ");
+
+        COW_GROWTH_DAYS = BUILDER
+                .comment(
+                        "牛幼崽基准成长天数（MC 天）",
+                        "Base calf growth duration in MC days",
+                        "幼崽长成成年所需的时间基准，其它生物按体型等比例缩放。",
+                        "Other animals scale this by body size.",
+                        "实际成长时间在基准上额外上下浮动 growthFloatDays 天。",
+                        "Actual duration floats by plus/minus growthFloatDays days.",
+                        "Default: 7 / 默认：7",
+                        "Range: 1 ~ 60"
+                )
+                .defineInRange("cowGrowthDays", 7, 1, 60);
+
+        BUILDER.comment(" ");
+
+        GROWTH_FLOAT_DAYS = BUILDER
+                .comment(
+                        "幼崽成长天数浮动（天）",
+                        "Growth duration random float in days",
+                        "实际成长天数在基准值上下浮动该天数，例如基准 7、浮动 2 则为 5~9 天。",
+                        "Actual growth days float plus/minus this value, e.g. base 7 with float 2 gives 5~9 days.",
+                        "Default: 2 / 默认：2",
+                        "Range: 0 ~ 10"
+                )
+                .defineInRange("growthFloatDays", 2, 0, 10);
+
+        BUILDER.comment(" ");
+
+        GROWTH_MIN_HUNGER_PERCENT = BUILDER
+                .comment(
+                        "幼崽成长所需的最低饥饿百分比",
+                        "Minimum hunger percentage for a baby to grow",
+                        "幼崽饥饿达到该百分比（占其最大饥饿值）才会累积成长时间，",
+                        "饥饿不足时成长停滞，需要喂食后才会继续成长。",
+                        "A baby only accumulates growth time while at or above this percentage of its max hunger;",
+                        "growth pauses when hungry and resumes after feeding.",
+                        "Default: 50 / 默认：50",
+                        "Range: 0 ~ 100"
+                )
+                .defineInRange("growthMinHungerPercent", 50, 0, 100);
+
+        BUILDER.comment(" ");
+
+        OVIPAROUS_MOBS = BUILDER
+                .comment(
+                        "卵生动物列表（实体ID列表）",
+                        "List of oviparous mob IDs",
+                        "这些动物生产时生成受精蛋物品而不是直接生成幼年实体。",
+                        "These animals lay fertilized eggs instead of giving live birth.",
+                        "Default: [\"minecraft:chicken\"]",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .defineListAllowEmpty("oviparousMobs", List.of(
+                        "minecraft:chicken"
+                ), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        BLOCK_NORMAL_EGG_HATCHING = BUILDER
+                .comment(
+                        "是否阻止普通鸡蛋扔出后孵化小鸡",
+                        "Whether to block normal eggs from hatching when thrown",
+                        "开启后，普通鸡蛋扔出不再随机孵出小鸡；",
+                        "只有由怀孕卵生动物产下的受精蛋才能孵出小鸡。",
+                        "When enabled, normal eggs no longer randomly hatch when thrown;",
+                        "only fertilized eggs laid by pregnant oviparous animals can hatch.",
+                        "Default: true / 默认：true"
+                )
+                .define("blockNormalEggHatching", true);
+
+        BUILDER.comment(" ");
+
+        EGG_INCUBATION_MINUTES = BUILDER
+                .comment(
+                        "受精蛋孵化所需的游戏内时间（分钟）",
+                        "In-game minutes required for a fertilized egg to hatch",
+                        "受精蛋必须放在「不能见天空的干草块」上才会孵化；",
+                        "离开干草块或重见天空会重置进度。",
+                        "1 MC 天 = 20 分钟。",
+                        "A fertilized egg only hatches when placed on a hay block that cannot see the sky;",
+                        "moving it off the hay block or exposing it to the sky resets the progress.",
+                        "1 MC day = 20 minutes.",
+                        "Default: 20 (1 MC day) / 默认：20（1 MC 天）",
+                        "Range: 1 ~ 1440"
+                )
+                .defineInRange("eggIncubationMinutes", 20, 1, 1440);
+
+        BUILDER.comment(" ");
+
+        BLACKLISTED_MOBS = BUILDER
+                .comment(
+                        "不会逃跑的生物黑名单（实体ID列表）",
+                        "Blacklist of mob IDs that will never flee.",
+                        "这些生物即使属于被动/水生类别也不会逃跑。",
+                        "Mobs in this list will not flee even if they are passive/aquatic.",
+                        "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:parrot\", \"minecraft:horse\", ...]",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .defineListAllowEmpty("blacklistedMobs", List.of(
+                        "minecraft:wolf",
+                        "minecraft:parrot",
+                        "minecraft:donkey",
+                        "minecraft:mule",
+                        "minecraft:skeleton_horse",
+                        "minecraft:zombie_horse",
+                        "minecraft:llama",
+                        "minecraft:trader_llama",
+                        "minecraft:ocelot",
+                        "minecraft:dolphin",
+                        "minecraft:polar_bear",
+                        "minecraft:bee",
+                        "minecraft:axolotl",
+                        "minecraft:panda",
+                        "minecraft:iron_golem",
+                        "minecraft:snow_golem"
+                ), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        CUSTOM_ANIMAL_FOODS = BUILDER
+                .comment(
+                        "自定义动物饲料列表（物品ID:饱食度值）",
+                        "Custom animal food list (itemID:saturation)",
+                        "玩家可指定任意物品作为动物饲料，并为其设定饱食度值。",
+                        "Players can designate any item as animal food and set its saturation value.",
+                        "格式：每个条目用双引号包裹，逗号分隔。两种写法：",
+                        "Format: each entry wrapped in double quotes, comma-separated. Two forms:",
+                        "  1. 只写物品ID（无值）：仅当该物品本身有饱食度（原版可吃）时生效，使用原版营养值。",
+                        "     1. Item ID only (no value): only works if the item has vanilla saturation;",
+                        "        the vanilla nutrition value is used.",
+                        "  2. 物品ID:值（带值）：强制指定饱食度值，会覆盖原版值。",
+                        "     2. Item ID:value (with value): forces the saturation value, overriding vanilla.",
+                        "示例 Examples:",
+                        "  [\"minecraft:apple\"]                       -> 苹果，用原版 4 点",
+                        "  [\"minecraft:stick:1.5\"]                  -> 木棍，强制 1.5 点",
+                        "  [\"minecraft:apple:6\", \"minecraft:stone:2\"] -> 苹果覆盖为 6 点，石头 2 点",
+                        "注意：只写 ID 且该物品没有原版饱食度时，无法作为饲料（会被忽略）。",
+                        "Note: an ID-only entry whose item has no vanilla saturation is ignored",
+                        "(cannot be used as food).",
+                        "Default: [] / 默认：[]"
+                )
+                .defineListAllowEmpty("customAnimalFoods", List.of(), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        HERBIVORE_MOBS = BUILDER
+                .comment(
+                        "草食动物列表（实体ID列表）",
+                        "Herbivore mob list (entity ID list)",
+                        "草食动物只能吃素食（非肉非鱼）：作物、种子、干草块、苹果、糖等。",
+                        "Herbivores can only eat vegetarian food (no meat or fish): crops, seeds, hay, apples, sugar, etc.",
+                        "未出现在草食或肉食列表中的动物默认为杂食。",
+                        "Animals in neither list default to omnivore.",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .defineListAllowEmpty("herbivoreMobs", List.of(
+                        "minecraft:cow",
+                        "minecraft:sheep",
+                        "minecraft:goat",
+                        "minecraft:rabbit",
+                        "minecraft:horse",
+                        "minecraft:donkey",
+                        "minecraft:mule",
+                        "minecraft:llama",
+                        "minecraft:trader_llama",
+                        "minecraft:camel",
+                        "minecraft:panda",
+                        "minecraft:turtle",
+                        "minecraft:parrot",
+                        "minecraft:bee",
+                        "minecraft:sniffer"
+                ), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        CARNIVORE_MOBS = BUILDER
+                .comment(
+                        "肉食动物列表（实体ID列表）",
+                        "Carnivore mob list (entity ID list)",
+                        "肉食动物只能吃肉类和鱼类（生/熟肉、鱼、腐肉等）。",
+                        "Carnivores can only eat meat and fish (raw/cooked meat, fish, rotten flesh, etc.).",
+                        "未出现在草食或肉食列表中的动物默认为杂食。",
+                        "Animals in neither list default to omnivore.",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .defineListAllowEmpty("carnivoreMobs", List.of(
+                        "minecraft:cat",
+                        "minecraft:wolf",
+                        "minecraft:ocelot",
+                        "minecraft:polar_bear",
+                        "minecraft:axolotl",
+                        "minecraft:frog"
+                ), () -> "", obj -> obj instanceof String);
+    }
+
+    public static final ModConfigSpec.DoubleValue FLEE_TRIGGER_DISTANCE;
+    public static final ModConfigSpec.BooleanValue PASSIVE_MOB_FLEE;
+    public static final ModConfigSpec.BooleanValue AQUATIC_MOB_FLEE;
+    public static final ModConfigSpec.BooleanValue FLOCK_FLEE;
+    public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
+    public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
+    public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;
+    public static final ModConfigSpec.BooleanValue HUNGER_ENABLED;
+    public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT;
+    public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT;
+    public static final ModConfigSpec.IntValue HUNGER_STARVE_DAYS;
+    public static final ModConfigSpec.IntValue COW_PREGNANCY_MINUTES;
+    public static final ModConfigSpec.IntValue PREGNANCY_FLOAT_MINUTES;
+    public static final ModConfigSpec.DoubleValue MISCARRIAGE_CHANCE;
+    public static final ModConfigSpec.IntValue COOLDOWN_MINUTES;
+    public static final ModConfigSpec.IntValue COW_GROWTH_DAYS;
+    public static final ModConfigSpec.IntValue GROWTH_FLOAT_DAYS;
+    public static final ModConfigSpec.IntValue GROWTH_MIN_HUNGER_PERCENT;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> OVIPAROUS_MOBS;
+    public static final ModConfigSpec.BooleanValue BLOCK_NORMAL_EGG_HATCHING;
+    public static final ModConfigSpec.IntValue EGG_INCUBATION_MINUTES;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_MOBS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_ANIMAL_FOODS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> HERBIVORE_MOBS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> CARNIVORE_MOBS;
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

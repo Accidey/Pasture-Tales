@@ -1,0 +1,29 @@
+{
+  "name": "How Babies Grow Up",
+  "icon": "minecraft:wheat_seeds",
+  "category": "animalflee:growth",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Growth Takes Real Time",
+      "text": "Babies no longer grow up automatically after a dozen minutes like in vanilla. They now need growth time measured in days.$(br2)A calf takes 7 MC days as the baseline, plus or minus 2 days, so 5~9 days in practice.$(br2)Smaller animals grow faster - chickens mature far quicker than cows, while huge animals take much longer."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:hay_block",
+      "title": "Only Well-Fed Babies Grow",
+      "text": "A baby only accumulates growth time while its hunger is at or above 50% of its maximum.$(br2)Growth stalls completely when it is hungry and only resumes once you feed it. Time lost while stalled is never made up, so feed them early."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Checking Growth Progress",
+      "text": "With Jade installed, look at a baby to see its growth progress percentage. If it says \"Too hungry, growth paused\", it is time to feed it.$(br2)Babies also follow their own mother instead of any random adult of their kind - keep mother and child together."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cow",
+      "text": "Keep hay bales or wheat stocked in the pen so babies can always eat. They only take part in breeding once fully grown."
+    }
+  ]
+}

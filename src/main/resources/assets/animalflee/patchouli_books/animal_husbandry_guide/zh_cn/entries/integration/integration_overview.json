@@ -1,0 +1,18 @@
+{
+  "name": "联动模组",
+  "icon": "minecraft:lead",
+  "category": "animalflee:integration",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "女仆会替你喂养",
+      "text": "如果安装了《东方 Little Maid》，女仆的「喂食动物」任务会遵守本模组的规则：$(br2)只喂饥饿低于一半的家养动物；只喂该动物食性允许、且确实有营养的食物；会一直喂到它吃饱为止。$(br2)幼崽同样适用——女仆会把它们喂饱，让停滞的成长继续下去。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Jade 显示真实状态",
+      "text": "安装 Jade 后，准星看向动物可以看到性别、是否家养、怀孕进度、产后冷却、幼崽成长进度与饥饿值。$(br2)本模组会屏蔽 Jade 自带的「还有多久长大」倒计时——原版成长规则已被本模组改写，那个数字是错的。"
+    }
+  ]
+}

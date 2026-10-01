@@ -41,3 +41,11 @@ repo/
 
 ### WorkBuddy 临时文件 ###
 .workbuddy/tmp/
+
+### 本地构建依赖与第三方子仓库 ###
+libs/
+TouhouLittleMaid-*/
+boids-*/
+Fishing-Real-*/
+0
+.workbuddy/renumber_doc.py

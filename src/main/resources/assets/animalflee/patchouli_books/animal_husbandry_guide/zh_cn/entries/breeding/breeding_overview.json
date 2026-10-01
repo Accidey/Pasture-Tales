@@ -1,0 +1,23 @@
+{
+  "name": "繁殖与怀孕",
+  "icon": "minecraft:egg",
+  "category": "animalflee:breeding",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "自动交配",
+      "text": "家养动物会自动交配！$(br2)当家养的雄性与雌性靠近时，雌性有概率怀孕。她必须拥有至少 80% 饥饿，且不在产后冷却中。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "怀孕与生产",
+      "text": "孕期约 120 分钟（牛，按体型缩放）。怀孕动物消耗速度 ×1.5，肚子会渐渐变大。$(br2)生产时，胎生动物直接生出幼崽；鸡则产下受精蛋。$(br2)幼崽出生后不会自己长大——它需要被喂饱才会成长，详见$(l:animalflee:growth/growth_overview)幼崽成长$()。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cow",
+      "text": "让奶牛保持饱食，并让公牛待在附近。怀孕的牛受伤有概率流产，保护好她！"
+    }
+  ]
+}

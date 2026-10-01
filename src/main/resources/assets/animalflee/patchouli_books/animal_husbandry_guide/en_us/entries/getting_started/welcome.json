@@ -1,0 +1,24 @@
+{
+  "name": "Welcome to the Ranch",
+  "icon": "minecraft:wheat",
+  "category": "animalflee:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Welcome!",
+      "text": "This mod turns passive animals into a living, breathing livestock simulation. Animals have genders, hunger, diets, pregnancy, and even eggs that hatch.$(br2)To get started, hold any food in your hand and right-click an animal. That's it!"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cow",
+      "text": "Cows are herbivores. Feed them wheat, hay, apples, or any crop."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:wheat",
+      "title": "Why Animals Run Away",
+      "text": "Wild animals will flee when you approach! Sneak up to them or chase them into a corner. Once you feed them, they become domesticated and will no longer run away."
+    }
+  ]
+}

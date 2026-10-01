@@ -1,0 +1,24 @@
+{
+  "name": "钓鱼与鱼群养殖",
+  "icon": "minecraft:fishing_rod",
+  "category": "animalflee:fishing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "只限自然水域",
+      "text": "你只能在$(bold)自然$()水域钓到鱼：河流、海洋、海滩，或大型自然湖泊（连通水源方块 ≥64）。$(br2)玩家自己挖的水池永远钓不到鱼！"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "真实鱼实体",
+      "text": "只有鱼漂附近存在真实鱼实体时才能钓到鱼。钓上时，一条真实的鱼会被拉到你的脚边——杀掉它才能获得掉落物。每次钓获会消耗该区域的一条鱼。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:wheat_seeds",
+      "title": "投喂鱼群",
+      "text": "把种子或作物丢进自然水域即可喂鱼。0.5~1 个游戏天后，该位置会生成 2~5 条鱼。这让你可以建造自己的渔场！"
+    }
+  ]
+}

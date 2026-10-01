@@ -12,5 +12,6 @@ public class CommandRegistrationHandler {
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         BlacklistCommand.register(event.getDispatcher());
         CustomFoodCommand.register(event.getDispatcher());
+        DietCommand.register(event.getDispatcher());
     }
 }

@@ -115,6 +115,9 @@ dependencies {
     compileOnly "maven.modrinth:nvQzSEkH:eYz2YBGT"
     localRuntime "maven.modrinth:nvQzSEkH:eYz2YBGT"
 
+    // Touhou Little Maid - optional compatibility (compile only, never bundled)
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
+
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

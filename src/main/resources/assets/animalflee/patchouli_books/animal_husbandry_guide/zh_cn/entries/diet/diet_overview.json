@@ -1,0 +1,24 @@
+{
+  "name": "食性总览",
+  "icon": "minecraft:apple",
+  "category": "animalflee:diet",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "草食 / 肉食 / 杂食",
+      "text": "每种动物都有食性：$(br)$(bold)草食动物$()只吃植物——作物、种子、干草、苹果、糖。$(br2)$(bold)肉食动物$()只吃肉和鱼。$(br2)$(bold)杂食动物$()什么都吃。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:beef",
+      "title": "肉与鱼",
+      "text": "肉和鱼使用原版标签 + NeoForge 公共标签自动识别，所以其它模组的肉/鱼也能自动识别。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:wolf",
+      "text": "狼是肉食动物。喂它们生肉、熟肉或鱼。"
+    }
+  ]
+}

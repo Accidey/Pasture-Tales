@@ -13,15 +13,14 @@ public class HungerHandler {
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide) return;
-        if (event.getEntity() instanceof Animal animal) {
-            HungerSystem.initHunger(animal);
-        }
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
+        HungerSystem.initHunger((Animal) event.getEntity());
     }
 
     @SubscribeEvent
     public static void onEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
-        if (!(event.getEntity() instanceof Animal animal)) return;
-        HungerSystem.tick(animal);
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
+        HungerSystem.tick((Animal) event.getEntity());
     }
 }

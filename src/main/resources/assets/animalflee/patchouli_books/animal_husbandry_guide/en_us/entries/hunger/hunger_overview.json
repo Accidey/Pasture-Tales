@@ -1,0 +1,19 @@
+{
+  "name": "Hunger System",
+  "icon": "minecraft:cooked_beef",
+  "category": "animalflee:hunger",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Domesticated Animals Get Hungry",
+      "text": "Once you feed an animal, it becomes domesticated and starts consuming hunger over time.$(br2)Hunger drains each in-game day based on the configured percentage (default 50% per day). Pregnant animals burn hunger 1.5x faster."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:beef",
+      "title": "Feeding Restores Hunger",
+      "text": "Right-click a hungry animal with food to restore hunger. Different foods restore different amounts. If hunger reaches zero, the animal enters a starving state and slowly loses health over 3 days — feed it quickly to save it!"
+    }
+  ]
+}

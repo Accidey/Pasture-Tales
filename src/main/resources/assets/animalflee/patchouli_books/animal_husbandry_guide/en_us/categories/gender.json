@@ -1,0 +1,6 @@
+{
+  "name": "性别系统",
+  "description": "每只动物都有性别，体型也有所不同。",
+  "icon": "minecraft:player_head",
+  "sortnum": 1
+}

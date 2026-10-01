@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.xulai.animalflee.mixin.maid",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MaidFeedAnimalTaskMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

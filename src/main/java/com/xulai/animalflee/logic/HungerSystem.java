@@ -36,6 +36,8 @@ public final class HungerSystem {
     private static final long DAY_TICKS = 24000L;
     private static final float METABOLISM_MIN = 0.8F;
     private static final float METABOLISM_MAX = 1.2F;
+    private static final float WILD_INITIAL_HUNGER_MIN = 0.5F;
+    private static final float WILD_INITIAL_HUNGER_MAX = 0.8F;
 
     private HungerSystem() {
     }
@@ -77,7 +79,11 @@ public final class HungerSystem {
             data.putFloat(NBT_METABOLISM, METABOLISM_MIN + ThreadLocalRandom.current().nextFloat() * (METABOLISM_MAX - METABOLISM_MIN));
         }
         if (!data.contains(NBT_HUNGER)) {
-            data.putFloat(NBT_HUNGER, getMaxHunger(animal));
+            float max = getMaxHunger(animal);
+            float ratio = WILD_INITIAL_HUNGER_MIN
+                    + ThreadLocalRandom.current().nextFloat()
+                    * (WILD_INITIAL_HUNGER_MAX - WILD_INITIAL_HUNGER_MIN);
+            data.putFloat(NBT_HUNGER, max * ratio);
         }
         if (!data.contains(NBT_HUNGER_LAST_DAY_TIME)) {
             data.putLong(NBT_HUNGER_LAST_DAY_TIME, animal.level().getDayTime());
@@ -91,7 +97,8 @@ public final class HungerSystem {
     public static boolean canEat(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
         if (getHunger(animal) >= getMaxHunger(animal) - FULL_HUNGER_EPSILON) return false;
-        return AnimalFoods.getSaturation(stack) > 0.0F;
+        if (AnimalFoods.getSaturation(stack) <= 0.0F) return false;
+        return AnimalFoods.canEatByDiet(animal, stack);
     }
 
     public static float feed(Animal animal, ItemStack stack) {

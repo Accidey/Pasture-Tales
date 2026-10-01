@@ -2,10 +2,10 @@ package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
+import com.xulai.animalflee.mixin.EggItemUseMixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
@@ -44,6 +44,7 @@ public class EggIncubationHandler {
         }
 
         itemEntity.setUnlimitedLifetime();
+        holdInSlot(itemEntity);
 
         long dayTime = itemEntity.level().getDayTime();
         long last = data.contains(NBT_LAST_DAY_TIME) ? data.getLong(NBT_LAST_DAY_TIME) : dayTime;
@@ -98,6 +99,31 @@ public class EggIncubationHandler {
             return false;
         }
         return !egg.level().canSeeSky(pos);
+    }
+
+    private static void holdInSlot(ItemEntity egg) {
+        if (!EggItemUseMixin.isGridEgg(egg)) return;
+        BlockPos pos = egg.blockPosition();
+        BlockState below = egg.level().getBlockState(pos.below());
+        BlockState here = egg.level().getBlockState(pos);
+        BlockPos hay;
+        if (below.is(Blocks.HAY_BLOCK)) {
+            hay = pos.below();
+        } else if (here.is(Blocks.HAY_BLOCK)) {
+            hay = pos;
+        } else {
+            return;
+        }
+        int slot = EggItemUseMixin.getSlot(egg);
+        if (slot < 0 || slot >= 9) {
+            slot = EggItemUseMixin.findFreeSlot(egg.level(), hay);
+            if (slot < 0) return;
+            egg.getPersistentData().putInt("af_egg_slot", slot);
+        }
+        double x = EggItemUseMixin.slotX(hay, slot);
+        double z = EggItemUseMixin.slotZ(hay, slot);
+        egg.setPos(x, hay.getY() + 1.0, z);
+        egg.setDeltaMovement(0.0, 0.0, 0.0);
     }
 
     private static void hatch(ItemEntity egg) {
