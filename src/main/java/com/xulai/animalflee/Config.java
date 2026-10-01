@@ -122,6 +122,19 @@ public class Config {
             )
             .define("hungerEnabled", true);
 
+    public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT = BUILDER
+            .comment(
+                    "动物可繁殖所需的最低饥饿百分比",
+                    "Minimum hunger percentage for animals to breed",
+                    "",
+                    "动物需要达到该百分比（占其最大饥饿值）才能参与繁殖/交配。",
+                    "Animals must be at or above this percentage of their max hunger to breed.",
+                    "",
+                    "Default: 80 / 默认：80",
+                    "Range: 0 ~ 100"
+            )
+            .defineInRange("breedMinHungerPercent", 80, 0, 100);
+
     public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT = BUILDER
             .comment(
                     "家养动物每天消耗的饥饿值百分比",
