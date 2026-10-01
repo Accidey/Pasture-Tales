@@ -78,7 +78,6 @@ public final class CustomFoodCommand {
         }
         list.add(entry);
         Config.CUSTOM_ANIMAL_FOODS.set(list);
-        Config.SPEC.save();
         AnimalFoods.resetCustomFoodCache();
         source.sendSuccess(() -> Component.translatable(PREFIX + "added", entry), true);
         return 1;

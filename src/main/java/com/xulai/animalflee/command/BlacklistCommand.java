@@ -73,7 +73,6 @@ public final class BlacklistCommand {
         }
 
         Config.BLACKLISTED_MOBS.set(list);
-        Config.SPEC.save();
         MobFleeLogic.resetBlacklistCache();
         source.sendSuccess(() -> Component.translatable(remove ? PREFIX + "removed" : PREFIX + "added", id), true);
         return 1;
