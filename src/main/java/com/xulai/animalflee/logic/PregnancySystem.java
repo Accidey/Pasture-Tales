@@ -36,7 +36,7 @@ public final class PregnancySystem {
     private static final int CHECK_INTERVAL = 100;
     private static final double CONCEPTION_CHANCE = 0.05;
     private static final double MATE_RADIUS = 8.0;
-    private static final double MIN_HUNGER_TO_BREED = 0.8;
+    private static final double MIN_HUNGER_RATIO_TO_BREED = 0.8;
     private static final double BELLY_MAX_SCALE = 0.15;
     private static final double BELLY_START_PROGRESS = 0.4;
     private static final String BELLY_MODIFIER_ID = "animalflee:pregnancy_belly";
@@ -92,7 +92,7 @@ public final class PregnancySystem {
         if (!HungerSystem.isDomesticated(animal)) return;
         if (isPregnant(animal)) return;
         if (isInCooldown(animal, data)) return;
-        if (HungerSystem.getHunger(animal) < MIN_HUNGER_TO_BREED) return;
+        if (HungerSystem.getHunger(animal) < HungerSystem.getMaxHunger(animal) * MIN_HUNGER_RATIO_TO_BREED) return;
         if (animal.level().random.nextDouble() > CONCEPTION_CHANCE) return;
 
         Animal father = findNearbyMale(animal);
@@ -123,7 +123,7 @@ public final class PregnancySystem {
                         && candidate.getAge() == 0
                         && GenderLogic.isMale(candidate)
                         && HungerSystem.isDomesticated(candidate)
-                        && HungerSystem.getHunger(candidate) >= MIN_HUNGER_TO_BREED
+                        && HungerSystem.getHunger(candidate) >= HungerSystem.getMaxHunger(candidate) * MIN_HUNGER_RATIO_TO_BREED
                         && !isPregnant(candidate)
                         && !isInCooldown(candidate, candidate.getPersistentData()));
         if (candidates.isEmpty()) return null;
@@ -272,7 +272,7 @@ public final class PregnancySystem {
         if (hen.isBaby()) return false;
         if (hen.getAge() != 0) return false;
         if (!HungerSystem.isDomesticated(hen)) return false;
-        if (HungerSystem.getHunger(hen) < MIN_HUNGER_TO_BREED) return false;
+        if (HungerSystem.getHunger(hen) < HungerSystem.getMaxHunger(hen) * MIN_HUNGER_RATIO_TO_BREED) return false;
         return findNearbyMale(hen) != null;
     }
 }
