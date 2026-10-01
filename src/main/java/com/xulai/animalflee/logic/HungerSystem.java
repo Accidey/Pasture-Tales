@@ -1,7 +1,9 @@
 package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.Config;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +27,7 @@ public final class HungerSystem {
     private static final float HUNGER_SAFE_THRESHOLD = 0.5F;
     private static final int TICK_INTERVAL = 20;
     private static final int STARVE_DAMAGE_INTERVAL = 20;
+    private static final int STARVE_PARTICLE_INTERVAL = 40;
     private static final long DAY_TICKS = 24000L;
     private static final float METABOLISM_MIN = 0.8F;
     private static final float METABOLISM_MAX = 1.2F;
@@ -135,6 +138,9 @@ public final class HungerSystem {
                 float damage = animal.getMaxHealth() / (starveDuration / (float) STARVE_DAMAGE_INTERVAL);
                 animal.setHealth(Math.max(0.0F, animal.getHealth() - damage));
                 PregnancySystem.tryMiscarriage(animal);
+                if (animal.tickCount % STARVE_PARTICLE_INTERVAL == 0) {
+                    spawnStarveParticles(animal);
+                }
             }
         }
     }
@@ -145,6 +151,20 @@ public final class HungerSystem {
 
     public static boolean isHungry(Animal animal) {
         return getHunger(animal) < HUNGER_SAFE_THRESHOLD;
+    }
+
+    private static void spawnStarveParticles(Animal animal) {
+        if (!(animal.level() instanceof ServerLevel serverLevel)) return;
+        serverLevel.sendParticles(
+                ParticleTypes.ANGRY_VILLAGER,
+                animal.getX(),
+                animal.getY() + animal.getBbHeight() + 0.5D,
+                animal.getZ(),
+                1,
+                0.0D,
+                0.0D,
+                0.0D,
+                0.0D);
     }
 
     private static float calculateCapacity(Animal animal) {
