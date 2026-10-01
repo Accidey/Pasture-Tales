@@ -23,8 +23,14 @@ public class AbstractHorseFeedMixin {
     private void animalflee$fedFood(Player player, ItemStack stack, CallbackInfoReturnable<InteractionResult> cir) {
         AbstractHorse horse = (AbstractHorse) (Object) this;
         if (horse.level().isClientSide) return;
-        if (horse.isBaby()) return;
-        if (!HungerSystem.canEat(horse, stack)) return;
+        if (horse.isBaby()) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
+        if (!HungerSystem.canEat(horse, stack)) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
 
         float heal = 0.0F;
         int temper = 0;

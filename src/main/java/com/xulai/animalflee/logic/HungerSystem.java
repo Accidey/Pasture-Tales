@@ -91,6 +91,7 @@ public final class HungerSystem {
     public static float feed(Animal animal, ItemStack stack) {
         initHunger(animal);
         setDomesticated(animal);
+        MobFleeLogic.stopFlee(animal);
         float current = getHunger(animal);
         float restored = AnimalFoods.getSaturation(stack);
         float newHunger = Math.min(getMaxHunger(animal), current + restored);

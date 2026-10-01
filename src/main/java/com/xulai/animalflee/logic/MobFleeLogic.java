@@ -134,6 +134,7 @@ public class MobFleeLogic {
     }
 
     private static boolean shouldFlee(Mob mob) {
+        if (HungerSystem.isDomesticated(mob)) return false;
         if (isBlacklisted(mob)) return false;
         if (isEnclosed(mob)) return false;
         if (isSubmerged(mob)) return false;

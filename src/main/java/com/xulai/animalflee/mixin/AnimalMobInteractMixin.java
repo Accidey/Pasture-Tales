@@ -26,10 +26,22 @@ public class AnimalMobInteractMixin {
         if (animal.isBaby()) return;
 
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.isEmpty()) return;
-        if (!HungerSystem.canEat(animal, stack)) return;
-        if (animal.getAge() != 0) return;
-        if (!animal.canFallInLove()) return;
+        if (stack.isEmpty()) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
+        if (!HungerSystem.canEat(animal, stack)) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
+        if (animal.getAge() != 0) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
+        if (!animal.canFallInLove()) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
 
         if (stack.is(Items.POISONOUS_POTATO) && animal.getRandom().nextFloat() < 0.6F) {
             animal.addEffect(new MobEffectInstance(MobEffects.POISON, POISON_DURATION_TICKS, 0));
