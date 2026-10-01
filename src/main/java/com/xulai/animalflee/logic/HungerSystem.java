@@ -5,6 +5,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 
@@ -38,8 +39,8 @@ public final class HungerSystem {
     private HungerSystem() {
     }
 
-    public static boolean isDomesticated(Animal animal) {
-        return animal.getPersistentData().getBoolean(NBT_DOMESTICATED);
+    public static boolean isDomesticated(Mob mob) {
+        return mob.getPersistentData().getBoolean(NBT_DOMESTICATED);
     }
 
     public static void setDomesticated(Animal animal) {
