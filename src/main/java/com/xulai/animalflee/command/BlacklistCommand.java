@@ -47,7 +47,7 @@ public final class BlacklistCommand {
             return 0;
         }
 
-        EntityType<?> type = eggItem.getType(stack.getTag());
+        EntityType<?> type = eggItem.getType(null);
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         if (key == null) {
             source.sendFailure(Component.translatable(PREFIX + "unknown_type"));
