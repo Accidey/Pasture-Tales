@@ -84,6 +84,7 @@ public final class HungerSystem {
 
     public static boolean canEat(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
+        if (getHunger(animal) >= getMaxHunger(animal)) return false;
         return AnimalFoods.getSaturation(stack) > 0.0F;
     }
 
