@@ -60,7 +60,11 @@ public final class HungerSystem {
     }
 
     public static void setHunger(Animal animal, float hunger) {
-        animal.getPersistentData().putFloat(NBT_HUNGER, Math.max(MIN_HUNGER, Math.min(getMaxHunger(animal), hunger)));
+        float max = getMaxHunger(animal);
+        if (hunger >= max - 0.001F) {
+            hunger = max;
+        }
+        animal.getPersistentData().putFloat(NBT_HUNGER, Math.max(MIN_HUNGER, Math.min(max, hunger)));
     }
 
     public static void initHunger(Animal animal) {
@@ -85,7 +89,7 @@ public final class HungerSystem {
 
     public static boolean canEat(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
-        if (getHunger(animal) >= getMaxHunger(animal)) return false;
+        if (getHunger(animal) >= getMaxHunger(animal) - 0.001F) return false;
         return AnimalFoods.getSaturation(stack) > 0.0F;
     }
 
