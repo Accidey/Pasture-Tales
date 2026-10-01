@@ -5,14 +5,20 @@ import com.xulai.animalflee.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.util.TriState;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 @EventBusSubscriber(modid = AnimalFleeMod.MODID)
@@ -52,6 +58,36 @@ public class EggIncubationHandler {
         if (elapsed >= Config.EGG_INCUBATION_MINUTES.get() * 1200L) {
             hatch(itemEntity);
         }
+    }
+
+    @SubscribeEvent
+    public static void onPickupPre(ItemEntityPickupEvent.Pre event) {
+        ItemEntity egg = event.getItemEntity();
+        if (egg.level().isClientSide) return;
+        if (!isIncubatingEgg(egg)) return;
+        event.setCanPickup(TriState.FALSE);
+    }
+
+    @SubscribeEvent
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getLevel().isClientSide) return;
+        if (!(event.getTarget() instanceof ItemEntity egg)) return;
+        if (!isIncubatingEgg(egg)) return;
+
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        Player player = event.getEntity();
+        ItemStack stack = egg.getItem().copy();
+        egg.discard();
+        if (!player.addItem(stack)) {
+            player.drop(stack, false);
+        }
+    }
+
+    private static boolean isIncubatingEgg(ItemEntity egg) {
+        ItemStack stack = egg.getItem();
+        if (!PregnancySystem.isFertilizedEgg(stack)) return false;
+        return isIncubating(egg);
     }
 
     private static boolean isIncubating(ItemEntity egg) {
