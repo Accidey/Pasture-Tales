@@ -46,7 +46,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             tooltip.add(Component.translatable("jade.animalflee.domesticated"));
         }
 
-        if (data.getBoolean(KEY_PREGNANT)) {
+        if (data.getBoolean(KEY_PREGNANT) && !(accessor.getEntity() instanceof Animal animal && PregnancySystem.isOviparous(animal))) {
             if (data.contains(KEY_PREGNANCY_PROGRESS)) {
                 float progress = data.getFloat(KEY_PREGNANCY_PROGRESS);
                 tooltip.add(Component.translatable("jade.animalflee.pregnancy_progress", String.format("%.0f%%", progress * 100.0F)));

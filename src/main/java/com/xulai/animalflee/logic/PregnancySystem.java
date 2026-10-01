@@ -114,6 +114,7 @@ public final class PregnancySystem {
 
     private static Animal findNearbyMale(Animal mother) {
         if (!(mother.level() instanceof ServerLevel serverLevel)) return null;
+        boolean oviparous = isOviparous(mother);
         AABB box = mother.getBoundingBox().inflate(MATE_RADIUS);
         List<? extends Animal> candidates = serverLevel.getEntitiesOfClass(Animal.class, box, candidate ->
                 candidate != mother
@@ -121,10 +122,11 @@ public final class PregnancySystem {
                         && !candidate.isBaby()
                         && candidate.getAge() == 0
                         && GenderLogic.isMale(candidate)
-                        && HungerSystem.isDomesticated(candidate)
-                        && HungerSystem.getHunger(candidate) >= HungerSystem.getMaxHunger(candidate) * breedMinHungerRatio()
-                        && !isPregnant(candidate)
-                        && !isInCooldown(candidate, candidate.getPersistentData()));
+                        && (oviparous
+                            || (HungerSystem.isDomesticated(candidate)
+                                && HungerSystem.getHunger(candidate) >= HungerSystem.getMaxHunger(candidate) * breedMinHungerRatio()
+                                && !isPregnant(candidate)
+                                && !isInCooldown(candidate, candidate.getPersistentData()))));
         if (candidates.isEmpty()) return null;
         return candidates.get(ThreadLocalRandom.current().nextInt(candidates.size()));
     }
@@ -240,7 +242,7 @@ public final class PregnancySystem {
         return level.getEntity(uuid) instanceof Animal animal ? animal : null;
     }
 
-    private static boolean isOviparous(Animal animal) {
+    public static boolean isOviparous(Animal animal) {
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(animal.getType());
         return key != null && Config.OVIPAROUS_MOBS.get().contains(key.toString());
     }
@@ -270,8 +272,6 @@ public final class PregnancySystem {
         if (hen.level().isClientSide) return false;
         if (hen.isBaby()) return false;
         if (hen.getAge() != 0) return false;
-        if (!HungerSystem.isDomesticated(hen)) return false;
-        if (HungerSystem.getHunger(hen) < HungerSystem.getMaxHunger(hen) * breedMinHungerRatio()) return false;
         return findNearbyMale(hen) != null;
     }
 

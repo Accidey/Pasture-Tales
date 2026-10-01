@@ -133,7 +133,8 @@ public final class HungerSystem {
             }
             if (starveElapsed < starveDuration) {
                 float damage = animal.getMaxHealth() / (starveDuration / (float) STARVE_DAMAGE_INTERVAL);
-                animal.hurt(animal.damageSources().starve(), damage);
+                animal.setHealth(Math.max(0.0F, animal.getHealth() - damage));
+                PregnancySystem.tryMiscarriage(animal);
             }
         }
     }
