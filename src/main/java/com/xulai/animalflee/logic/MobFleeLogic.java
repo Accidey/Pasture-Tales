@@ -56,6 +56,7 @@ public class MobFleeLogic {
     private static final String NBT_FLEE_ACTIVE = "AF_FleeActive";
     private static final String NBT_ORIGINAL_NO_AI = "AF_OriginalNoAi";
     private static final String STEP_MODIFIER_ID = "animalflee:flee_step_up";
+    private static final double STEP_UP_BONUS = 0.4;
     private static final int MAX_FLEE_TICKS = 1200;
     private static final int STUCK_REPATH_TICKS = 8;
     private static final int MAX_REPATH_FAILS = 5;
@@ -315,9 +316,8 @@ public class MobFleeLogic {
             moveZ = (float) steered.z;
         }
 
-        mob.setDeltaMovement(moveX, mob.getDeltaMovement().y, moveZ);
-        mob.hurtMarked = true;
-        mob.move(MoverType.SELF, mob.getDeltaMovement());
+        Vec3 moveVec = new Vec3(moveX, mob.getDeltaMovement().y, moveZ);
+        moveOrBlock(mob, moveVec);
         double currentVy = mob.getDeltaMovement().y;
         if (inWater) {
             mob.setDeltaMovement(mob.getDeltaMovement().x, currentVy * 0.8, mob.getDeltaMovement().z);
@@ -383,7 +383,7 @@ public class MobFleeLogic {
         if (stepHeight.hasModifier(id)) return;
         stepHeight.addTransientModifier(new AttributeModifier(
                 id,
-                1.0,
+                STEP_UP_BONUS,
                 AttributeModifier.Operation.ADD_VALUE
         ));
     }
@@ -496,6 +496,62 @@ public class MobFleeLogic {
             }
         }
         return true;
+    }
+
+    private static boolean isBlockedAhead(LivingEntity entity, Vec3 move) {
+        if (move.x == 0.0 && move.z == 0.0) return false;
+        double len = Math.sqrt(move.x * move.x + move.z * move.z);
+        double dx = move.x / len;
+        double dz = move.z / len;
+        double probe = Math.max(0.6, len + 0.1);
+
+        AABB box = entity.getBoundingBox();
+        double reachX = box.maxX + dx * probe;
+        double reachZ = box.maxZ + dz * probe;
+        double minX = Math.min(box.minX, reachX);
+        double maxX = Math.max(box.maxX, reachX);
+        double minZ = Math.min(box.minZ, reachZ);
+        double maxZ = Math.max(box.maxZ, reachZ);
+        int startX = Mth.floor(minX);
+        int endX = Mth.floor(maxX);
+        int startZ = Mth.floor(minZ);
+        int endZ = Mth.floor(maxZ);
+
+        double feetY = box.minY + 0.05;
+        double stepTopY = feetY + entity.maxUpStep();
+        AABB probeBox = new AABB(minX, feetY, minZ, maxX, stepTopY, maxZ);
+
+        for (int bx = startX; bx <= endX; bx++) {
+            for (int bz = startZ; bz <= endZ; bz++) {
+                BlockPos pos = new BlockPos(bx, Mth.floor(feetY), bz);
+                BlockState state = entity.level().getBlockState(pos);
+                if (state.isAir()) continue;
+                VoxelShape shape = state.getCollisionShape(entity.level(), pos);
+                if (shape.isEmpty()) continue;
+                if (!shape.move(pos.getX(), pos.getY(), pos.getZ()).intersects(probeBox)) {
+                    continue;
+                }
+                double top = shape.max(Direction.Axis.Y) + pos.getY();
+                if (top > stepTopY) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void moveOrBlock(Mob mob, Vec3 move) {
+        if (!isBlockedAhead(mob, move)) {
+            mob.setDeltaMovement(move.x, mob.getDeltaMovement().y, move.z);
+            mob.hurtMarked = true;
+            mob.move(MoverType.SELF, mob.getDeltaMovement());
+        } else {
+            mob.setDeltaMovement(0.0, mob.getDeltaMovement().y, 0.0);
+            mob.hurtMarked = true;
+            mob.move(MoverType.SELF, mob.getDeltaMovement());
+            CompoundTag data = mob.getPersistentData();
+            data.putInt(NBT_FLEE_STUCK_TICKS, STUCK_REPATH_TICKS - 1);
+        }
     }
 
     private static double[] pickFleeTarget(Mob mob, Player player) {

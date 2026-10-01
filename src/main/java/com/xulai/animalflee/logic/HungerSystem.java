@@ -26,6 +26,7 @@ public final class HungerSystem {
     private static final float MIN_CAPACITY = 8.0F;
     private static final float PREGNANT_HUNGER_MULTIPLIER = 1.5F;
     private static final float HUNGER_SAFE_THRESHOLD = 0.5F;
+    private static final float FULL_HUNGER_EPSILON = 1.0F;
     private static final int TICK_INTERVAL = 20;
     private static final int STARVE_DAMAGE_INTERVAL = 20;
     private static final int STARVE_PARTICLE_INTERVAL = 40;
@@ -89,7 +90,7 @@ public final class HungerSystem {
 
     public static boolean canEat(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
-        if (getHunger(animal) >= getMaxHunger(animal) - 0.001F) return false;
+        if (getHunger(animal) >= getMaxHunger(animal) - FULL_HUNGER_EPSILON) return false;
         return AnimalFoods.getSaturation(stack) > 0.0F;
     }
 
