@@ -1,6 +1,7 @@
 package com.xulai.animalflee;
 
 import com.xulai.animalflee.command.BlacklistCommand;
+import com.xulai.animalflee.command.CustomFoodCommand;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -21,5 +22,6 @@ public class AnimalFleeMod {
     @SubscribeEvent
     public void registerCommands(RegisterCommandsEvent event) {
         BlacklistCommand.register(event.getDispatcher());
+        CustomFoodCommand.register(event.getDispatcher());
     }
 }

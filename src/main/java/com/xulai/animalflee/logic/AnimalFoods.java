@@ -1,5 +1,6 @@
 package com.xulai.animalflee.logic;
 
+import com.xulai.animalflee.Config;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -17,6 +18,8 @@ import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public final class AnimalFoods {
@@ -49,7 +52,44 @@ public final class AnimalFoods {
     private static final float HAY_BLOCK_SATURATION = 2.0F;
     private static final float SUGAR_SATURATION = 1.0F;
 
+    private static Map<String, Float> customFoodCache = null;
+
     private AnimalFoods() {
+    }
+
+    public static void resetCustomFoodCache() {
+        customFoodCache = null;
+    }
+
+    private static Map<String, Float> getCustomFoodCache() {
+        if (customFoodCache == null) {
+            Map<String, Float> map = new HashMap<>();
+            for (String entry : Config.CUSTOM_ANIMAL_FOODS.get()) {
+                String trimmed = entry.trim();
+                if (trimmed.isEmpty()) continue;
+                int colon = trimmed.lastIndexOf(':');
+                if (colon > 0 && colon < trimmed.length() - 1) {
+                    String id = trimmed.substring(0, colon);
+                    try {
+                        float value = Float.parseFloat(trimmed.substring(colon + 1));
+                        if (value > 0.0F) {
+                            map.put(id, value);
+                        }
+                    } catch (NumberFormatException ignored) {
+                    }
+                } else {
+                    Item item = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(trimmed));
+                    if (item != null) {
+                        var food = new ItemStack(item).getFoodProperties(null);
+                        if (food != null) {
+                            map.put(trimmed, (float) food.nutrition());
+                        }
+                    }
+                }
+            }
+            customFoodCache = map;
+        }
+        return customFoodCache;
     }
 
     public static boolean isCrop(ItemStack stack) {
@@ -81,6 +121,12 @@ public final class AnimalFoods {
 
     public static float getSaturation(ItemStack stack) {
         if (stack.isEmpty()) return 0.0F;
+
+        ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (itemKey != null) {
+            Float custom = getCustomFoodCache().get(itemKey.toString());
+            if (custom != null) return custom;
+        }
 
         var food = stack.getFoodProperties(null);
         if (food != null) return food.nutrition();

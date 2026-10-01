@@ -1,5 +1,6 @@
 package com.xulai.animalflee;
 
+import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.MobFleeLogic;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +17,7 @@ public class ConfigReloadHandler {
     @SubscribeEvent
     public static void onConfigReload(ModConfigEvent.Reloading event) {
         MobFleeLogic.resetBlacklistCache();
+        AnimalFoods.resetCustomFoodCache();
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) return;
         for (ServerLevel level : server.getAllLevels()) {

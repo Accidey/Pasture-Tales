@@ -297,5 +297,34 @@ public class Config {
                     "minecraft:snow_golem"
             ), () -> "", obj -> obj instanceof String);
 
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_ANIMAL_FOODS = BUILDER
+            .comment(
+                    "自定义动物饲料列表（物品ID:饱食度值）",
+                    "Custom animal food list (itemID:saturation)",
+                    "",
+                    "玩家可指定任意物品作为动物饲料，并为其设定饱食度值。",
+                    "Players can designate any item as animal food and set its saturation value.",
+                    "",
+                    "格式：每个条目用双引号包裹，逗号分隔。两种写法：",
+                    "Format: each entry wrapped in double quotes, comma-separated. Two forms:",
+                    "  1. 只写物品ID（无值）：仅当该物品本身有饱食度（原版可吃）时生效，使用原版营养值。",
+                    "     1. Item ID only (no value): only works if the item has vanilla saturation;",
+                    "        the vanilla nutrition value is used.",
+                    "  2. 物品ID:值（带值）：强制指定饱食度值，会覆盖原版值。",
+                    "     2. Item ID:value (with value): forces the saturation value, overriding vanilla.",
+                    "",
+                    "示例 Examples:",
+                    "  [\"minecraft:apple\"]                       -> 苹果，用原版 4 点",
+                    "  [\"minecraft:stick:1.5\"]                  -> 木棍，强制 1.5 点",
+                    "  [\"minecraft:apple:6\", \"minecraft:stone:2\"] -> 苹果覆盖为 6 点，石头 2 点",
+                    "",
+                    "注意：只写 ID 且该物品没有原版饱食度时，无法作为饲料（会被忽略）。",
+                    "Note: an ID-only entry whose item has no vanilla saturation is ignored",
+                    "(cannot be used as food).",
+                    "",
+                    "Default: [] / 默认：[]"
+            )
+            .defineListAllowEmpty("customAnimalFoods", List.of(), () -> "", obj -> obj instanceof String);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }
