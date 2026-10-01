@@ -38,3 +38,6 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+### WorkBuddy 临时文件 ###
+.workbuddy/tmp/
