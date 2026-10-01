@@ -28,6 +28,9 @@ public final class HungerSystem {
     private static final int TICK_INTERVAL = 20;
     private static final int STARVE_DAMAGE_INTERVAL = 20;
     private static final int STARVE_PARTICLE_INTERVAL = 40;
+    private static final int HEAL_INTERVAL_TICKS = 40;
+    private static final int HEAL_PARTICLE_INTERVAL = 80;
+    private static final float HEAL_HUNGER_RATIO = 0.8F;
     private static final long DAY_TICKS = 24000L;
     private static final float METABOLISM_MIN = 0.8F;
     private static final float METABOLISM_MAX = 1.2F;
@@ -125,6 +128,14 @@ public final class HungerSystem {
             data.putLong(NBT_HUNGER_LAST_DAY_TIME, dayTime);
             if (hunger <= MIN_HUNGER) {
                 data.putLong(NBT_STARVE_DAY_TIME, dayTime);
+            } else if (hunger >= getMaxHunger(animal) * HEAL_HUNGER_RATIO
+                    && animal.getHealth() < animal.getMaxHealth()) {
+                if (animal.tickCount % HEAL_INTERVAL_TICKS == 0) {
+                    animal.heal(1.0F);
+                }
+                if (animal.tickCount % HEAL_PARTICLE_INTERVAL == 0) {
+                    spawnHealParticles(animal);
+                }
             }
         } else {
             long starveStart = data.getLong(NBT_STARVE_DAY_TIME);
@@ -157,6 +168,20 @@ public final class HungerSystem {
         if (!(animal.level() instanceof ServerLevel serverLevel)) return;
         serverLevel.sendParticles(
                 ParticleTypes.ANGRY_VILLAGER,
+                animal.getX(),
+                animal.getY() + animal.getBbHeight() + 0.5D,
+                animal.getZ(),
+                1,
+                0.0D,
+                0.0D,
+                0.0D,
+                0.0D);
+    }
+
+    private static void spawnHealParticles(Animal animal) {
+        if (!(animal.level() instanceof ServerLevel serverLevel)) return;
+        serverLevel.sendParticles(
+                ParticleTypes.HEART,
                 animal.getX(),
                 animal.getY() + animal.getBbHeight() + 0.5D,
                 animal.getZ(),

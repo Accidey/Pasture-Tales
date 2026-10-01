@@ -24,6 +24,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     private static final String KEY_PREGNANCY_PROGRESS = "af_pregnancy_progress";
     private static final String KEY_HUNGER = "af_hunger";
     private static final String KEY_MAX_HUNGER = "af_max_hunger";
+    private static final String KEY_COOLDOWN_REMAINING = "af_cooldown_remaining";
     private static final String KEY_DOMESTICATED = "af_domesticated";
 
     @Override
@@ -55,6 +56,14 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             }
         }
 
+        if (data.contains(KEY_COOLDOWN_REMAINING)) {
+            long remaining = data.getLong(KEY_COOLDOWN_REMAINING);
+            int totalSeconds = (int) (remaining * 60 / 1000);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            tooltip.add(Component.translatable("jade.animalflee.cooldown", minutes, seconds));
+        }
+
         if (data.contains(KEY_HUNGER)) {
             float hunger = data.getFloat(KEY_HUNGER);
             if (hunger <= 0.0F) {
@@ -83,6 +92,12 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
         if (PregnancySystem.isPregnant(animal)) {
             tag.putBoolean(KEY_PREGNANT, true);
             tag.putFloat(KEY_PREGNANCY_PROGRESS, PregnancySystem.getProgress(animal));
+        }
+        if (!PregnancySystem.isOviparous(animal)) {
+            long cooldown = PregnancySystem.getCooldownRemainingTicks(animal);
+            if (cooldown > 0L) {
+                tag.putLong(KEY_COOLDOWN_REMAINING, cooldown);
+            }
         }
         if (persistent.contains(KEY_HUNGER)) {
             tag.putFloat(KEY_HUNGER, persistent.getFloat(KEY_HUNGER));

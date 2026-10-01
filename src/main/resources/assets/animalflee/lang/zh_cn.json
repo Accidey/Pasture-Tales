@@ -14,6 +14,7 @@
   "jade.animalflee.pregnancy_progress": "怀孕中：%s",
   "jade.animalflee.hunger": "饥饿度：%s",
   "jade.animalflee.starving": "饥饿度：挨饿中！",
+  "jade.animalflee.cooldown": "产后恢复：剩余 %s 分钟 %s 秒",
   "jade.animalflee.domesticated": "家养",
   "tooltip.animalflee.fish_bait": "可以作为鱼饵，丢入自然水域可吸引鱼群（0.5~1 天后生成鱼）",
   "tooltip.animalflee.fertilized_egg": "受精蛋：放在不见天日的干草块上，约 1 个 MC 天后孵出小鸡",

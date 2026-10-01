@@ -262,6 +262,14 @@ public final class PregnancySystem {
         animal.getPersistentData().putLong(NBT_COOLDOWN_UNTIL, dayTime + cooldownTicks);
     }
 
+    public static long getCooldownRemainingTicks(Animal animal) {
+        CompoundTag data = animal.getPersistentData();
+        if (!data.contains(NBT_COOLDOWN_UNTIL)) return 0L;
+        long until = data.getLong(NBT_COOLDOWN_UNTIL);
+        long remaining = until - animal.level().getDayTime();
+        return Math.max(0L, remaining);
+    }
+
     public static boolean isFertilizedEgg(ItemStack stack) {
         if (!stack.is(Items.EGG)) return false;
         CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
