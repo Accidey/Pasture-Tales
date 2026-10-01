@@ -1,0 +1,40 @@
+Compiled from "ModConfigSpec.java"
+public class net.neoforged.neoforge.common.ModConfigSpec implements net.neoforged.fml.config.IConfigSpec {
+  private final java.util.Map<java.util.List<java.lang.String>, java.lang.String> levelComments;
+  private final java.util.Map<java.util.List<java.lang.String>, java.lang.String> levelTranslationKeys;
+  private final com.electronwill.nightconfig.core.UnmodifiableConfig spec;
+  private final com.electronwill.nightconfig.core.UnmodifiableConfig values;
+  private net.neoforged.fml.config.IConfigSpec$ILoadedConfig loadedConfig;
+  private static final org.apache.logging.log4j.Logger LOGGER;
+  private static final com.google.common.base.Joiner LINE_JOINER;
+  private static final com.google.common.base.Joiner DOT_JOINER;
+  private static final com.google.common.base.Splitter DOT_SPLITTER;
+  private net.neoforged.neoforge.common.ModConfigSpec(com.electronwill.nightconfig.core.UnmodifiableConfig, com.electronwill.nightconfig.core.UnmodifiableConfig, java.util.Map<java.util.List<java.lang.String>, java.lang.String>, java.util.Map<java.util.List<java.lang.String>, java.lang.String>);
+  public boolean isEmpty();
+  public java.lang.String getLevelComment(java.util.List<java.lang.String>);
+  public java.lang.String getLevelTranslationKey(java.util.List<java.lang.String>);
+  public void acceptConfig(net.neoforged.fml.config.IConfigSpec$ILoadedConfig);
+  public void validateSpec(net.neoforged.fml.config.ModConfig);
+  public boolean isLoaded();
+  public com.electronwill.nightconfig.core.UnmodifiableConfig getSpec();
+  public com.electronwill.nightconfig.core.UnmodifiableConfig getValues();
+  private void forEachValue(java.lang.Iterable<java.lang.Object>, java.util.function.Consumer<net.neoforged.neoforge.common.ModConfigSpec$ConfigValue<?>>);
+  public void afterReload();
+  public void resetCaches(net.neoforged.neoforge.common.ModConfigSpec$RestartType);
+  public void save();
+  public boolean isCorrect(com.electronwill.nightconfig.core.UnmodifiableCommentedConfig);
+  public void correct(com.electronwill.nightconfig.core.CommentedConfig);
+  public int correct(com.electronwill.nightconfig.core.CommentedConfig, com.electronwill.nightconfig.core.ConfigSpec$CorrectionListener);
+  public int correct(com.electronwill.nightconfig.core.CommentedConfig, com.electronwill.nightconfig.core.ConfigSpec$CorrectionListener, com.electronwill.nightconfig.core.ConfigSpec$CorrectionListener);
+  private int correct(com.electronwill.nightconfig.core.UnmodifiableConfig, com.electronwill.nightconfig.core.UnmodifiableCommentedConfig, java.util.LinkedList<java.lang.String>, java.util.List<java.lang.String>, com.electronwill.nightconfig.core.ConfigSpec$CorrectionListener, com.electronwill.nightconfig.core.ConfigSpec$CorrectionListener, boolean);
+  private boolean stringsMatchNormalizingNewLines(java.lang.String, java.lang.String);
+  private static java.util.List<java.lang.String> split(java.lang.String);
+  private static void lambda$correct$6(com.electronwill.nightconfig.core.ConfigSpec$CorrectionAction, java.util.List, java.lang.Object, java.lang.Object);
+  private static void lambda$isCorrect$5(com.electronwill.nightconfig.core.ConfigSpec$CorrectionAction, java.util.List, java.lang.Object, java.lang.Object);
+  private static void lambda$resetCaches$4(net.neoforged.neoforge.common.ModConfigSpec$RestartType, net.neoforged.neoforge.common.ModConfigSpec$ConfigValue);
+  private void lambda$forEachValue$3(java.util.function.Consumer, java.lang.Object);
+  private static void lambda$validateSpec$2(net.neoforged.fml.config.ModConfig, net.neoforged.neoforge.common.ModConfigSpec$ConfigValue);
+  private static void lambda$acceptConfig$1(com.electronwill.nightconfig.core.ConfigSpec$CorrectionAction, java.util.List, java.lang.Object, java.lang.Object);
+  private static void lambda$acceptConfig$0(com.electronwill.nightconfig.core.ConfigSpec$CorrectionAction, java.util.List, java.lang.Object, java.lang.Object);
+  static {};
+}
