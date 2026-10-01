@@ -35,28 +35,43 @@ public class EggItemUseMixin {
         if (hit.getType() == HitResult.Type.BLOCK && hit instanceof BlockHitResult blockHit
                 && blockHit.getDirection() == Direction.UP) {
             BlockPos hay = blockHit.getBlockPos();
-            if (level.getBlockState(hay).is(Blocks.HAY_BLOCK)
-                    && level.getBlockState(hay.above()).canBeReplaced()) {
-                if (!level.isClientSide) {
-                    BitSet occupied = EggGridHelper.collectOccupiedSlots(level, hay);
-                    int placeCount = Math.min(stack.getCount(), EggGridHelper.GRID_SIZE);
-                    int placed = 0;
-                    for (int slot = 0; slot < EggGridHelper.GRID_SIZE && placed < placeCount; slot++) {
-                        if (occupied.get(slot)) continue;
-                        ItemEntity egg = new ItemEntity(level,
-                                EggGridHelper.slotX(hay, slot), hay.getY() + 1.0, EggGridHelper.slotZ(hay, slot),
-                                stack.copyWithCount(1));
-                        egg.setDeltaMovement(Vec3.ZERO);
-                        EggGridHelper.setSlot(egg, slot);
-                        egg.setUnlimitedLifetime();
-                        level.addFreshEntity(egg);
-                        placed++;
-                    }
-                    stack.shrink(placed);
-                }
-                cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide));
+            if (!level.getBlockState(hay).is(Blocks.HAY_BLOCK)
+                    || !level.getBlockState(hay.above()).canBeReplaced()) {
+                cir.setReturnValue(InteractionResultHolder.pass(stack));
                 return;
             }
+
+            if (!level.isClientSide) {
+                ItemEntity existing = EggGridHelper.findGridEgg(level, hay,
+                        hay.getX() + 0.5, hay.getZ() + 0.5);
+                if (existing != null) {
+                    ItemStack picked = existing.getItem().copy();
+                    existing.discard();
+                    if (!player.addItem(picked)) {
+                        player.drop(picked, false);
+                    }
+                    cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide));
+                    return;
+                }
+
+                BitSet occupied = EggGridHelper.collectOccupiedSlots(level, hay);
+                int placeCount = Math.min(stack.getCount(), EggGridHelper.GRID_SIZE);
+                int placed = 0;
+                for (int slot = 0; slot < EggGridHelper.GRID_SIZE && placed < placeCount; slot++) {
+                    if (occupied.get(slot)) continue;
+                    ItemEntity egg = new ItemEntity(level,
+                            EggGridHelper.slotX(hay, slot), hay.getY() + 1.0, EggGridHelper.slotZ(hay, slot),
+                            stack.copyWithCount(1));
+                    egg.setDeltaMovement(Vec3.ZERO);
+                    EggGridHelper.setSlot(egg, slot);
+                    egg.setUnlimitedLifetime();
+                    level.addFreshEntity(egg);
+                    placed++;
+                }
+                stack.shrink(placed);
+            }
+            cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide));
+            return;
         }
 
         cir.setReturnValue(InteractionResultHolder.pass(stack));

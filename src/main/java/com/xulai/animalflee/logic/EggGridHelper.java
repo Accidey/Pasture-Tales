@@ -61,4 +61,25 @@ public final class EggGridHelper {
         }
         return occupied;
     }
+
+    public static ItemEntity findGridEgg(Level level, BlockPos hay, double x, double z) {
+        double bestDist = Double.MAX_VALUE;
+        ItemEntity best = null;
+        for (int slot = 0; slot < GRID_SIZE; slot++) {
+            double sx = slotX(hay, slot);
+            double sz = slotZ(hay, slot);
+            AABB box = new AABB(sx - 0.3, hay.getY() + 0.8, sz - 0.3,
+                    sx + 0.3, hay.getY() + 1.3, sz + 0.3);
+            for (ItemEntity egg : level.getEntitiesOfClass(ItemEntity.class, box)) {
+                if (!isGridEgg(egg)) continue;
+                if (getSlot(egg) != slot) continue;
+                double dist = Math.pow(egg.getX() - x, 2) + Math.pow(egg.getZ() - z, 2);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = egg;
+                }
+            }
+        }
+        return best;
+    }
 }
