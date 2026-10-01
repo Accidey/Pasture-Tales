@@ -122,18 +122,21 @@ public class Config {
             )
             .define("hungerEnabled", true);
 
-    public static final ModConfigSpec.IntValue HUNGER_DURATION_MINUTES = BUILDER
+    public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT = BUILDER
             .comment(
-                    "家养动物饥饿值从满降到 0 所需时间（分钟）",
-                    "Minutes for a domesticated animal's hunger to drop from full to zero",
+                    "家养动物每天消耗的饥饿值百分比",
+                    "Percent of a domesticated animal's hunger consumed per day",
                     "",
-                    "按游戏内时间计算，受时间加速模组影响。",
-                    "Measured in in-game minutes, so time-acceleration mods affect it.",
+                    "每只动物每天（1 MC 天）按最大饥饿值的该百分比消耗。",
+                    "Each animal consumes this percentage of its max hunger per in-game day.",
                     "",
-                    "Default: 60 / 默认：60",
-                    "Range: 5 ~ 1440"
+                    "每只动物还有独立的代谢系数（0.8~1.2 随机浮动），实际消耗在此基础上上下浮动。",
+                    "Each animal also has a fixed metabolism factor (0.8~1.2) that varies the actual drain.",
+                    "",
+                    "Default: 50 / 默认：50",
+                    "Range: 1 ~ 100"
             )
-            .defineInRange("hungerMinutes", 60, 5, 1440);
+            .defineInRange("dailyHungerDrainPercent", 50, 1, 100);
 
     public static final ModConfigSpec.IntValue HUNGER_STARVE_DAYS = BUILDER
             .comment(

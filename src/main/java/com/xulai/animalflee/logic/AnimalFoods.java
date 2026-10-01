@@ -33,12 +33,21 @@ public final class AnimalFoods {
             Items.BAKED_POTATO,
             Items.POISONOUS_POTATO,
             Items.PUMPKIN,
+            Items.MELON,
             Items.MELON_SLICE,
             Items.SWEET_BERRIES,
             Items.GLOW_BERRIES,
             Items.TORCHFLOWER_SEEDS,
             Items.PITCHER_POD
     );
+
+    private static final float SEED_SATURATION = 0.25F;
+    private static final float CROP_DEFAULT_SATURATION = 1.0F;
+    private static final float WHEAT_SATURATION = 1.5F;
+    private static final float BIG_MELON_SATURATION = 8.0F;
+    private static final float COCOA_SATURATION = 1.0F;
+    private static final float HAY_BLOCK_SATURATION = 2.0F;
+    private static final float SUGAR_SATURATION = 1.0F;
 
     private AnimalFoods() {
     }
@@ -63,18 +72,34 @@ public final class AnimalFoods {
         }
 
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
-        if (key != null && key.getPath().contains("seed")) {
-            return true;
-        }
-
-        return false;
+        return key != null && key.getPath().contains("seed");
     }
 
     public static boolean isMeat(ItemStack stack) {
         return !stack.isEmpty() && stack.is(ItemTags.MEAT);
     }
 
-    public static boolean isVegetableFood(ItemStack stack) {
-        return isCrop(stack) && !stack.is(Items.POISONOUS_POTATO);
+    public static float getSaturation(ItemStack stack) {
+        if (stack.isEmpty()) return 0.0F;
+
+        var food = stack.getFoodProperties(null);
+        if (food != null) return food.nutrition();
+
+        Item item = stack.getItem();
+        if (item == Items.WHEAT) return WHEAT_SATURATION;
+        if (item == Items.PUMPKIN || item == Items.MELON) return BIG_MELON_SATURATION;
+        if (item == Items.COCOA_BEANS) return COCOA_SATURATION;
+        if (item == Items.HAY_BLOCK.asItem()) return HAY_BLOCK_SATURATION;
+        if (item == Items.SUGAR) return SUGAR_SATURATION;
+        if (isSeed(stack)) return SEED_SATURATION;
+        if (isCrop(stack)) return CROP_DEFAULT_SATURATION;
+        return 0.0F;
+    }
+
+    private static boolean isSeed(ItemStack stack) {
+        Item item = stack.getItem();
+        if (item == Items.TORCHFLOWER_SEEDS || item == Items.PITCHER_POD) return true;
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+        return key != null && key.getPath().contains("seed");
     }
 }

@@ -2,6 +2,8 @@ package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.logic.HungerSystem;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractHorse.class)
 public class AbstractHorseFeedMixin {
+
+    private static final int POISON_DURATION_TICKS = 80;
 
     @Inject(method = "fedFood", at = @At("HEAD"), cancellable = true)
     private void animalflee$fedFood(Player player, ItemStack stack, CallbackInfoReturnable<InteractionResult> cir) {
@@ -41,6 +45,10 @@ public class AbstractHorseFeedMixin {
         } else if (stack.is(Items.GOLDEN_APPLE) || stack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
             heal = 10.0F;
             temper = 10;
+        }
+
+        if (stack.is(Items.POISONOUS_POTATO) && horse.getRandom().nextFloat() < 0.6F) {
+            horse.addEffect(new MobEffectInstance(MobEffects.POISON, POISON_DURATION_TICKS, 0));
         }
 
         if (heal > 0.0F && horse.getHealth() < horse.getMaxHealth()) {

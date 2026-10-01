@@ -1,6 +1,7 @@
 package com.xulai.animalflee.integration.jade;
 
 import com.xulai.animalflee.logic.GenderLogic;
+import com.xulai.animalflee.logic.HungerSystem;
 import com.xulai.animalflee.logic.PregnancySystem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     private static final String KEY_PREGNANT = "af_pregnant";
     private static final String KEY_PREGNANCY_PROGRESS = "af_pregnancy_progress";
     private static final String KEY_HUNGER = "af_hunger";
+    private static final String KEY_MAX_HUNGER = "af_max_hunger";
     private static final String KEY_DOMESTICATED = "af_domesticated";
 
     @Override
@@ -57,8 +59,9 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             float hunger = data.getFloat(KEY_HUNGER);
             if (hunger <= 0.0F) {
                 tooltip.add(Component.translatable("jade.animalflee.starving"));
-            } else if (hunger < 1.0F) {
-                tooltip.add(Component.translatable("jade.animalflee.hunger", String.format("%.0f%%", hunger * 100.0F)));
+            } else {
+                float max = data.contains(KEY_MAX_HUNGER) ? data.getFloat(KEY_MAX_HUNGER) : HungerSystem.MAX_HUNGER;
+                tooltip.add(Component.translatable("jade.animalflee.hunger", String.format("%.0f/%.0f", hunger, max)));
             }
         }
     }
@@ -83,6 +86,9 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
         }
         if (persistent.contains(KEY_HUNGER)) {
             tag.putFloat(KEY_HUNGER, persistent.getFloat(KEY_HUNGER));
+        }
+        if (persistent.contains(KEY_MAX_HUNGER)) {
+            tag.putFloat(KEY_MAX_HUNGER, persistent.getFloat(KEY_MAX_HUNGER));
         }
     }
 
