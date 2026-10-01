@@ -2,7 +2,6 @@ package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
-import com.xulai.animalflee.mixin.EggItemUseMixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -102,7 +101,7 @@ public class EggIncubationHandler {
     }
 
     private static void holdInSlot(ItemEntity egg) {
-        if (!EggItemUseMixin.isGridEgg(egg)) return;
+        if (!EggGridHelper.isGridEgg(egg)) return;
         BlockPos pos = egg.blockPosition();
         BlockState below = egg.level().getBlockState(pos.below());
         BlockState here = egg.level().getBlockState(pos);
@@ -114,14 +113,14 @@ public class EggIncubationHandler {
         } else {
             return;
         }
-        int slot = EggItemUseMixin.getSlot(egg);
-        if (slot < 0 || slot >= 9) {
-            slot = EggItemUseMixin.findFreeSlot(egg.level(), hay);
+        int slot = EggGridHelper.getSlot(egg);
+        if (slot < 0 || slot >= EggGridHelper.GRID_SIZE) {
+            slot = EggGridHelper.findFreeSlot(egg.level(), hay);
             if (slot < 0) return;
-            egg.getPersistentData().putInt("af_egg_slot", slot);
+            EggGridHelper.setSlot(egg, slot);
         }
-        double x = EggItemUseMixin.slotX(hay, slot);
-        double z = EggItemUseMixin.slotZ(hay, slot);
+        double x = EggGridHelper.slotX(hay, slot);
+        double z = EggGridHelper.slotZ(hay, slot);
         egg.setPos(x, hay.getY() + 1.0, z);
         egg.setDeltaMovement(0.0, 0.0, 0.0);
     }
