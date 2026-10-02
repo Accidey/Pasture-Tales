@@ -25,7 +25,6 @@ public final class HungerSystem {
     private static final float PLAYER_REFERENCE_VOLUME = 0.9F * 1.4F;
     private static final float MIN_CAPACITY = 8.0F;
     private static final float PREGNANT_HUNGER_MULTIPLIER = 1.5F;
-    private static final float HUNGER_SAFE_THRESHOLD = 0.5F;
     private static final float FULL_HUNGER_EPSILON = 1.0F;
     private static final int TICK_INTERVAL = 20;
     private static final int STARVE_DAMAGE_INTERVAL = 20;
@@ -90,14 +89,10 @@ public final class HungerSystem {
         }
     }
 
-    public static boolean isStarving(Animal animal) {
-        return getHunger(animal) <= MIN_HUNGER;
-    }
-
     public static boolean canEat(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
         if (getHunger(animal) >= getMaxHunger(animal) - FULL_HUNGER_EPSILON) return false;
-        if (AnimalFoods.getSaturation(stack) <= 0.0F) return false;
+        if (AnimalFoods.getSaturation(animal, stack) <= 0.0F) return false;
         return AnimalFoods.canEatByDiet(animal, stack);
     }
 
@@ -106,7 +101,7 @@ public final class HungerSystem {
         setDomesticated(animal);
         MobFleeLogic.stopFlee(animal);
         float current = getHunger(animal);
-        float restored = AnimalFoods.getSaturation(stack);
+        float restored = AnimalFoods.getSaturation(animal, stack);
         float newHunger = Math.min(getMaxHunger(animal), current + restored);
         setHunger(animal, newHunger);
         CompoundTag data = animal.getPersistentData();
@@ -157,9 +152,6 @@ public final class HungerSystem {
             int starveDays = Config.HUNGER_STARVE_DAYS.get();
             long starveDuration = starveDays * DAY_TICKS;
             long starveElapsed = dayTime - starveStart;
-            if (starveElapsed < 0) {
-                starveElapsed += DAY_TICKS;
-            }
             if (starveElapsed < starveDuration) {
                 float damage = animal.getMaxHealth() / (starveDuration / (float) STARVE_DAMAGE_INTERVAL);
                 animal.setHealth(Math.max(0.0F, animal.getHealth() - damage));
@@ -169,14 +161,6 @@ public final class HungerSystem {
                 }
             }
         }
-    }
-
-    public static float getDisplayHunger(Animal animal) {
-        return getHunger(animal);
-    }
-
-    public static boolean isHungry(Animal animal) {
-        return getHunger(animal) < HUNGER_SAFE_THRESHOLD;
     }
 
     private static void spawnStarveParticles(Animal animal) {
