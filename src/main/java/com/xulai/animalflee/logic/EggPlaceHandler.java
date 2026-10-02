@@ -39,24 +39,24 @@ public class EggPlaceHandler {
         ItemEntity existing = EggGridHelper.findGridEgg(level, hay, hay.getX() + 0.5, hay.getZ() + 0.5);
         if (existing != null) return;
 
-        if (!level.isClientSide) {
-            BitSet occupied = EggGridHelper.collectOccupiedSlots(level, hay);
-            int placeCount = Math.min(stack.getCount(), EggGridHelper.GRID_SIZE);
-            int placed = 0;
-            for (int slot = 0; slot < EggGridHelper.GRID_SIZE && placed < placeCount; slot++) {
-                if (occupied.get(slot)) continue;
-                ItemEntity egg = new ItemEntity(level,
-                        EggGridHelper.slotX(hay, slot), hay.getY() + 1.0, EggGridHelper.slotZ(hay, slot),
-                        stack.copyWithCount(1));
-                egg.setDeltaMovement(Vec3.ZERO);
-                EggGridHelper.setSlot(egg, slot);
-                egg.setUnlimitedLifetime();
-                level.addFreshEntity(egg);
-                placed++;
-            }
-            stack.shrink(placed);
+        if (level.isClientSide) return;
+
+        BitSet occupied = EggGridHelper.collectOccupiedSlots(level, hay);
+        int placeCount = Math.min(stack.getCount(), EggGridHelper.GRID_SIZE);
+        int placed = 0;
+        for (int slot = 0; slot < EggGridHelper.GRID_SIZE && placed < placeCount; slot++) {
+            if (occupied.get(slot)) continue;
+            ItemEntity egg = new ItemEntity(level,
+                    EggGridHelper.slotX(hay, slot), hay.getY() + 1.0, EggGridHelper.slotZ(hay, slot),
+                    stack.copyWithCount(1));
+            egg.setDeltaMovement(Vec3.ZERO);
+            EggGridHelper.setSlot(egg, slot);
+            egg.setUnlimitedLifetime();
+            level.addFreshEntity(egg);
+            placed++;
         }
+        stack.shrink(placed);
         event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+        event.setCancellationResult(InteractionResult.SUCCESS);
     }
 }
