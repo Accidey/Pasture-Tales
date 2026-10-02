@@ -262,28 +262,30 @@ public class Config {
 
         OVIPAROUS_MOBS = BUILDER
                 .comment(
-                        "卵生动物列表（实体ID列表）",
-                        "List of oviparous mob IDs",
-                        "这些动物生产时生成受精蛋物品而不是直接生成幼年实体。",
-                        "These animals lay fertilized eggs instead of giving live birth.",
-                        "Default: [\"minecraft:chicken\"]",
-                        "格式：每个ID用双引号包裹，逗号分隔。",
-                        "Format: comma-separated quoted IDs."
+                        "卵生动物列表（条目格式：生物ID,蛋物品ID）",
+                        "List of oviparous mobs (entry format: mobID,eggItemID)",
+                        "列入的动物不会怀孕，而是像鸡一样按周期产蛋。",
+                        "Mobs in this list do not get pregnant; they lay eggs on a cycle like chickens.",
+                        "每个条目由生物实体ID和它产出的蛋物品ID组成，用逗号分隔。",
+                        "Each entry pairs a mob entity ID with the egg item ID that mob lays, separated by a comma.",
+                        "Default: [\"minecraft:chicken,minecraft:egg\"]",
+                        "示例：[\"minecraft:chicken,minecraft:egg\", \"examplemod:dino,examplemod:dino_egg\"]",
+                        "格式：每个条目用双引号包裹，条目之间用逗号分隔。",
+                        "Format: comma-separated quoted entries."
                 )
                 .defineListAllowEmpty("oviparousMobs", List.of(
-                        "minecraft:chicken"
+                        "minecraft:chicken,minecraft:egg"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");
 
         BLOCK_NORMAL_EGG_HATCHING = BUILDER
                 .comment(
-                        "是否阻止普通鸡蛋扔出后孵化小鸡",
+                        "是否阻止普通蛋扔出后孵化",
                         "Whether to block normal eggs from hatching when thrown",
-                        "开启后，普通鸡蛋扔出不再随机孵出小鸡；",
-                        "只有由怀孕卵生动物产下的受精蛋才能孵出小鸡。",
+                        "开启后，普通蛋扔出不再随机孵出幼崽；受精蛋无论是否开启扔出都不孵化。",
                         "When enabled, normal eggs no longer randomly hatch when thrown;",
-                        "only fertilized eggs laid by pregnant oviparous animals can hatch.",
+                        "fertilized eggs never hatch when thrown regardless of this setting.",
                         "Default: true / 默认：true"
                 )
                 .define("blockNormalEggHatching", true);
@@ -313,7 +315,7 @@ public class Config {
                         "Blacklist of mob IDs that will never flee.",
                         "这些生物即使属于被动/水生类别也不会逃跑。",
                         "Mobs in this list will not flee even if they are passive/aquatic.",
-                        "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:parrot\", \"minecraft:horse\", ...]",
+                        "Default: [\"minecraft:wolf\", \"minecraft:parrot\", \"minecraft:donkey\", \"minecraft:mule\", ...]",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
