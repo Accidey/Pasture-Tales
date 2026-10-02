@@ -13,6 +13,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 
+import java.util.List;
+
 @EventBusSubscriber(modid = AnimalFleeMod.MODID)
 public class FishConsumptionHandler {
 
