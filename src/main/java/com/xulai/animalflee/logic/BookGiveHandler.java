@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 public class BookGiveHandler {
 
     private static final String BOOK_ID = "animalflee:animal_husbandry_guide";
+    private static boolean patchouliChecked = false;
 
     private BookGiveHandler() {
     }
@@ -37,6 +38,8 @@ public class BookGiveHandler {
     }
 
     private static ItemStack createBookStack() {
+        if (patchouliChecked) return null;
+        patchouliChecked = true;
         try {
             Class<?> apiClass = Class.forName("vazkii.patchouli.api.PatchouliAPI");
             Object api = apiClass.getMethod("get").invoke(null);
