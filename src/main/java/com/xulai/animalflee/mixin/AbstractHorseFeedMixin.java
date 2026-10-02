@@ -24,7 +24,13 @@ public class AbstractHorseFeedMixin {
         AbstractHorse horse = (AbstractHorse) (Object) this;
         if (horse.level().isClientSide) return;
         if (horse.isBaby()) {
-            cir.setReturnValue(InteractionResult.PASS);
+            if (!HungerSystem.canEat(horse, stack)) {
+                cir.setReturnValue(InteractionResult.PASS);
+                return;
+            }
+            HungerSystem.feed(horse, stack);
+            stack.consume(1, player);
+            cir.setReturnValue(InteractionResult.SUCCESS);
             return;
         }
         if (!HungerSystem.canEat(horse, stack)) {
