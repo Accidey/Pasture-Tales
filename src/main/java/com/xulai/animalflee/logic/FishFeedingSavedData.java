@@ -14,7 +14,6 @@ import java.util.List;
 public class FishFeedingSavedData extends SavedData {
 
     private static final String DATA_NAME = "animalflee_fish_feeding";
-    private static final int DAY_LENGTH = 24000;
 
     private final List<Entry> entries = new ArrayList<>();
 
@@ -35,7 +34,7 @@ public class FishFeedingSavedData extends SavedData {
 
         List<Entry> due = new ArrayList<>();
         for (Entry entry : entries) {
-            long delta = (dayTime - entry.startDayTime + DAY_LENGTH) % DAY_LENGTH;
+            long delta = dayTime - entry.startDayTime;
             if (delta >= entry.targetDelta) {
                 due.add(entry);
             }
