@@ -1,11 +1,8 @@
 package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +12,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
-
-import java.util.List;
 
 @EventBusSubscriber(modid = AnimalFleeMod.MODID)
 public class FishConsumptionHandler {
@@ -39,16 +34,10 @@ public class FishConsumptionHandler {
         }
 
         List<ItemStack> drops = event.getDrops();
-        boolean hadFishDrop = false;
         for (ItemStack stack : drops) {
             if (stack.is(ItemTags.FISHES)) {
                 stack.setCount(0);
-                hadFishDrop = true;
             }
-        }
-        if (hadFishDrop && player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.awardStat(Stats.FISH_CAUGHT, 1);
-            CriteriaTriggers.FISHING_ROD_HOOKED.trigger(serverPlayer, player.getUseItem(), hook, List.of());
         }
     }
 
