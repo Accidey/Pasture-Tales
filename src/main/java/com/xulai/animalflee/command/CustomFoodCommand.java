@@ -24,7 +24,7 @@ public final class CustomFoodCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("animalflee")
+        dispatcher.register(Commands.literal("pasturetales")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.literal("customfood")
                         .then(Commands.literal("add")
@@ -78,6 +78,7 @@ public final class CustomFoodCommand {
         }
         list.add(entry);
         Config.CUSTOM_ANIMAL_FOODS.set(list);
+        Config.SPEC.save();
         AnimalFoods.resetCustomFoodCache();
         source.sendSuccess(() -> Component.translatable(PREFIX + "added", entry), true);
         return 1;

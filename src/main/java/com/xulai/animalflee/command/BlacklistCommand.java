@@ -25,7 +25,7 @@ public final class BlacklistCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("animalflee")
+        dispatcher.register(Commands.literal("pasturetales")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.literal("blacklist")
                         .then(Commands.literal("add")
@@ -73,6 +73,7 @@ public final class BlacklistCommand {
         }
 
         Config.BLACKLISTED_MOBS.set(list);
+        Config.SPEC.save();
         MobFleeLogic.resetBlacklistCache();
         source.sendSuccess(() -> Component.translatable(remove ? PREFIX + "removed" : PREFIX + "added", id), true);
         return 1;
