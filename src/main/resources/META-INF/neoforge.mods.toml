@@ -46,8 +46,8 @@ displayName="${mod_name}" #mandatory
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Makes passive and aquatic mobs flee when players approach.
-Adds gender system with visual size differences and Jade tooltip support.
+Pasture Tales - a realistic animal husbandry mod.
+Mobs flee from players. Animals have genders, hunger and diets; they breed, get pregnant, give birth, and their babies grow up over in-game days. Hens lay fertilized eggs that hatch on sheltered hay blocks, and chickens shed feathers over time. Fishing only works in natural waters teeming with real fish.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

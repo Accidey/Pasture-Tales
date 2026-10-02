@@ -4,14 +4,19 @@ import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -152,12 +157,30 @@ public class EggIncubationHandler {
 
     private static void hatch(ItemEntity egg) {
         if (!(egg.level() instanceof ServerLevel level)) return;
-        Chicken chick = EntityType.CHICKEN.create(level);
-        if (chick != null) {
-            chick.setAge(-24000);
-            chick.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
-            level.addFreshEntity(chick);
+
+        ItemStack stack = egg.getItem();
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        String species = tag.getString(PregnancySystem.NBT_SPECIES);
+        EntityType<?> type = EntityType.CHICKEN;
+        if (!species.isEmpty()) {
+            try {
+                type = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(species));
+                if (type == null) type = EntityType.CHICKEN;
+            } catch (RuntimeException ignored) {
+                type = EntityType.CHICKEN;
+            }
         }
-        egg.discard();
+
+        Entity entity = type.create(level);
+        if (entity instanceof AgeableMob baby) {
+            baby.setAge(-24000);
+            baby.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
+            level.addFreshEntity(baby);
+            egg.discard();
+        } else if (entity != null) {
+            entity.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
+            level.addFreshEntity(entity);
+            egg.discard();
+        }
     }
 }

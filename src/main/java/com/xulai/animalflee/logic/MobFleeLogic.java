@@ -135,6 +135,7 @@ public class MobFleeLogic {
     }
 
     private static boolean shouldFlee(Mob mob) {
+        if (AnimalFleeEntityHelper.isExcluded(mob)) return false;
         if (AnimalFleeEntityHelper.isMaidEntity(mob)) return false;
         if (HungerSystem.isDomesticated(mob)) return false;
         if (isBlacklisted(mob)) return false;

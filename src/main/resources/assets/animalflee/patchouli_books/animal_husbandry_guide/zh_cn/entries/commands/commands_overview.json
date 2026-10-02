@@ -7,17 +7,17 @@
     {
       "type": "patchouli:text",
       "title": "管理命令",
-      "text": "所有命令都需要权限等级 2。$(br2)$(bold)/animalflee blacklist add|remove$() —— 手持刷怪蛋，将生物加入/移出逃跑黑名单。$(br2)$(bold)/animalflee customfood add [value]|remove$() —— 手持物品，添加/移除自定义动物饲料。"
+      "text": "所有命令都需要权限等级 2。$(br2)$(bold)/pasturetales blacklist add|remove$() —— 手持刷怪蛋，将生物加入/移出逃跑黑名单。$(br2)$(bold)/pasturetales customfood add [value]|remove$() —— 手持物品，添加/移除自定义动物饲料。"
     },
     {
       "type": "patchouli:text",
       "title": "食性命令",
-      "text": "$(bold)/animalflee diet$() —— 显示手持物品对应实体的食性。$(br2)$(bold)/animalflee diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/animalflee diet remove herbivore|carnivore$() —— 从食性列表移除（变为杂食）。"
+      "text": "$(bold)/pasturetales diet$() —— 显示手持物品对应实体的食性。$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() —— 从食性列表移除（变为杂食）。"
     },
     {
       "type": "patchouli:text",
       "title": "配置",
-      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)animalflee-server.toml$()。$(br2)关键选项：逃跑触发距离、饥饿消耗速度、孕期时长、孵化时长、草食/肉食列表等。所有选项都支持热重载！"
+      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)关键选项：逃跑触发距离、饥饿消耗速度、孕期时长、孵化时长、草食/肉食列表等。所有选项都支持热重载！"
     }
   ]
 }

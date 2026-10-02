@@ -340,6 +340,24 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        EXCLUDED_MOBS = BUILDER
+                .comment(
+                        "模组排外生物黑名单（实体ID列表）",
+                        "Blacklist of mob IDs excluded from this mod.",
+                        "列入的生物会被模组完全忽略，只遵循原版行为（不逃跑、无饥饿/性别/怀孕/成长、Jade 不显示模组信息）。",
+                        "Mobs in this list are completely ignored by this mod and follow vanilla behavior only",
+                        "(no fleeing, no hunger/gender/pregnancy/growth, no mod Jade info).",
+                        "Default: [\"minecraft:turtle\", \"minecraft:frog\"]",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .defineListAllowEmpty("excludedMobs", List.of(
+                        "minecraft:turtle",
+                        "minecraft:frog"
+                ), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
         CUSTOM_ANIMAL_FOODS = BUILDER
                 .comment(
                         "自定义动物饲料列表（物品ID:饱食度值）",
@@ -389,7 +407,6 @@ public class Config {
                         "minecraft:trader_llama",
                         "minecraft:camel",
                         "minecraft:panda",
-                        "minecraft:turtle",
                         "minecraft:parrot",
                         "minecraft:bee",
                         "minecraft:sniffer"
@@ -413,9 +430,24 @@ public class Config {
                         "minecraft:wolf",
                         "minecraft:ocelot",
                         "minecraft:polar_bear",
-                        "minecraft:axolotl",
-                        "minecraft:frog"
+                        "minecraft:axolotl"
                 ), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        FALL_DAMAGE_LOOT = BUILDER
+                .comment(
+                        "动物摔死是否掉落掉落物",
+                        "Whether animals drop loot when killed by fall damage",
+                        "开启后，动物因摔落伤害死亡时会掉落与玩家亲手击杀完全一致的掉落物",
+                        "（包括需要 killed_by_player 条件的特殊物品，如兔子脚）。",
+                        "When enabled, animals killed by fall damage drop the same loot as if killed by a player",
+                        "(including special items that require the killed_by_player condition, such as rabbit feet).",
+                        "摔死不会掉落经验。",
+                        "Fall deaths do not drop experience.",
+                        "Default: true / 默认：true"
+                )
+                .define("fallDamageLoot", true);
     }
 
     public static final ModConfigSpec.DoubleValue FLEE_TRIGGER_DISTANCE;
@@ -440,9 +472,11 @@ public class Config {
     public static final ModConfigSpec.BooleanValue BLOCK_NORMAL_EGG_HATCHING;
     public static final ModConfigSpec.IntValue EGG_INCUBATION_MINUTES;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_MOBS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> EXCLUDED_MOBS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_ANIMAL_FOODS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> HERBIVORE_MOBS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CARNIVORE_MOBS;
+    public static final ModConfigSpec.BooleanValue FALL_DAMAGE_LOOT;
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

@@ -149,6 +149,10 @@ public final class AnimalFoods {
     }
 
     public static float getSaturation(ItemStack stack) {
+        return getSaturation(null, stack);
+    }
+
+    public static float getSaturation(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return 0.0F;
 
         ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());

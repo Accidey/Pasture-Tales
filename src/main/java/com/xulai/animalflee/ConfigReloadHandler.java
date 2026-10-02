@@ -1,7 +1,9 @@
 package com.xulai.animalflee;
 
+import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.MobFleeLogic;
+import com.xulai.animalflee.logic.OviparousRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +21,8 @@ public class ConfigReloadHandler {
         MobFleeLogic.resetBlacklistCache();
         AnimalFoods.resetCustomFoodCache();
         AnimalFoods.resetDietCache();
+        OviparousRegistry.resetCache();
+        AnimalFleeEntityHelper.resetExcludedCache();
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) return;
         for (ServerLevel level : server.getAllLevels()) {

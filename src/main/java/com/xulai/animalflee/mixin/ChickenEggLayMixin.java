@@ -26,6 +26,7 @@ public class ChickenEggLayMixin {
     private static final long DISPLAY_LIMIT = 48000L;
     private static final int MALE_NO_EGG_TIMER = Integer.MAX_VALUE;
     private static final String NBT_NEXT_EGG = "af_next_egg_daytime";
+    private static final String NBT_NEXT_FEATHER = "af_next_feather_daytime";
 
     @Inject(method = "aiStep()V", at = @At("TAIL"))
     private void animalflee$syncEggTimer(CallbackInfo ci) {
@@ -37,18 +38,27 @@ public class ChickenEggLayMixin {
         if (data.getString(GenderLogic.NBT_GENDER).isEmpty()) {
             GenderLogic.initGender(self);
         }
-
-        if (!GenderLogic.isFemale(self)) {
-            self.eggTime = MALE_NO_EGG_TIMER;
-            return;
+        if (!data.contains(NBT_NEXT_FEATHER)) {
+            data.putLong(NBT_NEXT_FEATHER, nextEggInterval(self, self.level().getDayTime()));
         }
 
         long dayTime = self.level().getDayTime();
-        if (!data.contains(NBT_NEXT_EGG)) {
-            data.putLong(NBT_NEXT_EGG, nextEggInterval(self, dayTime));
+
+        if (GenderLogic.isFemale(self)) {
+            if (!data.contains(NBT_NEXT_EGG)) {
+                data.putLong(NBT_NEXT_EGG, nextEggInterval(self, dayTime));
+            }
+            long remain = data.getLong(NBT_NEXT_EGG) - dayTime;
+            self.eggTime = (int) Math.min(Math.max(remain, 0L), DISPLAY_LIMIT - 1L);
+        } else {
+            self.eggTime = MALE_NO_EGG_TIMER;
         }
-        long remain = data.getLong(NBT_NEXT_EGG) - dayTime;
-        self.eggTime = (int) Math.min(Math.max(remain, 0L), DISPLAY_LIMIT - 1L);
+
+        if (dayTime < data.getLong(NBT_NEXT_FEATHER)) return;
+
+        data.putLong(NBT_NEXT_FEATHER, nextEggInterval(self, dayTime));
+        int count = 1 + self.getRandom().nextInt(2);
+        self.spawnAtLocation(new ItemStack(Items.FEATHER, count));
     }
 
     @Redirect(
@@ -71,6 +81,7 @@ public class ChickenEggLayMixin {
         if (fertilized) {
             CompoundTag tag = new CompoundTag();
             tag.putBoolean(PregnancySystem.NBT_FERTILIZED_EGG, true);
+            tag.putString(PregnancySystem.NBT_SPECIES, "minecraft:chicken");
             CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
         }
         return self.spawnAtLocation(egg);

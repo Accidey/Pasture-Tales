@@ -1,0 +1,24 @@
+{
+  "name": "羽毛掉落",
+  "icon": "minecraft:feather",
+  "category": "animalflee:chicken",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "定期掉毛",
+      "text": "鸡（无论$(bold)公鸡还是母鸡$()）都会定期掉落羽毛。大约每个游戏天掉一次（外加随机 1~3 小时），每次掉落 $(bold)1~2 根羽毛$()。$(br2)小鸡在长大之前不会掉毛，等它们成年后才会开始掉落。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:feather",
+      "title": "羽毛用途",
+      "text": "羽毛是制作箭、烟火之星等物品的基础材料，也是养鸡的重要副产品之一。$(br2)掉落的羽毛会像鸡蛋一样出现在鸡脚边，直接捡起来即可。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Jade 提示",
+      "text": "安装 Jade 后，准星看向成年鸡可以看到$(bold)下次掉毛$()的倒计时（剩余分钟/秒），方便你安排收获时间。"
+    }
+  ]
+}

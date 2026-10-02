@@ -26,7 +26,7 @@ public final class DietCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("animalflee")
+        dispatcher.register(Commands.literal("pasturetales")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.literal("diet")
                         .executes(ctx -> show(ctx))
@@ -52,7 +52,7 @@ public final class DietCommand {
             return 0;
         }
 
-        EntityType<?> type = eggItem.getType(null);
+        EntityType<?> type = eggItem.getType(stack);
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         if (key == null) {
             source.sendFailure(Component.translatable(PREFIX + "unknown_type"));
@@ -77,7 +77,7 @@ public final class DietCommand {
             return 0;
         }
 
-        EntityType<?> type = eggItem.getType(null);
+        EntityType<?> type = eggItem.getType(stack);
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         if (key == null) {
             source.sendFailure(Component.translatable(PREFIX + "unknown_type"));
@@ -144,7 +144,7 @@ public final class DietCommand {
             return 0;
         }
 
-        EntityType<?> type = eggItem.getType(null);
+        EntityType<?> type = eggItem.getType(stack);
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         if (key == null) {
             source.sendFailure(Component.translatable(PREFIX + "unknown_type"));

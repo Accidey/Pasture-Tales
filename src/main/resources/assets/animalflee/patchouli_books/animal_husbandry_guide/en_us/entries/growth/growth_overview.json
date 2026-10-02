@@ -13,7 +13,7 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:hay_block",
       "title": "Only Well-Fed Babies Grow",
-      "text": "A baby only accumulates growth time while its hunger is at or above 50% of its maximum.$(br2)Growth stalls completely when it is hungry and only resumes once you feed it. Time lost while stalled is never made up, so feed them early."
+      "text": "A baby only accumulates growth time while its hunger is at or above 50% of its maximum.$(br2)Growth stalls completely when it is hungry and only resumes once you feed it. Time lost while stalled is never made up, so feed them early.$(br2)Babies ignore breeding state - you can $(bold)feed them at any time$(), unlike adults that must finish their cooldown first."
     },
     {
       "type": "patchouli:text",

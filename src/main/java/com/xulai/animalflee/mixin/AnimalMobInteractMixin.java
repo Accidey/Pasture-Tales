@@ -1,5 +1,6 @@
 package com.xulai.animalflee.mixin;
 
+import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import com.xulai.animalflee.logic.HungerSystem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,6 +24,7 @@ public class AnimalMobInteractMixin {
     private void animalflee$onMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         if (player.level().isClientSide) return;
         Animal animal = (Animal) (Object) this;
+        if (AnimalFleeEntityHelper.isExcluded(animal)) return;
 
         ItemStack stack = player.getItemInHand(hand);
         if (stack.isEmpty()) {

@@ -7,17 +7,17 @@
     {
       "type": "patchouli:text",
       "title": "Admin Commands",
-      "text": "All commands require permission level 2.$(br2)$(bold)/animalflee blacklist add|remove$() — hold a spawn egg to add/remove a mob from the flee blacklist.$(br2)$(bold)/animalflee customfood add [value]|remove$() — hold an item to add/remove custom animal food."
+      "text": "All commands require permission level 2.$(br2)$(bold)/pasturetales blacklist add|remove$() — hold a spawn egg to add/remove a mob from the flee blacklist.$(br2)$(bold)/pasturetales customfood add [value]|remove$() — hold an item to add/remove custom animal food."
     },
     {
       "type": "patchouli:text",
       "title": "Diet Commands",
-      "text": "$(bold)/animalflee diet$() — show the diet of the entity in your hand.$(br2)$(bold)/animalflee diet add herbivore|carnivore|omnivore$() — set the diet.$(br2)$(bold)/animalflee diet remove herbivore|carnivore$() — remove from a diet list (becomes omnivore)."
+      "text": "$(bold)/pasturetales diet$() — show the diet of the entity in your hand.$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() — set the diet.$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() — remove from a diet list (becomes omnivore)."
     },
     {
       "type": "patchouli:text",
       "title": "Configuration",
-      "text": "Open the config screen from the Mods menu, or edit $(bold)animalflee-server.toml$() in the config folder.$(br2)Key options: flee trigger distance, hunger drain rate, pregnancy duration, egg incubation time, herbivore/carnivore lists, and more. All options support hot reload!"
+      "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)Key options: flee trigger distance, hunger drain rate, pregnancy duration, egg incubation time, herbivore/carnivore lists, and more. All options support hot reload!"
     }
   ]
 }

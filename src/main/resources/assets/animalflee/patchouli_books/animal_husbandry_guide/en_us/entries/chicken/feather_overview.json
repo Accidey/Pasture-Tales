@@ -1,0 +1,24 @@
+{
+  "name": "Feather Drops",
+  "icon": "minecraft:feather",
+  "category": "animalflee:chicken",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Regular Shedding",
+      "text": "Chickens (both $(bold)roosters and hens$()) regularly shed feathers. About once per in-game day (plus a random 1~3 hours), they drop $(bold)1-2 feathers$() each time.$(br2)Chicks do not shed until they grow up - feathers start dropping once they become adults."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:feather",
+      "title": "Uses",
+      "text": "Feathers are a key material for crafting arrows, firework stars and more - a great byproduct of raising chickens.$(br2)Dropped feathers appear at the chicken's feet just like eggs; simply pick them up."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Jade Display",
+      "text": "With Jade installed, looking at an adult chicken shows a $(bold)next feather drop$() countdown (minutes/seconds remaining), so you can plan your harvest time."
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.xulai.animalflee.mixin;
 
+import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import com.xulai.animalflee.logic.GenderLogic;
 import com.xulai.animalflee.logic.PregnancySystem;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
@@ -25,6 +26,7 @@ public class FollowParentGoalMixin {
 
     @Inject(method = "canUse", at = @At("HEAD"), cancellable = true)
     private void animalflee$followMother(CallbackInfoReturnable<Boolean> cir) {
+        if (AnimalFleeEntityHelper.isExcluded(this.animal)) return;
         if (this.animal.getAge() >= 0) {
             cir.setReturnValue(false);
             return;

@@ -1,0 +1,6 @@
+{
+  "name": "摔死掉落",
+  "description": "动物摔死时也会掉落完整战利品。",
+  "icon": "minecraft:feather",
+  "sortnum": 8
+}

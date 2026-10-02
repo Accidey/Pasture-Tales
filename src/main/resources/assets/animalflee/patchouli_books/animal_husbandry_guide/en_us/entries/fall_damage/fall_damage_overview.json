@@ -1,0 +1,23 @@
+{
+  "name": "Loot on Fall Damage",
+  "icon": "minecraft:rabbit_foot",
+  "category": "animalflee:fall_damage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Fall Damage Loot",
+      "text": "In vanilla Minecraft, mobs killed solely by fall damage do not drop special loot that requires the \"killed by player\" condition.$(br2)This mod changes that: animals (pigs, cows, sheep, chickens, rabbits, etc.) killed by fall damage drop $(bold)exactly$() the same loot as if killed by a player — including rare items like rabbit feet."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Notes",
+      "text": "$(bold)No experience:$() fall deaths do not drop experience orbs.$(br2)$(bold)A player must be nearby:$() full loot is only granted when a living player is within 32 blocks.$(br2)This behavior can be disabled in the config (fallDamageLoot)."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:rabbit",
+      "text": "A rabbit's rare drop, the rabbit foot, can also drop when it dies from fall damage."
+    }
+  ]
+}

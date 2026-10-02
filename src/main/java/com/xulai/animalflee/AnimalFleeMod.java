@@ -10,6 +10,6 @@ public class AnimalFleeMod {
     public static final String MODID = "animalflee";
 
     public AnimalFleeMod(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC, "pasturetales-common.toml");
     }
 }

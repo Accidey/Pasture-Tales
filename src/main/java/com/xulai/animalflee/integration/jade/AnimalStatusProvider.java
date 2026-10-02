@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.frog.Frog;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -34,11 +33,11 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     private static final String KEY_GROWTH_PAUSED = "af_growth_paused";
     private static final String KEY_FEATHER_REMAINING = "af_feather_remaining";
     private static final String KEY_NEXT_EGG_REMAINING = "af_next_egg_remaining";
-    private static final String KEY_FROGSPAWN_REMAINING = "af_next_frogspawn_remaining";
 
     @Override
     public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
         if (!(accessor.getEntity() instanceof Animal)) return;
+        if (AnimalFleeEntityHelper.isExcluded(accessor.getEntity())) return;
         if (AnimalFleeEntityHelper.isMaidEntity(accessor.getEntity())) return;
 
         CompoundTag data = accessor.getServerData();
@@ -82,14 +81,6 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             tooltip.add(Component.translatable("jade.animalflee.next_egg", minutes, seconds));
         }
 
-        if (data.contains(KEY_FROGSPAWN_REMAINING)) {
-            long remaining = data.getLong(KEY_FROGSPAWN_REMAINING);
-            int totalSeconds = (int) (remaining * 60 / 1000);
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
-            tooltip.add(Component.translatable("jade.animalflee.frogspawn_countdown", minutes, seconds));
-        }
-
         if (data.contains(KEY_FEATHER_REMAINING)) {
             long remaining = data.getLong(KEY_FEATHER_REMAINING);
             int totalSeconds = (int) (remaining * 60 / 1000);
@@ -121,6 +112,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
     @Override
     public void appendServerData(CompoundTag tag, EntityAccessor accessor) {
         if (!(accessor.getEntity() instanceof Animal animal)) return;
+        if (AnimalFleeEntityHelper.isExcluded(animal)) return;
         if (AnimalFleeEntityHelper.isMaidEntity(animal)) return;
 
         GenderLogic.initGender(animal);
@@ -137,15 +129,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
             tag.putBoolean(KEY_PREGNANT, true);
             tag.putFloat(KEY_PREGNANCY_PROGRESS, PregnancySystem.getProgress(animal));
         }
-        if (animal instanceof Frog) {
-            if (!animal.isBaby() && persistent.contains("af_next_frogspawn_daytime")) {
-                long next = persistent.getLong("af_next_frogspawn_daytime");
-                long remaining = next - animal.level().getDayTime();
-                if (remaining > 0L) {
-                    tag.putLong(KEY_FROGSPAWN_REMAINING, remaining);
-                }
-            }
-        } else if (PregnancySystem.isOviparous(animal)) {
+        if (PregnancySystem.isOviparous(animal)) {
             long next = animal.getPersistentData().getLong("af_next_egg_daytime");
             long remaining = next - animal.level().getDayTime();
             if (remaining > 0L) {

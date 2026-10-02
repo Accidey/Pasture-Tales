@@ -1,7 +1,7 @@
 package com.xulai.animalflee.mixin;
 
+import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.animal.Turtle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -14,7 +14,7 @@ public class AgeableMobGrowthMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/AgeableMob;setAge(I)V")
     )
     private void animalflee$blockBabyAgeUp(AgeableMob self, int age) {
-        if (self instanceof Turtle) {
+        if (AnimalFleeEntityHelper.isExcluded(self)) {
             self.setAge(age);
             return;
         }

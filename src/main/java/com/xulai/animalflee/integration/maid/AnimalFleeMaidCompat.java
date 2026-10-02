@@ -30,7 +30,7 @@ public final class AnimalFleeMaidCompat {
 
     public static boolean isValidFood(Animal animal, ItemStack stack) {
         if (stack.isEmpty()) return false;
-        if (AnimalFoods.getSaturation(stack) <= 0.0F) return false;
+        if (AnimalFoods.getSaturation(animal, stack) <= 0.0F) return false;
         return AnimalFoods.canEatByDiet(animal, stack);
     }
 

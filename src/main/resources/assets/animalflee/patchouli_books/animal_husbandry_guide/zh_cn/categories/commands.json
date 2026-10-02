@@ -2,5 +2,5 @@
   "name": "命令与配置",
   "description": "进阶：使用命令管理黑名单、饲料与食性。",
   "icon": "minecraft:command_block",
-  "sortnum": 8
+  "sortnum": 9
 }

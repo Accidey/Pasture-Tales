@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.phys.AABB;
 
@@ -32,6 +31,7 @@ public final class PregnancySystem {
     public static final String NBT_PREGNANCY_FATHER_TYPE = "af_pregnancy_father_type";
     public static final String NBT_COOLDOWN_UNTIL = "af_cooldown_until";
     public static final String NBT_FERTILIZED_EGG = "af_fertilized";
+    public static final String NBT_SPECIES = "af_species";
 
     private static final int CHECK_INTERVAL = 100;
     private static final double CONCEPTION_CHANCE = 0.05;
@@ -85,6 +85,7 @@ public final class PregnancySystem {
     }
 
     private static void tryStartPregnancy(Animal animal, CompoundTag data) {
+        if (isOviparous(animal)) return;
         if (animal.isBaby()) return;
         if (animal.getAge() != 0) return;
         if (!GenderLogic.isFemale(animal)) return;
@@ -243,14 +244,18 @@ public final class PregnancySystem {
     }
 
     public static boolean isOviparous(Animal animal) {
-        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(animal.getType());
-        return key != null && Config.OVIPAROUS_MOBS.get().contains(key.toString());
+        return OviparousRegistry.isOviparous(animal);
     }
 
     private static void layFertilizedEgg(ServerLevel level, Animal mother) {
-        ItemStack egg = new ItemStack(Items.EGG);
+        ItemStack egg = OviparousRegistry.createEgg(mother);
+        if (egg.isEmpty()) return;
         CompoundTag tag = new CompoundTag();
         tag.putBoolean(NBT_FERTILIZED_EGG, true);
+        ResourceLocation species = BuiltInRegistries.ENTITY_TYPE.getKey(mother.getType());
+        if (species != null) {
+            tag.putString(NBT_SPECIES, species.toString());
+        }
         CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
         ItemEntity itemEntity = new ItemEntity(level, mother.getX(), mother.getY() + 0.3, mother.getZ(), egg);
         level.addFreshEntity(itemEntity);
@@ -271,7 +276,6 @@ public final class PregnancySystem {
     }
 
     public static boolean isFertilizedEgg(ItemStack stack) {
-        if (!stack.is(Items.EGG)) return false;
         CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         return data.copyTag().getBoolean(NBT_FERTILIZED_EGG);
     }

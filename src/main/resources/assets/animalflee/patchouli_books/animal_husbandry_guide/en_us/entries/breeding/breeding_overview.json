@@ -12,7 +12,12 @@
     {
       "type": "patchouli:text",
       "title": "Pregnancy & Birth",
-      "text": "Pregnancy lasts about 120 minutes for cows (scaled by body size). Pregnant animals eat 1.5x faster and their belly grows bigger.$(br2)When the time comes, live-bearing animals give birth to a baby. Chickens lay fertilized eggs instead.$(br2)A newborn does not grow up on its own - it must be kept well fed. See $(l:animalflee:growth/growth_overview)Raising Young$()."
+      "text": "Pregnancy lasts about 120 minutes for cows (scaled by body size). Pregnant animals eat 1.5x faster and their belly grows bigger.$(br2)When the time comes, live-bearing animals give birth to a baby.$(br2)A newborn does not grow up on its own - it must be kept well fed. See $(l:animalflee:growth/growth_overview)Raising Young$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Oviparous Animals",
+      "text": "Oviparous animals (like chickens) do NOT get pregnant! Instead, they lay eggs on a fixed cycle.$(br2)A female oviparous animal lays an egg about every 1 MC day. If a qualified male is nearby, she lays a fertilized egg; otherwise she lays a normal egg.$(br2)Both wild and domesticated oviparous animals lay eggs."
     },
     {
       "type": "patchouli:entity",

@@ -1,0 +1,23 @@
+{
+  "name": "摔死也会掉落",
+  "icon": "minecraft:rabbit_foot",
+  "category": "animalflee:fall_damage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "摔死掉落",
+      "text": "原版游戏中，仅因摔落伤害死亡的生物不会掉落需要「被玩家击杀」条件的特殊战利品。$(br2)本模组改变了这一点：动物（猪、牛、羊、鸡、兔等）因摔落死亡时，会掉落与玩家亲手击杀$(bold)完全一致$()的掉落物——包括兔子脚等稀有物品。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "注意事项",
+      "text": "$(bold)不掉经验：$()摔死不会产生经验球。$(br2)$(bold)需要玩家在场：$()只有附近 32 格内存在存活玩家时才会补全掉落。$(br2)该行为可在配置中关闭（fallDamageLoot）。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:rabbit",
+      "text": "兔子的稀有掉落「兔子脚」在摔死时也有机会掉落。"
+    }
+  ]
+}

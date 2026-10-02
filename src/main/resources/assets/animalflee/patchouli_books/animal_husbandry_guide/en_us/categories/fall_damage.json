@@ -1,0 +1,6 @@
+{
+  "name": "Fall Damage Loot",
+  "description": "Animals drop full loot when killed by fall damage.",
+  "icon": "minecraft:feather",
+  "sortnum": 8
+}

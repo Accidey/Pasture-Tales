@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -29,14 +28,13 @@ public class OviparousLayHandler {
     public static void onEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
         if (!(event.getEntity() instanceof Animal animal)) return;
-        if (AnimalFleeEntityHelper.isMaidEntity(animal)) return;
+        if (!AnimalFleeEntityHelper.isSupportedAnimal(animal)) return;
         if (animal.tickCount % TICK_INTERVAL != 0) return;
         tickLay(animal);
     }
 
     private static void tickLay(Animal animal) {
         if (animal instanceof Chicken) return;
-        if (animal instanceof Frog) return;
         if (!OviparousRegistry.isOviparous(animal)) return;
         if (animal.isBaby()) return;
         if (!GenderLogic.isFemale(animal)) return;
