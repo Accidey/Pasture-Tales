@@ -372,7 +372,7 @@ public class MobFleeLogic {
         data.remove(NBT_FLEE_LAST_X);
         data.remove(NBT_FLEE_LAST_Z);
         data.remove(NBT_ORIGINAL_NO_AI);
-        data.putBoolean(NBT_FLEE_ACTIVE, false);
+        data.remove(NBT_FLEE_ACTIVE);
         mob.setNoAi(originalNoAi);
         removeStepUpModifier(mob);
     }
