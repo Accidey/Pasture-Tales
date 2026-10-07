@@ -28,3 +28,17 @@
 - 手册 JSON 改完用 `python -c "json.load(...)"` 校验，并核对 zh_cn / en_us 条目文件名集合相等。
 - **DNF 凯莉猪相关的实现细节不得写入 `开发文档.md` 或任何手册/README**（见上）。
 - 提交 Git 前按 `开发规范.md` §5 清单逐项核对（Config 分隔行数 = 项数-1、注释块内无 `""`、无代码注释、无临时文件）。
+
+## 钓鱼：「必须有真实鱼实体」的确切边界（用户已定案，不要当 bug 改）
+
+- 该规则**只对「鱼」生效**：`FishConsumptionHandler.onItemFished` 在 `containsFish` 为真时
+  用 `pickFishNearby` 拉鱼，并把掉落物里所有 `ItemTags.FISHES` 物品 `setCount(0)`。
+  附近没有真实鱼实体 → 这一杆**空手**。
+- **垃圾（10%）与宝藏（5%）不受影响**：它们不在 `ItemTags.FISHES` 里，`containsFish` 为假时
+  方法直接 return，掉落物原样进包。原版权重（无海之眷顾）为 鱼 85 / 垃圾 10 / 宝藏 5，
+  宝藏另有 `in_open_water` 条件。
+- 净效果 = 85% 空钩 + 15% 垃圾/宝藏，**不是**「完全钓不到东西」。用户明确选择保留此行为
+  （2026-10-07），若将来想连垃圾/宝藏一起挡掉，需把鱼实体判定加回 `FishingRestrictionMixin`
+  的咬钩门禁（重构前的历史行为）。
+- 该规则**与 `FISHING_REQUIRES_NATURAL_WATER` 开关无关**——`FishConsumptionHandler` 无条件生效。
+  只有「非自然水域」才由 `FishingRestrictionMixin` 取消 `catchingFish`，那是整杆什么都不出。

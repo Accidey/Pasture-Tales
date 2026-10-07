@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Real Fish Entities",
-      "text": "Fishing only works if real fish entities exist near your hook. When you catch a fish, an actual fish entity is pulled to your feet — kill it to get the drops. Each catch consumes one fish from the area."
+      "text": "You can only catch fish if real fish entities exist near your hook. When you catch one, an actual fish entity is pulled to your feet - kill it to get the drops. Each catch consumes one fish from the area.$(br2)$(bold)Note: junk and treasure are not affected.$() With no fish around, a fish roll comes up empty, but you can still pull up $(bold)junk$() like lily pads, leather boots, bones or bamboo, or $(bold)treasure$() like name tags, saddles, books or nautilus shells."
     },
     {
       "type": "patchouli:spotlight",
