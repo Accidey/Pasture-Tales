@@ -22,7 +22,6 @@ public final class GrowthSystem {
 
     public static void initGrowth(Animal animal) {
         CompoundTag data = animal.getPersistentData();
-        HungerSystem.setDomesticated(animal);
         if (!data.contains(NBT_GROWTH_START)) {
             data.putLong(NBT_GROWTH_START, animal.level().getDayTime());
             data.putLong(NBT_GROWTH_ACCUM, 0L);

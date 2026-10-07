@@ -32,6 +32,7 @@ public final class PregnancySystem {
     public static final String NBT_COOLDOWN_UNTIL = "af_cooldown_until";
     public static final String NBT_FERTILIZED_EGG = "af_fertilized";
     public static final String NBT_SPECIES = "af_species";
+    public static final String NBT_OFFSPRING_DOMESTICATED = "af_offspring_domesticated";
 
     private static final int CHECK_INTERVAL = 100;
     private static final double CONCEPTION_CHANCE = 0.05;
@@ -209,6 +210,9 @@ public final class PregnancySystem {
             AgeableMob baby = createOffspring(serverLevel, animal, data);
             if (baby != null) {
                 baby.setBaby(true);
+                if (baby instanceof Animal newborn) {
+                    HungerSystem.setDomesticated(newborn);
+                }
                 baby.moveTo(animal.getX(), animal.getY(), animal.getZ(), animal.getYRot(), 0.0F);
                 serverLevel.addFreshEntity(baby);
             }
@@ -252,6 +256,7 @@ public final class PregnancySystem {
         if (egg.isEmpty()) return;
         CompoundTag tag = new CompoundTag();
         tag.putBoolean(NBT_FERTILIZED_EGG, true);
+        tag.putBoolean(NBT_OFFSPRING_DOMESTICATED, true);
         ResourceLocation species = BuiltInRegistries.ENTITY_TYPE.getKey(mother.getType());
         if (species != null) {
             tag.putString(NBT_SPECIES, species.toString());

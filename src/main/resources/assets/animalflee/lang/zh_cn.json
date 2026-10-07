@@ -20,6 +20,7 @@
   "animalflee.configuration.passiveMobFlee": "被动生物是否逃跑",
   "animalflee.configuration.aquaticMobFlee": "水生生物是否逃跑",
   "animalflee.configuration.flockFlee": "逃跑时是否启用群体行为",
+  "animalflee.configuration.panicSpreadRadius": "受惊扩散半径",
   "animalflee.configuration.fishingRequiresNaturalWater": "钓鱼是否要求自然水域",
   "animalflee.configuration.fishingMinWaterVolume": "自然湖泊最小连通水方块数量",
   "animalflee.configuration.fishScanRadius": "钓鱼时扫描鱼实体的半径",
@@ -85,5 +86,6 @@
   "tooltip.animalflee.fish_bait": "可以作为鱼饵，丢入自然水域可吸引鱼群（0.5~1 天后生成鱼）",
   "tooltip.animalflee.fertilized_egg": "受精蛋：放在不见天日的干草块上，约 1 个 MC 天后孵化",
   "tooltip.animalflee.fertilized_egg_species": "受精蛋（%s）：放在不见天日的干草块上，约 1 个 MC 天后孵化",
-  "tooltip.animalflee.normal_egg": "普通蛋：无法孵化"
+  "tooltip.animalflee.normal_egg": "普通蛋：无法孵化",
+  "msg.animalflee.smell": "动物发现了你，受惊逃走了"
 }

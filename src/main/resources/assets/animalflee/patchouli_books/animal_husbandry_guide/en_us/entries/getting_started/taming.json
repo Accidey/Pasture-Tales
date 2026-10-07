@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "How to Tame",
-      "text": "Every wild animal starts with hunger between 50% and 80% of its max. This means they are always willing to eat.$(br2)Hold the right food and right-click the animal. Its hunger rises, and it becomes $(bold)domesticated$() forever."
+      "text": "Every wild animal starts with hunger between 50% and 80% of its max. This means they are always willing to eat.$(br2)Hold the right food and right-click the animal. Its hunger rises, and it becomes $(bold)domesticated$() forever.$(br2)A baby born to domesticated parents, or hatched from a domesticated hen's fertilized egg, is $(bold)domesticated from birth$(); a baby that spawns in the wild is wild and needs you to feed it once."
     },
     {
       "type": "patchouli:spotlight",

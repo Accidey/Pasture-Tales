@@ -20,6 +20,7 @@
   "animalflee.configuration.passiveMobFlee": "Passive Mob Flee",
   "animalflee.configuration.aquaticMobFlee": "Aquatic Mob Flee",
   "animalflee.configuration.flockFlee": "Use Flocking When Fleeing",
+  "animalflee.configuration.panicSpreadRadius": "Panic Spread Radius",
   "animalflee.configuration.fishingRequiresNaturalWater": "Fishing Requires Natural Water",
   "animalflee.configuration.fishingMinWaterVolume": "Minimum Natural Lake Water Blocks",
   "animalflee.configuration.fishScanRadius": "Fish Scan Radius for Fishing",
@@ -85,5 +86,6 @@
   "tooltip.animalflee.fish_bait": "Can be used as fish bait. Drop it into natural water to attract fish (spawns fish after 0.5~1 day)",
   "tooltip.animalflee.fertilized_egg": "Fertilized egg: place on a sheltered hay block to hatch in about 1 MC day",
   "tooltip.animalflee.fertilized_egg_species": "Fertilized %s egg: place on a sheltered hay block to hatch in about 1 MC day",
-  "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch"
+  "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch",
+  "msg.animalflee.smell": "An animal noticed you and fled"
 }

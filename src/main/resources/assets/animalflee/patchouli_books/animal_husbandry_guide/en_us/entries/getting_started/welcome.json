@@ -19,6 +19,11 @@
       "item": "minecraft:wheat",
       "title": "Why Animals Run Away",
       "text": "Wild animals will flee when you approach! Sneak up to them or chase them into a corner. Once you feed them, they become domesticated and will no longer run away."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Panic Is Contagious",
+      "text": "Fleeing is contagious! The moment one animal is startled and starts to flee, every other animal that would flee ($(bold)of any species$()) within $(bold)10 blocks$() is startled into running too.$(br2)So do not expect to spook one cow and sneak past the sheep next to it - the whole pen will scatter.$(br2)Already domesticated animals are not swept up by this wave of panic."
     }
   ]
 }

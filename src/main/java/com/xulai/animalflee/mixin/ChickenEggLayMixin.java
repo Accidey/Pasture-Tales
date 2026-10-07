@@ -1,6 +1,7 @@
 package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.logic.GenderLogic;
+import com.xulai.animalflee.logic.HungerSystem;
 import com.xulai.animalflee.logic.PregnancySystem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -82,6 +83,7 @@ public class ChickenEggLayMixin {
             CompoundTag tag = new CompoundTag();
             tag.putBoolean(PregnancySystem.NBT_FERTILIZED_EGG, true);
             tag.putString(PregnancySystem.NBT_SPECIES, "minecraft:chicken");
+            tag.putBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED, HungerSystem.isDomesticated(self));
             CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
         }
         return self.spawnAtLocation(egg);

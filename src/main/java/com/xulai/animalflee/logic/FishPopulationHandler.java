@@ -1,32 +1,43 @@
 package com.xulai.animalflee.logic;
 
+import com.xulai.animalflee.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.AbortableIterationConsumer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 
-import java.util.List;
-
 public final class FishPopulationHandler {
+
+    private static final EntityTypeTest<Entity, AbstractFish> FISH_TYPE = EntityTypeTest.forClass(AbstractFish.class);
 
     private FishPopulationHandler() {
     }
 
-    public static int countFishNearby(ServerLevel level, BlockPos pos, double radius) {
-        AABB box = new AABB(pos).inflate(radius, radius, radius);
-        return level.getEntitiesOfClass(AbstractFish.class, box, fish -> fish.isAlive()).size();
+    private static boolean isCatchable(AbstractFish fish) {
+        return fish.isAlive() && fish.isInWater();
     }
 
-    public static AbstractFish pickFishNearby(ServerLevel level, BlockPos pos, double radius) {
+    private static AbstractFish findCatchableFish(ServerLevel level, BlockPos pos, double radius) {
         AABB box = new AABB(pos).inflate(radius, radius, radius);
-        List<AbstractFish> fishList = level.getEntitiesOfClass(AbstractFish.class, box, fish -> fish.isAlive());
-        if (fishList.isEmpty()) {
-            return null;
-        }
-        return fishList.get(level.random.nextInt(fishList.size()));
+        AbstractFish[] found = new AbstractFish[1];
+        level.getEntities().get(FISH_TYPE, box, (AbortableIterationConsumer<AbstractFish>) fish -> {
+            if (isCatchable(fish)) {
+                found[0] = fish;
+                return AbortableIterationConsumer.Continuation.ABORT;
+            }
+            return AbortableIterationConsumer.Continuation.CONTINUE;
+        });
+        return found[0];
+    }
+
+    public static AbstractFish pickFishNearby(ServerLevel level, BlockPos pos) {
+        return findCatchableFish(level, pos, Config.FISH_FISH_SCAN_RADIUS.get());
     }
 
     public static void spawnFish(ServerLevel level, BlockPos pos, int count) {

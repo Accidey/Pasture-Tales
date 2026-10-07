@@ -17,7 +17,7 @@
     {
       "type": "patchouli:text",
       "title": "配置",
-      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)关键选项：逃跑触发距离、饥饿消耗速度、孕期时长、孵化时长、草食/肉食列表等。所有选项都支持热重载！"
+      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)关键选项：逃跑触发距离、$(bold)受惊扩散半径$()（设为 0 关闭）、饥饿消耗速度、孕期时长、孵化时长、草食/肉食列表等。所有选项都支持热重载！"
     }
   ]
 }

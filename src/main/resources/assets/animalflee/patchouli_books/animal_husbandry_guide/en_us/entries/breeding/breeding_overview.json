@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Pregnancy & Birth",
-      "text": "Pregnancy lasts about 120 minutes for cows (scaled by body size). Pregnant animals eat 1.5x faster and their belly grows bigger.$(br2)When the time comes, live-bearing animals give birth to a baby.$(br2)A newborn does not grow up on its own - it must be kept well fed. See $(l:animalflee:growth/growth_overview)Raising Young$()."
+      "text": "Pregnancy lasts about 120 minutes for cows (scaled by body size). Pregnant animals eat 1.5x faster and their belly grows bigger.$(br2)When the time comes, live-bearing animals give birth to a baby that is $(bold)domesticated from birth$().$(br2)That baby will not grow up on its own like in vanilla - a domesticated baby must be kept well fed. See $(l:animalflee:growth/growth_overview)Raising Young$()."
     },
     {
       "type": "patchouli:text",

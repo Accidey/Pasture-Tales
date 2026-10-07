@@ -9,11 +9,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -55,6 +57,9 @@ public class MobFleeLogic {
     private static final String NBT_FLEE_LAST_Z = "AF_FleeLastZ";
     private static final String NBT_FLEE_ACTIVE = "AF_FleeActive";
     private static final String NBT_ORIGINAL_NO_AI = "AF_OriginalNoAi";
+    private static final String NBT_RECENTLY_RIDDEN = "AF_RecentlyRidden";
+    private static final String NBT_RECENTLY_RIDDEN_TICKS = "AF_RecentlyRiddenTicks";
+    private static final int RECENTLY_RIDDEN_TICKS = 40;
     private static final String STEP_MODIFIER_ID = "animalflee:flee_step_up";
     private static final double STEP_UP_BONUS = 0.4;
     private static final int MAX_FLEE_TICKS = 1200;
@@ -76,6 +81,10 @@ public class MobFleeLogic {
     private static final double FLOCK_SEARCH_RANGE = 6.0;
     private static final double FLOCK_INFLUENCE = 0.45;
     private static final double FLOCK_CONTRARY_FACTOR = 0.25;
+    private static final double SNIFF_DISTANCE = 3.0;
+    private static final double SNIFF_CHANCE = 0.3;
+    private static final double JUMP_EXPOSE_DISTANCE = 5.0;
+    private static final Set<Integer> SNIFF_ROLLED = new HashSet<>();
     private static final BoidsSimulation PANIC_FLOCK = new BoidsSimulation(
             0.8f,
             2.5f,
@@ -108,11 +117,47 @@ public class MobFleeLogic {
         if (entity instanceof ServerPlayer player) {
             if (shouldIgnorePlayer(player)) return;
             if (player.tickCount % 10 != 0) return;
-            double triggerDist = Config.FLEE_TRIGGER_DISTANCE.get();
+            double baseDist = Config.FLEE_TRIGGER_DISTANCE.get();
+            double triggerDist = effectiveTriggerDist(player, baseDist);
+            boolean invisible = isInvisible(player);
+            boolean jumping = invisible && isJumping(player);
             AABB box = player.getBoundingBox().inflate(triggerDist + 4.0);
             List<Mob> mobs = player.level().getEntitiesOfClass(Mob.class, box, Mob::isAlive);
             for (Mob mob : mobs) {
-                if (shouldFlee(mob)) {
+                if (!shouldFlee(mob)) continue;
+                double dist = distanceXZ(mob, player);
+                if (isRecentlyRidden(mob)) {
+                    SNIFF_ROLLED.remove(mob.getId());
+                    if (dist <= baseDist) {
+                        processFlee(mob, player, baseDist);
+                    }
+                    continue;
+                }
+                if (invisible && player.getBoundingBox().inflate(0.1).intersects(mob.getBoundingBox())) {
+                    SNIFF_ROLLED.remove(mob.getId());
+                    exposeFlee(player, mob, Math.max(baseDist, dist));
+                    continue;
+                }
+                if (jumping && dist <= JUMP_EXPOSE_DISTANCE) {
+                    SNIFF_ROLLED.remove(mob.getId());
+                    exposeFlee(player, mob, Math.max(baseDist, dist));
+                    continue;
+                }
+                if (dist > triggerDist) {
+                    SNIFF_ROLLED.remove(mob.getId());
+                    continue;
+                }
+                if (invisible && !player.isSprinting() && !jumping) {
+                    if (SNIFF_ROLLED.contains(mob.getId())) continue;
+                    if (player.getRandom().nextDouble() < SNIFF_CHANCE) {
+                        SNIFF_ROLLED.add(mob.getId());
+                        player.sendSystemMessage(Component.translatable("msg.animalflee.smell"), false);
+                        processFlee(mob, player, triggerDist);
+                    } else {
+                        SNIFF_ROLLED.add(mob.getId());
+                    }
+                } else {
+                    SNIFF_ROLLED.remove(mob.getId());
                     processFlee(mob, player, triggerDist);
                 }
             }
@@ -120,8 +165,52 @@ public class MobFleeLogic {
         }
 
         if (entity instanceof Mob mob) {
+            trackRiddenState(mob);
             tickFlee(mob);
         }
+    }
+
+    private static void trackRiddenState(Mob mob) {
+        CompoundTag data = mob.getPersistentData();
+        boolean recentlyRidden = data.getBoolean(NBT_RECENTLY_RIDDEN);
+        if (mob.isVehicle()) {
+            data.putBoolean(NBT_RECENTLY_RIDDEN, true);
+            return;
+        }
+        if (!recentlyRidden) return;
+        if (isExemptFromFlee(mob)) {
+            data.remove(NBT_RECENTLY_RIDDEN);
+            return;
+        }
+        int ticks = data.getInt(NBT_RECENTLY_RIDDEN_TICKS) + 1;
+        if (ticks >= RECENTLY_RIDDEN_TICKS) {
+            data.remove(NBT_RECENTLY_RIDDEN);
+            data.remove(NBT_RECENTLY_RIDDEN_TICKS);
+            return;
+        }
+        data.putInt(NBT_RECENTLY_RIDDEN_TICKS, ticks);
+    }
+
+    private static boolean isRecentlyRidden(Mob mob) {
+        return mob.getPersistentData().getBoolean(NBT_RECENTLY_RIDDEN);
+    }
+
+    private static boolean isInvisible(Player player) {
+        return player.hasEffect(MobEffects.INVISIBILITY);
+    }
+
+    private static boolean isJumping(Player player) {
+        return !player.onGround() && player.getDeltaMovement().y > 0.0;
+    }
+
+    private static void exposeFlee(ServerPlayer player, Mob mob, double triggerDist) {
+        player.sendSystemMessage(Component.translatable("msg.animalflee.smell"), false);
+        processFlee(mob, player, triggerDist);
+    }
+
+    private static double effectiveTriggerDist(Player player, double baseDist) {
+        if (!isInvisible(player)) return baseDist;
+        return player.isSprinting() ? baseDist / 2.0 : SNIFF_DISTANCE;
     }
 
     private static boolean isBlacklisted(Mob mob) {
@@ -130,15 +219,27 @@ public class MobFleeLogic {
         return getBlacklist().contains(key.toString());
     }
 
+    private static boolean isDnfKaiLiPig(Mob mob) {
+        return mob.getTags().contains("dnfenhance_kai_li");
+    }
+
     private static boolean shouldIgnorePlayer(Player player) {
         return player.isCreative() || player.isSpectator();
     }
 
+    private static boolean isExemptFromFlee(Mob mob) {
+        if (AnimalFleeEntityHelper.isExcluded(mob)) return true;
+        if (AnimalFleeEntityHelper.isMaidEntity(mob)) return true;
+        if (HungerSystem.isDomesticated(mob)) return true;
+        if (isBlacklisted(mob)) return true;
+        if (isDnfKaiLiPig(mob)) return true;
+        if (mob.isVehicle()) return true;
+        if (mob instanceof net.minecraft.world.entity.animal.horse.AbstractHorse horse && horse.isTamed()) return true;
+        return false;
+    }
+
     private static boolean shouldFlee(Mob mob) {
-        if (AnimalFleeEntityHelper.isExcluded(mob)) return false;
-        if (AnimalFleeEntityHelper.isMaidEntity(mob)) return false;
-        if (HungerSystem.isDomesticated(mob)) return false;
-        if (isBlacklisted(mob)) return false;
+        if (isExemptFromFlee(mob)) return false;
         if (isEnclosed(mob)) return false;
         if (isSubmerged(mob)) return false;
         boolean flee = false;
@@ -210,6 +311,7 @@ public class MobFleeLogic {
     }
 
     public static void processFlee(Mob mob, Player player, double triggerDist) {
+        if (isExemptFromFlee(mob)) return;
         CompoundTag data = mob.getPersistentData();
         if (data.getBoolean(NBT_FLEE_ACTIVE)) return;
         if (shouldIgnorePlayer(player)) return;
@@ -217,6 +319,26 @@ public class MobFleeLogic {
         if (isSubmerged(mob)) return;
         if (distanceXZ(mob, player) > triggerDist) return;
 
+        beginFlee(mob, player);
+        spreadPanic(mob, player);
+    }
+
+    private static void spreadPanic(Mob source, Player player) {
+        double radius = Config.PANIC_SPREAD_RADIUS.get();
+        if (radius <= 0.0) return;
+        AABB box = source.getBoundingBox().inflate(radius, radius, radius);
+        List<Mob> nearby = source.level().getEntitiesOfClass(Mob.class, box, Mob::isAlive);
+        for (Mob other : nearby) {
+            if (other == source) continue;
+            if (other.getPersistentData().getBoolean(NBT_FLEE_ACTIVE)) continue;
+            if (!shouldFlee(other)) continue;
+            if (distanceXZ(other, source) > radius) continue;
+            beginFlee(other, player);
+        }
+    }
+
+    private static void beginFlee(Mob mob, Player player) {
+        CompoundTag data = mob.getPersistentData();
         double[] path = pickFleeTarget(mob, player);
 
         data.putDouble(NBT_FLEE_TARGET_X, path[0]);
@@ -240,6 +362,11 @@ public class MobFleeLogic {
     public static void tickFlee(Mob mob) {
         CompoundTag data = mob.getPersistentData();
         if (!data.getBoolean(NBT_FLEE_ACTIVE)) return;
+
+        if (isExemptFromFlee(mob)) {
+            stopFlee(mob);
+            return;
+        }
 
         if (isEnclosed(mob)) {
             stopFlee(mob);

@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Maids Feed For You",
-      "text": "With Touhou Little Maid installed, the maid's \"feed animal\" task follows this mod's rules:$(br2)she only feeds domesticated animals below half hunger; she only uses food that the animal's diet allows and that actually has nutrition; and she keeps feeding until the animal is full.$(br2)Babies count too - a maid will fill them up so stalled growth resumes."
+      "text": "With Touhou Little Maid installed, the maid's \"feed animal\" task follows this mod's rules:$(br2)she only feeds $(bold)domesticated$() animals below half hunger; she only uses food that the animal's diet allows and that actually has nutrition; and she keeps feeding until the animal is full.$(br2)Domesticated babies count too - a maid will fill them up so stalled growth resumes. (Wild babies never burn hunger and grow up on their own, so they need no feeding.)"
     },
     {
       "type": "patchouli:text",

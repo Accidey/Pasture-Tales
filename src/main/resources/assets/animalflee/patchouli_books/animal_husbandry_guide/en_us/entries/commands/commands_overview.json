@@ -17,7 +17,7 @@
     {
       "type": "patchouli:text",
       "title": "Configuration",
-      "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)Key options: flee trigger distance, hunger drain rate, pregnancy duration, egg incubation time, herbivore/carnivore lists, and more. All options support hot reload!"
+      "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)Key options: flee trigger distance, $(bold)panic spread radius$() (set to 0 to disable), hunger drain rate, pregnancy duration, egg incubation time, herbivore/carnivore lists, and more. All options support hot reload!"
     }
   ]
 }

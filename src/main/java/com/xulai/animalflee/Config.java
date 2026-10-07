@@ -64,6 +64,25 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        PANIC_SPREAD_RADIUS = BUILDER
+                .comment(
+                        "受惊扩散半径（格）",
+                        "Panic spread radius (blocks)",
+                        "动物开始逃跑的一瞬间，会让水平方向该半径内、",
+                        "同样会逃跑的其它动物（不分物种）一起受惊逃跑。",
+                        "When an animal starts fleeing, every other animal that would flee",
+                        "(of any species) within this horizontal radius is startled into fleeing too.",
+                        "扩散只发生一次：被波及的动物不会继续向更远处传播。",
+                        "The spread fires only once: mobs pulled in do not spread it further.",
+                        "设为 0 表示关闭该功能。",
+                        "Set to 0 to disable this feature.",
+                        "Default: 10.0 / 默认：10.0",
+                        "Range: 0.0 ~ 64.0"
+                )
+                .defineInRange("panicSpreadRadius", 10.0, 0.0, 64.0);
+
+        BUILDER.comment(" ");
+
         FISHING_REQUIRES_NATURAL_WATER = BUILDER
                 .comment(
                         "钓鱼是否要求自然水域",
@@ -315,25 +334,23 @@ public class Config {
                         "Blacklist of mob IDs that will never flee.",
                         "这些生物即使属于被动/水生类别也不会逃跑。",
                         "Mobs in this list will not flee even if they are passive/aquatic.",
-                        "Default: [\"minecraft:wolf\", \"minecraft:parrot\", \"minecraft:donkey\", \"minecraft:mule\", ...]",
+                        "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:guardian\", \"minecraft:elder_guardian\", \"minecraft:sniffer\", \"minecraft:skeleton_horse\", \"minecraft:zombie_horse\", \"minecraft:trader_llama\", \"minecraft:dolphin\", \"minecraft:polar_bear\", \"minecraft:bee\", \"minecraft:axolotl\", \"minecraft:iron_golem\", \"minecraft:snow_golem\"]",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
                 .defineListAllowEmpty("blacklistedMobs", List.of(
                         "minecraft:wolf",
-                        "minecraft:parrot",
-                        "minecraft:donkey",
-                        "minecraft:mule",
+                        "minecraft:cat",
+                        "minecraft:guardian",
+                        "minecraft:elder_guardian",
+                        "minecraft:sniffer",
                         "minecraft:skeleton_horse",
                         "minecraft:zombie_horse",
-                        "minecraft:llama",
                         "minecraft:trader_llama",
-                        "minecraft:ocelot",
                         "minecraft:dolphin",
                         "minecraft:polar_bear",
                         "minecraft:bee",
                         "minecraft:axolotl",
-                        "minecraft:panda",
                         "minecraft:iron_golem",
                         "minecraft:snow_golem"
                 ), () -> "", obj -> obj instanceof String);
@@ -454,6 +471,7 @@ public class Config {
     public static final ModConfigSpec.BooleanValue PASSIVE_MOB_FLEE;
     public static final ModConfigSpec.BooleanValue AQUATIC_MOB_FLEE;
     public static final ModConfigSpec.BooleanValue FLOCK_FLEE;
+    public static final ModConfigSpec.DoubleValue PANIC_SPREAD_RADIUS;
     public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
     public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;

@@ -13,7 +13,7 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:egg",
       "title": "Fertilized Eggs",
-      "text": "Fertilized eggs have a special tooltip. To hatch one, place it on a $(bold)hay block$() that $(bold)cannot see the sky$(). After 1 in-game day (20 minutes), a chick will hatch."
+      "text": "Fertilized eggs have a special tooltip. To hatch one, place it on a $(bold)hay block$() that $(bold)cannot see the sky$(). After 1 in-game day (20 minutes), a chick will hatch.$(br2)Whether the chick is domesticated depends on the hen that laid it: a chick from a domesticated hen's egg is $(bold)domesticated from birth$(), while a wild hen's chick stays wild."
     },
     {
       "type": "patchouli:text",

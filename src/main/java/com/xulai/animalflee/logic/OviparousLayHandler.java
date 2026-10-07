@@ -60,6 +60,7 @@ public class OviparousLayHandler {
         if (HungerSystem.isDomesticated(animal) && PregnancySystem.canLayFertilizedEgg(animal)) {
             CompoundTag tag = new CompoundTag();
             tag.putBoolean(PregnancySystem.NBT_FERTILIZED_EGG, true);
+            tag.putBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED, true);
             var speciesKey = BuiltInRegistries.ENTITY_TYPE.getKey(animal.getType());
             if (speciesKey != null) {
                 tag.putString(PregnancySystem.NBT_SPECIES, speciesKey.toString());

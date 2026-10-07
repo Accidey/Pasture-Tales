@@ -23,11 +23,17 @@ public class GenderLogic {
     public static void initGender(Animal animal) {
         CompoundTag data = animal.getPersistentData();
         if (!data.contains(NBT_GENDER)) {
-            String gender = ThreadLocalRandom.current().nextBoolean() ? GENDER_MALE : GENDER_FEMALE;
+            String gender = isDnfKaiLiPig(animal)
+                    ? GENDER_FEMALE
+                    : (ThreadLocalRandom.current().nextBoolean() ? GENDER_MALE : GENDER_FEMALE);
             data.putString(NBT_GENDER, gender);
             data.putDouble(NBT_BABY_SCALE, randomScale(gender));
         }
         applyScale(animal, getBabyScale(animal));
+    }
+
+    private static boolean isDnfKaiLiPig(Animal animal) {
+        return animal.getTags().contains("dnfenhance_kai_li");
     }
 
     private static double randomScale(String gender) {

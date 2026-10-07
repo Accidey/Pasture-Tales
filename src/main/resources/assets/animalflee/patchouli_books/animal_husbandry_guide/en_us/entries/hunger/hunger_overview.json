@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Domesticated Animals Get Hungry",
-      "text": "Once you feed an animal, it becomes domesticated and starts consuming hunger over time.$(br2)Hunger drains each in-game day based on the configured percentage (default 50% per day). Pregnant animals burn hunger 1.5x faster."
+      "text": "Once you feed an animal, it becomes domesticated and starts consuming hunger over time.$(br2)Offspring of domesticated animals are domesticated from birth; babies that spawn naturally in the wild stay wild - $(bold)wild babies never burn hunger and never starve$().$(br2)Hunger drains each in-game day based on the configured percentage (default 50% per day). Pregnant animals burn hunger 1.5x faster."
     },
     {
       "type": "patchouli:spotlight",

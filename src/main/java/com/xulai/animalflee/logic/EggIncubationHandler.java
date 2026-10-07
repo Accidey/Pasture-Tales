@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -172,8 +173,12 @@ public class EggIncubationHandler {
         }
 
         Entity entity = type.create(level);
+        boolean domesticated = tag.getBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED);
         if (entity instanceof AgeableMob baby) {
             baby.setAge(-24000);
+            if (domesticated && baby instanceof Animal newborn) {
+                HungerSystem.setDomesticated(newborn);
+            }
             baby.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
             level.addFreshEntity(baby);
             egg.discard();
