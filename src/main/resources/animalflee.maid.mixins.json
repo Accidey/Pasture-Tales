@@ -4,7 +4,8 @@
   "package": "com.xulai.animalflee.mixin.maid",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MaidFeedAnimalTaskMixin"
+    "MaidFeedAnimalTaskMixin",
+    "MaidFishingHookMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -7,8 +7,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class HungerSystem {
@@ -19,6 +21,7 @@ public final class HungerSystem {
     public static final String NBT_METABOLISM = "af_metabolism";
     public static final String NBT_HUNGER_LAST_DAY_TIME = "af_hunger_last_daytime";
     public static final String NBT_STARVE_DAY_TIME = "af_starve_start_daytime";
+    public static final String NBT_LAST_FED_BY = "af_last_fed_by";
 
     public static final float MAX_HUNGER = 20.0F;
     public static final float MIN_HUNGER = 0.0F;
@@ -43,6 +46,11 @@ public final class HungerSystem {
 
     public static boolean isDomesticated(Mob mob) {
         return mob.getPersistentData().getBoolean(NBT_DOMESTICATED);
+    }
+
+    public static UUID getLastFedBy(Animal animal) {
+        CompoundTag data = animal.getPersistentData();
+        return data.hasUUID(NBT_LAST_FED_BY) ? data.getUUID(NBT_LAST_FED_BY) : null;
     }
 
     public static void setDomesticated(Animal animal) {
@@ -96,9 +104,12 @@ public final class HungerSystem {
         return AnimalFoods.canEatByDiet(animal, stack);
     }
 
-    public static float feed(Animal animal, ItemStack stack) {
+    public static float feed(Animal animal, ItemStack stack, Player feeder) {
         initHunger(animal);
         setDomesticated(animal);
+        if (feeder != null) {
+            animal.getPersistentData().putUUID(NBT_LAST_FED_BY, feeder.getUUID());
+        }
         MobFleeLogic.stopFlee(animal);
         float current = getHunger(animal);
         float restored = AnimalFoods.getSaturation(animal, stack);

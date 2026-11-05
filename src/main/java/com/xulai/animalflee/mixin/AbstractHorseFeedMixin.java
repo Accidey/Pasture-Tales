@@ -1,5 +1,6 @@
 package com.xulai.animalflee.mixin;
 
+import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.HungerSystem;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractHorse.class)
+@Mixin(value = AbstractHorse.class, priority = 900)
 public class AbstractHorseFeedMixin {
 
     private static final int POISON_DURATION_TICKS = 80;
@@ -23,12 +24,14 @@ public class AbstractHorseFeedMixin {
     private void animalflee$fedFood(Player player, ItemStack stack, CallbackInfoReturnable<InteractionResult> cir) {
         AbstractHorse horse = (AbstractHorse) (Object) this;
         if (horse.level().isClientSide) return;
+        if (AnimalFoods.getSaturation(horse, stack) <= 0.0F) return;
+        if (!AnimalFoods.canEatByDiet(horse, stack)) return;
         if (horse.isBaby()) {
             if (!HungerSystem.canEat(horse, stack)) {
                 cir.setReturnValue(InteractionResult.PASS);
                 return;
             }
-            HungerSystem.feed(horse, stack);
+            HungerSystem.feed(horse, stack, player);
             stack.consume(1, player);
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;
@@ -70,7 +73,7 @@ public class AbstractHorseFeedMixin {
             horse.modifyTemper(temper);
         }
 
-        HungerSystem.feed(horse, stack);
+        HungerSystem.feed(horse, stack, player);
         stack.consume(1, player);
         cir.setReturnValue(InteractionResult.SUCCESS);
     }

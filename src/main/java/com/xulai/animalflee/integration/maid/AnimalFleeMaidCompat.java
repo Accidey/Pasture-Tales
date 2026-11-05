@@ -2,6 +2,7 @@ package com.xulai.animalflee.integration.maid;
 
 import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.HungerSystem;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 
@@ -34,8 +35,8 @@ public final class AnimalFleeMaidCompat {
         return AnimalFoods.canEatByDiet(animal, stack);
     }
 
-    public static void feedByMaid(Animal animal, ItemStack food) {
+    public static void feedByMaid(Animal animal, ItemStack food, ServerPlayer owner) {
         if (animal.level().isClientSide) return;
-        HungerSystem.feed(animal, food);
+        HungerSystem.feed(animal, food, owner);
     }
 }

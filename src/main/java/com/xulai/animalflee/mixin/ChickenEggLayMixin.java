@@ -1,15 +1,13 @@
 package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.logic.GenderLogic;
-import com.xulai.animalflee.logic.HungerSystem;
 import com.xulai.animalflee.logic.PregnancySystem;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ItemLike;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -77,14 +75,10 @@ public class ChickenEggLayMixin {
 
         data.putLong(NBT_NEXT_EGG, nextEggInterval(self, dayTime));
 
-        boolean fertilized = PregnancySystem.canLayFertilizedEgg(self);
         ItemStack egg = new ItemStack(Items.EGG);
-        if (fertilized) {
-            CompoundTag tag = new CompoundTag();
-            tag.putBoolean(PregnancySystem.NBT_FERTILIZED_EGG, true);
-            tag.putString(PregnancySystem.NBT_SPECIES, "minecraft:chicken");
-            tag.putBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED, HungerSystem.isDomesticated(self));
-            CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
+        Animal mate = PregnancySystem.findLayMate(self);
+        if (mate != null) {
+            PregnancySystem.markFertilizedEgg(egg, self, mate);
         }
         return self.spawnAtLocation(egg);
     }

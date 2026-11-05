@@ -1,15 +1,12 @@
 package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -57,15 +54,11 @@ public class OviparousLayHandler {
         ItemStack egg = OviparousRegistry.createEgg(animal);
         if (egg.isEmpty()) return;
 
-        if (HungerSystem.isDomesticated(animal) && PregnancySystem.canLayFertilizedEgg(animal)) {
-            CompoundTag tag = new CompoundTag();
-            tag.putBoolean(PregnancySystem.NBT_FERTILIZED_EGG, true);
-            tag.putBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED, true);
-            var speciesKey = BuiltInRegistries.ENTITY_TYPE.getKey(animal.getType());
-            if (speciesKey != null) {
-                tag.putString(PregnancySystem.NBT_SPECIES, speciesKey.toString());
+        if (HungerSystem.isDomesticated(animal)) {
+            Animal mate = PregnancySystem.findLayMate(animal);
+            if (mate != null) {
+                PregnancySystem.markFertilizedEgg(egg, animal, mate);
             }
-            CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
         }
 
         ItemEntity itemEntity = new ItemEntity(level,

@@ -83,6 +83,27 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        NEVER_FLEE_CHANCE = BUILDER
+                .comment(
+                        "个体永久不逃跑的概率",
+                        "Chance for an individual to never flee from players",
+                        "每个会逃跑的生物在首次逃跑判定时掷一次骰子，",
+                        "命中该概率的个体会永久不再逃跑（隐身、跳跃暴露等触发同样不逃），",
+                        "掷骰结果随个体永久保存，重载配置只影响尚未掷骰的生物。",
+                        "设为 0 表示关闭该功能：所有会逃跑的生物都正常逃跑。",
+                        "Each mob that would flee rolls once at its first flee check.",
+                        "Individuals that hit this chance will never flee from players again",
+                        "(invisibility and jump-exposure triggers included).",
+                        "The result is stored per individual, so reloading the config",
+                        "only affects mobs that have not rolled yet.",
+                        "Set to 0 to disable the feature: every mob flees normally.",
+                        "Default: 0.1 / 默认：0.1",
+                        "Range: 0.0 ~ 1.0"
+                )
+                .defineInRange("neverFleeChance", 0.1, 0.0, 1.0);
+
+        BUILDER.comment(" ");
+
         FISHING_REQUIRES_NATURAL_WATER = BUILDER
                 .comment(
                         "钓鱼是否要求自然水域",
@@ -93,6 +114,8 @@ public class Config {
                         "or in natural lakes/ponds whose connected water surface is large enough.",
                         "玩家自己挖的小坑、人造水池无论等多久都钓不到鱼。",
                         "Small pits or artificial pools dug by players will never yield fish.",
+                        "车万女仆的钓鱼任务同样遵守这条限制。",
+                        "Maid fishing from Touhou Little Maid follows this restriction as well.",
                         "Default: true / 默认：true"
                 )
                 .define("fishingRequiresNaturalWater", true);
@@ -121,6 +144,8 @@ public class Config {
                         "每钓上一条鱼，范围内就会减少一条鱼实体，直到钓完。",
                         "Fishing only works when real fish entities exist within this radius around the hook;",
                         "each caught fish removes one fish entity from the area until none remain.",
+                        "女仆钓上来的鱼同样从这个范围内消耗一条鱼实体。",
+                        "Maid catches consume one fish entity from this radius too.",
                         "Default: 16 / 默认：16",
                         "Range: 4 ~ 64"
                 )
@@ -472,6 +497,7 @@ public class Config {
     public static final ModConfigSpec.BooleanValue AQUATIC_MOB_FLEE;
     public static final ModConfigSpec.BooleanValue FLOCK_FLEE;
     public static final ModConfigSpec.DoubleValue PANIC_SPREAD_RADIUS;
+    public static final ModConfigSpec.DoubleValue NEVER_FLEE_CHANCE;
     public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
     public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;

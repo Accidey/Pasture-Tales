@@ -1,6 +1,7 @@
 package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
+import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.HungerSystem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Animal.class)
+@Mixin(value = Animal.class, priority = 900)
 public class AnimalMobInteractMixin {
 
     private static final int POISON_DURATION_TICKS = 80;
@@ -27,17 +28,18 @@ public class AnimalMobInteractMixin {
         if (AnimalFleeEntityHelper.isExcluded(animal)) return;
 
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.isEmpty()) {
-            cir.setReturnValue(InteractionResult.PASS);
-            return;
-        }
+        if (stack.isEmpty()) return;
+        if (AnimalFoods.getSaturation(animal, stack) <= 0.0F) return;
+        if (!AnimalFoods.canEatByDiet(animal, stack)) return;
         if (!HungerSystem.canEat(animal, stack)) {
-            cir.setReturnValue(InteractionResult.PASS);
+            if (animal.isFood(stack)) {
+                cir.setReturnValue(InteractionResult.PASS);
+            }
             return;
         }
 
         if (animal.isBaby()) {
-            HungerSystem.feed(animal, stack);
+            HungerSystem.feed(animal, stack, player);
             stack.shrink(1);
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;
@@ -56,7 +58,7 @@ public class AnimalMobInteractMixin {
             animal.addEffect(new MobEffectInstance(MobEffects.POISON, POISON_DURATION_TICKS, 0));
         }
 
-        HungerSystem.feed(animal, stack);
+        HungerSystem.feed(animal, stack, player);
         stack.shrink(1);
         cir.setReturnValue(InteractionResult.SUCCESS);
     }

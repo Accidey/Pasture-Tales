@@ -161,31 +161,78 @@ public class EggIncubationHandler {
 
         ItemStack stack = egg.getItem();
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        String species = tag.getString(PregnancySystem.NBT_SPECIES);
-        EntityType<?> type = EntityType.CHICKEN;
-        if (!species.isEmpty()) {
-            try {
-                type = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(species));
-                if (type == null) type = EntityType.CHICKEN;
-            } catch (RuntimeException ignored) {
-                type = EntityType.CHICKEN;
+        EntityType<?> type = speciesType(tag);
+
+        Entity entity = type.create(level);
+        if (!(entity instanceof AgeableMob baby)) {
+            if (entity != null) {
+                entity.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
+                level.addFreshEntity(entity);
+                egg.discard();
+            }
+            return;
+        }
+
+        boolean domesticated = tag.getBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED);
+        Animal mother = resolveParent(level, tag, PregnancySystem.NBT_EGG_MOTHER, type, egg);
+
+        baby.setAge(-24000);
+        AgeableMob result = baby;
+        if (mother != null) {
+            Animal father = resolveParent(level, tag, PregnancySystem.NBT_PREGNANCY_FATHER, fatherTypeOf(tag), egg);
+            if (father == null) {
+                father = mother;
+            }
+            result = BreedingEventBridge.postBirth(mother, father, baby, PregnancySystem.resolveBreeder(level, tag), domesticated);
+            if (result == null) {
+                egg.discard();
+                return;
             }
         }
 
-        Entity entity = type.create(level);
-        boolean domesticated = tag.getBoolean(PregnancySystem.NBT_OFFSPRING_DOMESTICATED);
-        if (entity instanceof AgeableMob baby) {
-            baby.setAge(-24000);
-            if (domesticated && baby instanceof Animal newborn) {
-                HungerSystem.setDomesticated(newborn);
-            }
-            baby.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
-            level.addFreshEntity(baby);
-            egg.discard();
-        } else if (entity != null) {
-            entity.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
-            level.addFreshEntity(entity);
-            egg.discard();
+        if (domesticated && result instanceof Animal newborn) {
+            HungerSystem.setDomesticated(newborn);
         }
+        result.moveTo(egg.getX(), egg.getY(), egg.getZ(), egg.getYRot(), 0.0F);
+        level.addFreshEntity(result);
+        egg.discard();
+    }
+
+    private static EntityType<?> speciesType(CompoundTag tag) {
+        String species = tag.getString(PregnancySystem.NBT_SPECIES);
+        if (species.isEmpty()) return EntityType.CHICKEN;
+        try {
+            EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(species));
+            return type == null ? EntityType.CHICKEN : type;
+        } catch (RuntimeException ignored) {
+            return EntityType.CHICKEN;
+        }
+    }
+
+    private static EntityType<?> fatherTypeOf(CompoundTag tag) {
+        String id = tag.getString(PregnancySystem.NBT_PREGNANCY_FATHER_TYPE);
+        if (id.isEmpty()) return null;
+        try {
+            return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id));
+        } catch (RuntimeException ignored) {
+            return null;
+        }
+    }
+
+    private static Animal resolveParent(ServerLevel level, CompoundTag tag, String uuidKey, EntityType<?> fallbackType, ItemEntity egg) {
+        if (tag.hasUUID(uuidKey)) {
+            Entity resolved = level.getEntity(tag.getUUID(uuidKey));
+            if (resolved instanceof Animal animal) {
+                return animal;
+            }
+        }
+        if (fallbackType != null) {
+            Entity dummy = fallbackType.create(level);
+            if (dummy instanceof Animal animal) {
+                animal.moveTo(egg.getX(), egg.getY(), egg.getZ());
+                return animal;
+            }
+        }
+        return null;
     }
 }

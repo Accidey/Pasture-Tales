@@ -66,18 +66,19 @@ public abstract class MaidFeedAnimalTaskMixin {
                     });
 
             if (feedEntity != null && feedEntity.closerThan(maid, 2)) {
+                ServerPlayer owner = maid.getOwner() instanceof ServerPlayer serverPlayer ? serverPlayer : null;
                 boolean fed = false;
                 while (AnimalFleeMaidCompat.canBeFedMore(feedEntity)) {
                     ItemStack food = ItemsUtil.getStack(maid, s -> AnimalFleeMaidCompat.isValidFood(feedEntity, s));
                     if (food.isEmpty()) break;
-                    AnimalFleeMaidCompat.feedByMaid(feedEntity, food);
+                    AnimalFleeMaidCompat.feedByMaid(feedEntity, food, owner);
                     food.shrink(1);
                     fed = true;
                 }
                 if (fed) {
                     maid.swing(InteractionHand.MAIN_HAND);
-                    if (maid.getOwner() instanceof ServerPlayer serverPlayer) {
-                        InitTrigger.MAID_EVENT.get().trigger(serverPlayer, TriggerType.MAID_FEED_ANIMAL);
+                    if (owner != null) {
+                        InitTrigger.MAID_EVENT.get().trigger(owner, TriggerType.MAID_FEED_ANIMAL);
                     }
                 }
                 feedEntity = null;

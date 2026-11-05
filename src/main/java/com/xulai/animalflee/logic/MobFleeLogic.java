@@ -21,6 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -59,6 +60,7 @@ public class MobFleeLogic {
     private static final String NBT_ORIGINAL_NO_AI = "AF_OriginalNoAi";
     private static final String NBT_RECENTLY_RIDDEN = "AF_RecentlyRidden";
     private static final String NBT_RECENTLY_RIDDEN_TICKS = "AF_RecentlyRiddenTicks";
+    private static final String NBT_NEVER_FLEES = "af_never_flees";
     private static final int RECENTLY_RIDDEN_TICKS = 40;
     private static final String STEP_MODIFIER_ID = "animalflee:flee_step_up";
     private static final double STEP_UP_BONUS = 0.4;
@@ -235,6 +237,7 @@ public class MobFleeLogic {
         if (isDnfKaiLiPig(mob)) return true;
         if (mob.isVehicle()) return true;
         if (mob instanceof net.minecraft.world.entity.animal.horse.AbstractHorse horse && horse.isTamed()) return true;
+        if (mob instanceof OwnableEntity ownable && ownable.getOwnerUUID() != null) return true;
         return false;
     }
 
@@ -249,7 +252,16 @@ public class MobFleeLogic {
         if (isAquatic(mob)) {
             flee |= Config.AQUATIC_MOB_FLEE.get();
         }
-        return flee;
+        if (!flee) return false;
+        return !isNeverFlees(mob);
+    }
+
+    private static boolean isNeverFlees(Mob mob) {
+        CompoundTag data = mob.getPersistentData();
+        if (!data.contains(NBT_NEVER_FLEES)) {
+            data.putBoolean(NBT_NEVER_FLEES, mob.getRandom().nextDouble() < Config.NEVER_FLEE_CHANCE.get());
+        }
+        return data.getBoolean(NBT_NEVER_FLEES);
     }
 
     private static boolean isEnclosed(Mob mob) {

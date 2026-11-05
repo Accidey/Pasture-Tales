@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -33,6 +34,8 @@ public final class PregnancySystem {
     public static final String NBT_FERTILIZED_EGG = "af_fertilized";
     public static final String NBT_SPECIES = "af_species";
     public static final String NBT_OFFSPRING_DOMESTICATED = "af_offspring_domesticated";
+    public static final String NBT_BREEDER = "af_breeder";
+    public static final String NBT_EGG_MOTHER = "af_egg_mother";
 
     private static final int CHECK_INTERVAL = 100;
     private static final double CONCEPTION_CHANCE = 0.05;
@@ -112,6 +115,13 @@ public final class PregnancySystem {
         if (fatherType != null) {
             data.putString(NBT_PREGNANCY_FATHER_TYPE, fatherType.toString());
         }
+        UUID breeder = HungerSystem.getLastFedBy(mother);
+        if (breeder == null) {
+            breeder = HungerSystem.getLastFedBy(father);
+        }
+        if (breeder != null) {
+            data.putUUID(NBT_BREEDER, breeder);
+        }
     }
 
     private static Animal findNearbyMale(Animal mother) {
@@ -183,6 +193,7 @@ public final class PregnancySystem {
         data.remove(NBT_PREGNANCY_DURATION);
         data.remove(NBT_PREGNANCY_FATHER);
         data.remove(NBT_PREGNANCY_FATHER_TYPE);
+        data.remove(NBT_BREEDER);
         removeBellyScale(animal);
     }
 
@@ -207,7 +218,11 @@ public final class PregnancySystem {
         if (isOviparous(animal)) {
             layFertilizedEgg(serverLevel, animal);
         } else {
-            AgeableMob baby = createOffspring(serverLevel, animal, data);
+            Animal partner = resolvePartner(serverLevel, animal, data);
+            AgeableMob baby = animal.getBreedOffspring(serverLevel, partner);
+            if (baby != null) {
+                baby = BreedingEventBridge.postBirth(animal, partner, baby, resolveBreeder(serverLevel, data), true);
+            }
             if (baby != null) {
                 baby.setBaby(true);
                 if (baby instanceof Animal newborn) {
@@ -222,17 +237,22 @@ public final class PregnancySystem {
         setCooldown(animal);
     }
 
-    private static AgeableMob createOffspring(ServerLevel level, Animal mother, CompoundTag data) {
+    private static Animal resolvePartner(ServerLevel level, Animal mother, CompoundTag data) {
         Animal father = findFather(level, data);
         if (father != null) {
-            return mother.getBreedOffspring(level, father);
+            return father;
         }
         EntityType<?> fatherType = fatherTypeOf(data);
         if (fatherType != null && isHorseDonkeyPair(mother.getType(), fatherType)
-                && fatherType.create(level) instanceof AgeableMob dummy) {
-            return mother.getBreedOffspring(level, dummy);
+                && fatherType.create(level) instanceof Animal dummy) {
+            return dummy;
         }
-        return mother.getBreedOffspring(level, mother);
+        return mother;
+    }
+
+    public static ServerPlayer resolveBreeder(ServerLevel level, CompoundTag data) {
+        if (!data.hasUUID(NBT_BREEDER)) return null;
+        return level.getServer().getPlayerList().getPlayer(data.getUUID(NBT_BREEDER));
     }
 
     private static EntityType<?> fatherTypeOf(CompoundTag data) {
@@ -254,16 +274,35 @@ public final class PregnancySystem {
     private static void layFertilizedEgg(ServerLevel level, Animal mother) {
         ItemStack egg = OviparousRegistry.createEgg(mother);
         if (egg.isEmpty()) return;
+        markFertilizedEgg(egg, mother, findNearbyMale(mother));
+        ItemEntity itemEntity = new ItemEntity(level, mother.getX(), mother.getY() + 0.3, mother.getZ(), egg);
+        level.addFreshEntity(itemEntity);
+    }
+
+    public static void markFertilizedEgg(ItemStack egg, Animal mother, Animal father) {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean(NBT_FERTILIZED_EGG, true);
-        tag.putBoolean(NBT_OFFSPRING_DOMESTICATED, true);
+        tag.putBoolean(NBT_OFFSPRING_DOMESTICATED, HungerSystem.isDomesticated(mother));
         ResourceLocation species = BuiltInRegistries.ENTITY_TYPE.getKey(mother.getType());
         if (species != null) {
             tag.putString(NBT_SPECIES, species.toString());
         }
+        tag.putUUID(NBT_EGG_MOTHER, mother.getUUID());
+        if (father != null) {
+            tag.putUUID(NBT_PREGNANCY_FATHER, father.getUUID());
+            ResourceLocation fatherType = BuiltInRegistries.ENTITY_TYPE.getKey(father.getType());
+            if (fatherType != null) {
+                tag.putString(NBT_PREGNANCY_FATHER_TYPE, fatherType.toString());
+            }
+        }
+        UUID breeder = HungerSystem.getLastFedBy(mother);
+        if (breeder == null && father != null) {
+            breeder = HungerSystem.getLastFedBy(father);
+        }
+        if (breeder != null) {
+            tag.putUUID(NBT_BREEDER, breeder);
+        }
         CustomData.set(DataComponents.CUSTOM_DATA, egg, tag);
-        ItemEntity itemEntity = new ItemEntity(level, mother.getX(), mother.getY() + 0.3, mother.getZ(), egg);
-        level.addFreshEntity(itemEntity);
     }
 
     private static void setCooldown(Animal animal) {
@@ -285,11 +324,11 @@ public final class PregnancySystem {
         return data.copyTag().getBoolean(NBT_FERTILIZED_EGG);
     }
 
-    public static boolean canLayFertilizedEgg(Animal hen) {
-        if (hen.level().isClientSide) return false;
-        if (hen.isBaby()) return false;
-        if (hen.getAge() != 0) return false;
-        return findNearbyMale(hen) != null;
+    public static Animal findLayMate(Animal mother) {
+        if (mother.level().isClientSide) return null;
+        if (mother.isBaby()) return null;
+        if (mother.getAge() != 0) return null;
+        return findNearbyMale(mother);
     }
 
     private static double breedMinHungerRatio() {
