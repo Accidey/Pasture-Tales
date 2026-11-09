@@ -1,0 +1,28 @@
+{
+  "name": "Common Settings",
+  "icon": "minecraft:comparator",
+  "category": "animalflee:commands",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Fleeing",
+      "text": "Flee $(bold)trigger distance$() (default 10 blocks), $(bold)panic spread radius$() (default 10 blocks, set to 0 to disable), the $(bold)share of animals born fearless$() (default 10%), and the $(bold)flock fleeing$() toggle.$(br2)You can also decide separately whether passive mobs and aquatic mobs flee, and maintain a list of mobs that are excluded entirely."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Fishing",
+      "text": "$(bold)Natural water only$() (on by default; turn it off and even a small backyard pond works), the minimum water volume for a natural pool (default 64 connected water blocks), and the $(bold)fish scan radius$() (default 16 blocks).$(br2)Luck and Luck of the Sea still work as usual; dropping bait into natural water slowly builds up a fish stock. See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Hunger & Growth",
+      "text": "The $(bold)hunger system$() master switch, daily drain (default 50%), days before starving to death (default 3), hunger needed to breed (default 80%), and hunger needed for a baby to grow (default 50%).$(br2)Growth time: a calf takes 7 in-game days as the baseline with a random 2-day spread; smaller animals grow faster."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Breeding, Eggs & More",
+      "text": "Pregnancy baseline (default 120 minutes) and its random spread, miscarriage chance, post-birth cooldown, $(bold)egg incubation time$() (default 20 minutes), and the $(bold)stop normal eggs from hatching$() toggle.$(br2)Also: the $(bold)full loot on fall deaths$() toggle, custom animal food, herbivore/carnivore lists, the oviparous mob list and the fully excluded mob list.$(br2)Number options apply immediately; the one exception is animals already born fearless."
+    }
+  ]
+}

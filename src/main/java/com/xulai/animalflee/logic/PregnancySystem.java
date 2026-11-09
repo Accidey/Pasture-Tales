@@ -18,6 +18,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,9 +37,19 @@ public final class PregnancySystem {
     public static final String NBT_OFFSPRING_DOMESTICATED = "af_offspring_domesticated";
     public static final String NBT_BREEDER = "af_breeder";
     public static final String NBT_EGG_MOTHER = "af_egg_mother";
+    public static final String NBT_MATE = "af_mate";
+    public static final String NBT_MATE_TYPE = "af_mate_type";
+    public static final String NBT_MATE_UNTIL = "af_mate_until";
+    public static final String NBT_ESTRUS_FATHER = "af_estrus_father";
+    public static final String NBT_ESTRUS_START = "af_estrus_start";
 
     private static final int CHECK_INTERVAL = 100;
     private static final double CONCEPTION_CHANCE = 0.05;
+    private static final long MATE_FERTILIZATION_TICKS = OviparousLayHandler.DAY_TICKS + OviparousLayHandler.MAX_FLOAT;
+    private static final long ESTRUS_COURT_TICKS = 60L;
+    private static final long ESTRUS_TIMEOUT_TICKS = 600L;
+    private static final double MATE_CONTACT_DISTANCE_SQR = 9.0;
+    private static final int REROUTE_INTERVAL = 10;
     private static final double MATE_RADIUS = 8.0;
     private static final double BELLY_MAX_SCALE = 0.15;
     private static final double BELLY_START_PROGRESS = 0.4;
@@ -58,7 +69,7 @@ public final class PregnancySystem {
 
         CompoundTag data = animal.getPersistentData();
         if (!data.getBoolean(NBT_PREGNANT)) {
-            tryStartPregnancy(animal, data);
+            tryStartEstrus(animal, data);
             return;
         }
 
@@ -88,21 +99,127 @@ public final class PregnancySystem {
         return Math.min(1.0F, Math.max(0.0F, (float) elapsed / (float) duration));
     }
 
-    private static void tryStartPregnancy(Animal animal, CompoundTag data) {
-        if (isOviparous(animal)) return;
+    private static void tryStartEstrus(Animal animal, CompoundTag data) {
         if (animal.isBaby()) return;
         if (animal.getAge() != 0) return;
         if (!GenderLogic.isFemale(animal)) return;
         if (!HungerSystem.isDomesticated(animal)) return;
         if (isPregnant(animal)) return;
         if (isInCooldown(animal, data)) return;
+        if (animal.isInLove()) return;
         if (HungerSystem.getHunger(animal) < HungerSystem.getMaxHunger(animal) * breedMinHungerRatio()) return;
         if (animal.level().random.nextDouble() > CONCEPTION_CHANCE) return;
 
         Animal father = findNearbyMale(animal);
         if (father == null) return;
 
-        conceive(animal, father);
+        animal.setInLove(null);
+        father.setInLove(null);
+        data.putUUID(NBT_ESTRUS_FATHER, father.getUUID());
+        data.putLong(NBT_ESTRUS_START, animal.level().getDayTime());
+    }
+
+    public static void tickEstrus(Animal female) {
+        CompoundTag data = female.getPersistentData();
+        if (!data.hasUUID(NBT_ESTRUS_FATHER)) return;
+        if (!(female.level() instanceof ServerLevel level)) return;
+
+        if (!(level.getEntity(data.getUUID(NBT_ESTRUS_FATHER)) instanceof Animal father) || !father.isAlive()) {
+            clearEstrus(female);
+            return;
+        }
+
+        long elapsed = level.getDayTime() - data.getLong(NBT_ESTRUS_START);
+        if (elapsed > ESTRUS_TIMEOUT_TICKS) {
+            clearEstrus(female);
+            return;
+        }
+        if (female.distanceToSqr(father) <= MATE_CONTACT_DISTANCE_SQR) {
+            if (elapsed >= ESTRUS_COURT_TICKS) {
+                clearEstrus(female);
+                completeMating(level, female, father);
+            }
+            return;
+        }
+        if (female.tickCount % REROUTE_INTERVAL != 0) return;
+
+        female.getNavigation().moveTo(father, 1.0);
+        father.getNavigation().moveTo(female, 1.0);
+    }
+
+    private static void clearEstrus(Animal female) {
+        CompoundTag data = female.getPersistentData();
+        data.remove(NBT_ESTRUS_FATHER);
+        data.remove(NBT_ESTRUS_START);
+    }
+
+    public static boolean handleBreedingCollision(ServerLevel level, Animal caller, Animal other) {
+        Animal female = isCollisionConceptionTarget(caller) ? caller
+                : (isCollisionConceptionTarget(other) ? other : null);
+        if (female == null) {
+            return false;
+        }
+        Animal male = female == caller ? other : caller;
+
+        clearEstrus(female);
+        completeMating(level, female, male);
+        return true;
+    }
+
+    private static void completeMating(ServerLevel level, Animal female, Animal male) {
+        female.resetLove();
+        male.resetLove();
+
+        if (isOviparous(female)) {
+            if (canFertilizeWith(female, male)) {
+                recordMating(female, male);
+                level.broadcastEntityEvent(female, (byte) 18);
+            }
+            return;
+        }
+        if (canConceiveWith(female, male)) {
+            conceive(female, male);
+            level.broadcastEntityEvent(female, (byte) 18);
+        }
+    }
+
+    private static boolean isCollisionConceptionTarget(Animal animal) {
+        return AnimalFleeEntityHelper.isSupportedAnimal(animal)
+                && !animal.isBaby()
+                && animal.getAge() == 0
+                && GenderLogic.isFemale(animal)
+                && HungerSystem.isDomesticated(animal);
+    }
+
+    private static void recordMating(Animal female, Animal male) {
+        CompoundTag data = female.getPersistentData();
+        data.putUUID(NBT_MATE, male.getUUID());
+        ResourceLocation maleType = BuiltInRegistries.ENTITY_TYPE.getKey(male.getType());
+        if (maleType != null) {
+            data.putString(NBT_MATE_TYPE, maleType.toString());
+        }
+        data.putLong(NBT_MATE_UNTIL, female.level().getDayTime() + MATE_FERTILIZATION_TICKS);
+    }
+
+    private static boolean canFertilizeWith(Animal female, Animal male) {
+        if (HungerSystem.getHunger(female) < HungerSystem.getMaxHunger(female) * breedMinHungerRatio()) return false;
+        if (!isCompatibleMate(female, male)) return false;
+        if (male.isBaby() || male.getAge() != 0) return false;
+        return GenderLogic.isMale(male);
+    }
+
+    private static boolean canConceiveWith(Animal female, Animal male) {
+        CompoundTag data = female.getPersistentData();
+        if (isPregnant(female)) return false;
+        if (isInCooldown(female, data)) return false;
+        if (HungerSystem.getHunger(female) < HungerSystem.getMaxHunger(female) * breedMinHungerRatio()) return false;
+        if (!isCompatibleMate(female, male)) return false;
+        if (male.isBaby() || male.getAge() != 0) return false;
+        if (!GenderLogic.isMale(male)) return false;
+        if (!HungerSystem.isDomesticated(male)) return false;
+        if (HungerSystem.getHunger(male) < HungerSystem.getMaxHunger(male) * breedMinHungerRatio()) return false;
+        if (isInCooldown(male, male.getPersistentData())) return false;
+        return true;
     }
 
     public static void conceive(Animal mother, Animal father) {
@@ -274,12 +391,28 @@ public final class PregnancySystem {
     private static void layFertilizedEgg(ServerLevel level, Animal mother) {
         ItemStack egg = OviparousRegistry.createEgg(mother);
         if (egg.isEmpty()) return;
-        markFertilizedEgg(egg, mother, findNearbyMale(mother));
+        fertilizeEgg(egg, mother);
         ItemEntity itemEntity = new ItemEntity(level, mother.getX(), mother.getY() + 0.3, mother.getZ(), egg);
         level.addFreshEntity(itemEntity);
     }
 
-    public static void markFertilizedEgg(ItemStack egg, Animal mother, Animal father) {
+    public static boolean fertilizeEgg(ItemStack egg, Animal mother) {
+        CompoundTag data = mother.getPersistentData();
+        if (!data.contains(NBT_MATE_UNTIL)) return false;
+        if (mother.level().getDayTime() >= data.getLong(NBT_MATE_UNTIL)) return false;
+
+        UUID fatherId = data.hasUUID(NBT_MATE) ? data.getUUID(NBT_MATE) : null;
+        markFertilizedEgg(egg, mother, fatherId, parseMateType(data.getString(NBT_MATE_TYPE)));
+        return true;
+    }
+
+    @Nullable
+    private static ResourceLocation parseMateType(String raw) {
+        return raw.isEmpty() ? null : ResourceLocation.tryParse(raw);
+    }
+
+    private static void markFertilizedEgg(ItemStack egg, Animal mother, @Nullable UUID fatherId,
+                                          @Nullable ResourceLocation fatherType) {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean(NBT_FERTILIZED_EGG, true);
         tag.putBoolean(NBT_OFFSPRING_DOMESTICATED, HungerSystem.isDomesticated(mother));
@@ -288,16 +421,16 @@ public final class PregnancySystem {
             tag.putString(NBT_SPECIES, species.toString());
         }
         tag.putUUID(NBT_EGG_MOTHER, mother.getUUID());
-        if (father != null) {
-            tag.putUUID(NBT_PREGNANCY_FATHER, father.getUUID());
-            ResourceLocation fatherType = BuiltInRegistries.ENTITY_TYPE.getKey(father.getType());
-            if (fatherType != null) {
-                tag.putString(NBT_PREGNANCY_FATHER_TYPE, fatherType.toString());
-            }
+        if (fatherId != null) {
+            tag.putUUID(NBT_PREGNANCY_FATHER, fatherId);
+        }
+        if (fatherType != null) {
+            tag.putString(NBT_PREGNANCY_FATHER_TYPE, fatherType.toString());
         }
         UUID breeder = HungerSystem.getLastFedBy(mother);
-        if (breeder == null && father != null) {
-            breeder = HungerSystem.getLastFedBy(father);
+        if (breeder == null && fatherId != null && mother.level() instanceof ServerLevel level
+                && level.getEntity(fatherId) instanceof Animal fatherEntity) {
+            breeder = HungerSystem.getLastFedBy(fatherEntity);
         }
         if (breeder != null) {
             tag.putUUID(NBT_BREEDER, breeder);
@@ -322,13 +455,6 @@ public final class PregnancySystem {
     public static boolean isFertilizedEgg(ItemStack stack) {
         CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         return data.copyTag().getBoolean(NBT_FERTILIZED_EGG);
-    }
-
-    public static Animal findLayMate(Animal mother) {
-        if (mother.level().isClientSide) return null;
-        if (mother.isBaby()) return null;
-        if (mother.getAge() != 0) return null;
-        return findNearbyMale(mother);
     }
 
     private static double breedMinHungerRatio() {

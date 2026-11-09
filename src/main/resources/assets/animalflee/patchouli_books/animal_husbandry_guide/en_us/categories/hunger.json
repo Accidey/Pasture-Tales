@@ -1,6 +1,6 @@
 {
-  "name": "饥饿与喂养",
-  "description": "家养动物会饿，记得定时喂食。",
+  "name": "Hunger & Feeding",
+  "description": "Domesticated animals get hungry - remember to feed them.",
   "icon": "minecraft:cooked_beef",
   "sortnum": 2
 }

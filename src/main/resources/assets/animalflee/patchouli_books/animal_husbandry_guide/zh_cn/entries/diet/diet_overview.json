@@ -18,7 +18,7 @@
     {
       "type": "patchouli:entity",
       "entity": "minecraft:wolf",
-      "text": "狼是肉食动物。喂它们生肉、熟肉或鱼。"
+      "text": "狼是肉食动物。喂它们生肉、熟肉或鱼。$(br2)喂马吃毒马铃薯仍可能让它中毒。$(br2)想让某个物品也能当饲料，用$(l:animalflee:commands/commands_overview)自定义饲料命令$()；不同食物的营养各不相同。"
     }
   ]
 }

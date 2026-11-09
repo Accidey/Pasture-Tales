@@ -17,7 +17,7 @@ public class FishConsumptionHandler {
 
     @SubscribeEvent
     public static void onItemFished(ItemFishedEvent event) {
-        if (!containsFish(event)) {
+        if (!FishPopulationHandler.containsFishItem(event.getDrops())) {
             return;
         }
 
@@ -35,15 +35,6 @@ public class FishConsumptionHandler {
                 stack.setCount(0);
             }
         }
-    }
-
-    private static boolean containsFish(ItemFishedEvent event) {
-        for (ItemStack stack : event.getDrops()) {
-            if (stack.is(ItemTags.FISHES)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static void pullFishToPlayer(AbstractFish fish, Player player, FishingHook hook) {

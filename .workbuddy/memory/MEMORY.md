@@ -42,3 +42,14 @@
   的咬钩门禁（重构前的历史行为）。
 - 该规则**与 `FISHING_REQUIRES_NATURAL_WATER` 开关无关**——`FishConsumptionHandler` 无条件生效。
   只有「非自然水域」才由 `FishingRestrictionMixin` 取消 `catchingFish`，那是整杆什么都不出。
+- **2026-11-09 更正**：当前代码已演进为「接近期预掷 + 咬钩门禁」版（`FishingRestrictionMixin`
+  里 `animalflee$decided` / `pendingLoot` / `deliverLoot`）：附近没鱼时那一杆**根本不咬钩**，
+  只要咬钩必有东西（无鱼时改掷垃圾/宝藏）。上面「85% 空钩」是 10-07 的历史定案，
+  玩家手册 `fishing/fishing_overview.json` 仍停留在那个版本，尚未同步。别按旧记忆判断手册正确。
+
+## 手册写作口径（用户 2026-11-09 明确要求）
+
+- Patchouli 玩家手册**一律用玩家能懂的玩法语言**：不写类名、NBT 键、Mixin、事件名、算法常量、
+  代码流程；只写「会发生什么 / 玩家该怎么做 / 可在哪里配置」。
+- 给开发者看的核对结论可以带代码依据，但那些内容**不得**搬进手册 JSON；`开发文档.md` 才放实现细节。
+- DNF 凯莉猪相关实现细节依旧在任何手册 / 开发文档 / README 中都不写。

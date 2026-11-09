@@ -14,7 +14,9 @@ public class PregnancyHandler {
     public static void onEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
         if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
-        PregnancySystem.tickPregnancy((Animal) event.getEntity());
+        Animal animal = (Animal) event.getEntity();
+        PregnancySystem.tickEstrus(animal);
+        PregnancySystem.tickPregnancy(animal);
     }
 
     @SubscribeEvent

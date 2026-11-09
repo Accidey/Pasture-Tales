@@ -18,7 +18,7 @@
     {
       "type": "patchouli:entity",
       "entity": "minecraft:wolf",
-      "text": "Wolves are carnivores. Feed them raw or cooked meat, or fish."
+      "text": "Wolves are carnivores. Feed them raw or cooked meat, or fish.$(br2)Feeding a horse a poisonous potato can still poison it.$(br2)To make another item count as animal food, use the $(l:animalflee:commands/commands_overview)custom food commands$(); different foods restore different amounts."
     }
   ]
 }

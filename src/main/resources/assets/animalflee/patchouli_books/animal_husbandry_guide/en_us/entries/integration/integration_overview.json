@@ -12,7 +12,12 @@
     {
       "type": "patchouli:text",
       "title": "Jade Shows the Real State",
-      "text": "With Jade installed, look at an animal to see its gender, domestication, pregnancy progress, post-birth cooldown, baby growth progress and hunger.$(br2)This mod hides Jade's built-in \"time until grown\" countdown - vanilla growth timing no longer applies, so that number would be wrong."
+      "text": "With Jade installed, looking at an animal shows its gender, domestication, pregnancy progress, post-birth cooldown, $(bold)next egg$() and $(bold)next feather$() countdowns, baby growth progress, hunger and starving status.$(br2)Looking at an incubating fertilized egg also shows its $(bold)incubation progress$().$(br2)This mod hides Jade's built-in \"time until grown\" countdown - vanilla growth timing no longer applies, so that number would be wrong."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Maid Fishing & Breeding",
+      "text": "The maid's $(bold)fishing$() task follows the same limits as you: natural water, and a real fish near the bobber, or no bite. A maid lands the fish herself and collects the drops.$(br2)Breeding and hatching here also notify other mods: anything that changes breeding results - twins, breeding bonuses and the like - applies to babies born here and chicks hatched here.$(br2)See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
     }
   ]
 }

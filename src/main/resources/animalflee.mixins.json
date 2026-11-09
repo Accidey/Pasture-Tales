@@ -6,6 +6,7 @@
   "mixins": [
     "FishingRestrictionMixin",
     "AnimalMobInteractMixin",
+    "AnimalBreedCollisionMixin",
     "ThrownEggHatchMixin",
     "AbstractHorseFeedMixin",
     "ChickenEggLayMixin",

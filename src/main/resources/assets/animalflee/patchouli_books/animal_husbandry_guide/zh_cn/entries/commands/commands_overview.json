@@ -7,17 +7,17 @@
     {
       "type": "patchouli:text",
       "title": "管理命令",
-      "text": "所有命令都需要权限等级 2。$(br2)$(bold)/pasturetales blacklist add|remove$() —— 手持刷怪蛋，将生物加入/移出逃跑黑名单。$(br2)$(bold)/pasturetales customfood add [value]|remove$() —— 手持物品，添加/移除自定义动物饲料。"
+      "text": "所有命令都需要权限等级 2，并且要手持对应物品。$(br2)$(bold)/pasturetales blacklist flee add|remove$() —— 手持刷怪蛋，把这种生物加入/移出「不会逃跑」名单。$(br2)$(bold)/pasturetales blacklist exclude add|remove$() —— 手持刷怪蛋，让这种生物完全不受本模组影响；海龟、青蛙、嗅探兽默认已在其中。"
     },
     {
       "type": "patchouli:text",
       "title": "食性命令",
-      "text": "$(bold)/pasturetales diet$() —— 显示手持物品对应实体的食性。$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() —— 从食性列表移除（变为杂食）。"
+      "text": "$(bold)/pasturetales customfood add [数值]|remove$() —— 手持任意物品，把它设为动物饲料；不写数值就按食物本身的营养计算。$(br2)$(bold)/pasturetales diet$() —— 手持$(bold)刷怪蛋$()，查看该生物的食性。$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() —— 移出名单（变回杂食）。"
     },
     {
       "type": "patchouli:text",
       "title": "配置",
-      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)关键选项：逃跑触发距离、$(bold)受惊扩散半径$()（设为 0 关闭）、饥饿消耗速度、孕期时长、孵化时长、草食/肉食列表等。所有选项都支持热重载！"
+      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)可调整的内容见$(l:animalflee:commands/config_overview)常用设置$()。$(br2)绝大多数选项改完立即生效；但动物「天生不怕人」是每只只判定一次的，改比例不会影响已经判定的个体。"
     }
   ]
 }

@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Automatic Mating",
-      "text": "Domesticated animals mate automatically!$(br2)When a domesticated male and female are near each other, the female has a chance to become pregnant. She must have at least 80% hunger and not be in post-birth cooldown."
+      "text": "Domesticated animals mate automatically!$(br2)When a domesticated female and male are both well fed (at least 80% hunger) and the female is not in post-birth cooldown, she will approach the male to mate, and only then can she become pregnant.$(br2)The male must also be $(bold)domesticated, well fed and off cooldown$() - a wild bull will not do."
     },
     {
       "type": "patchouli:text",
@@ -17,12 +17,12 @@
     {
       "type": "patchouli:text",
       "title": "Oviparous Animals",
-      "text": "Oviparous animals (like chickens) do NOT get pregnant! Instead, they lay eggs on a fixed cycle.$(br2)A female oviparous animal lays an egg about every 1 MC day. If a qualified male is nearby, she lays a fertilized egg; otherwise she lays a normal egg.$(br2)Both wild and domesticated oviparous animals lay eggs."
+      "text": "Oviparous animals (like chickens) do NOT get pregnant! They lay eggs on a fixed cycle.$(br2)A female lays an egg about every 1 MC day. Only eggs laid by a $(bold)domesticated female that has mated$() are fertilized; all others are normal eggs, and $(bold)wild oviparous animals only lay normal eggs$().$(br2)To hatch a chick, tame the hen first and let a rooster mate with her."
     },
     {
       "type": "patchouli:entity",
       "entity": "minecraft:cow",
-      "text": "Keep your cows well-fed and a bull nearby. A pregnant cow that takes damage has a chance to miscarry, so protect her!"
+      "text": "Keep your cows well-fed and a bull nearby. A pregnant cow that takes damage has a chance to miscarry, so protect her!$(br2)Horses and donkeys can also pair up and produce a mule.$(br2)Other mods that change breeding results - twins, breeding bonuses and the like - apply to babies born here and to chicks hatched here too."
     }
   ]
 }

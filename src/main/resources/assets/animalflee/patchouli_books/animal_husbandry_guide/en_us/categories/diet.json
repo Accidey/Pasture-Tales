@@ -1,6 +1,6 @@
 {
-  "name": "食性系统",
-  "description": "草食、肉食、杂食——每种动物吃的东西不同。",
+  "name": "Diets",
+  "description": "Herbivore, carnivore, omnivore - every animal eats differently.",
   "icon": "minecraft:apple",
   "sortnum": 3
 }

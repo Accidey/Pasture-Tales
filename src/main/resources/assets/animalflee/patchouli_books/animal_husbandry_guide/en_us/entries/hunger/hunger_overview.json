@@ -14,6 +14,11 @@
       "item": "minecraft:beef",
       "title": "Feeding Restores Hunger",
       "text": "Right-click a hungry animal with food to restore hunger. Different foods restore different amounts. If hunger reaches zero, the animal enters a starving state and slowly loses health over 3 days — feed it quickly to save it!"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Why Keep Them Full",
+      "text": "An injured animal fed past 80% hunger slowly heals; a starving one gives off clear signs, and Jade will show a starving status directly.$(br2)Wild animals and wild babies never burn hunger - only domesticated animals need regular care."
     }
   ]
 }

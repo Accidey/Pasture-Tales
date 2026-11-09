@@ -18,12 +18,12 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:wheat",
       "title": "Why Animals Run Away",
-      "text": "Wild animals will flee when you approach! Sneak up to them or chase them into a corner. Once you feed them, they become domesticated and will no longer run away."
+      "text": "Wild animals will flee when you approach!$(br2)Drink an $(bold)Invisibility potion$() and walk slowly without sprinting or jumping to get much closer; get too close and they may still notice you, with a message on screen. $(bold)Sneaking does not help$().$(br2)Once you feed them, they become domesticated and never run away. Animals also ignore players in Creative or Spectator mode."
     },
     {
       "type": "patchouli:text",
       "title": "Panic Is Contagious",
-      "text": "Fleeing is contagious! The moment one animal is startled and starts to flee, every other animal that would flee ($(bold)of any species$()) within $(bold)10 blocks$() is startled into running too.$(br2)So do not expect to spook one cow and sneak past the sheep next to it - the whole pen will scatter.$(br2)Already domesticated animals are not swept up by this wave of panic."
+      "text": "Fleeing is contagious! The moment one animal is startled into fleeing, every other animal ($(bold)of any species$()) within $(bold)10 blocks$() joins in - but that one wave does not spread further.$(br2)Already domesticated animals are not swept up in it.$(br2)Not everyone runs, though: a few animals are born fearless. See $(l:animalflee:getting_started/flee_overview)How Fleeing Works$()."
     }
   ]
 }

@@ -7,18 +7,23 @@
     {
       "type": "patchouli:text",
       "title": "Natural Water Only",
-      "text": "You can only catch fish in $(bold)natural$() water: rivers, oceans, beaches, or large natural lakes (64+ connected water blocks).$(br2)Player-made ponds never yield fish!"
+      "text": "You can only fish in $(bold)large, open-air natural waters$(): rivers, oceans, beaches, or big lakes with at least 64 connected water blocks.$(br2)Small ponds and water with a roof over it yield nothing; dig a big enough open-air pond and it counts as fishable water.$(br2)This restriction can be turned off in the config."
     },
     {
       "type": "patchouli:text",
-      "title": "Real Fish Entities",
-      "text": "You can only catch fish if real fish entities exist near your hook. When you catch one, an actual fish entity is pulled to your feet - kill it to get the drops. Each catch consumes one fish from the area.$(br2)$(bold)Note: junk and treasure are not affected.$() With no fish around, a fish roll comes up empty, but you can still pull up $(bold)junk$() like lily pads, leather boots, bones or bamboo, or $(bold)treasure$() like name tags, saddles, books or nautilus shells."
+      "title": "Before the Bite",
+      "text": "There must be a $(bold)living fish$() near your bobber for a bite to happen. With no fish around, that cast $(bold)never gets a bite at all$() - once you do get a bite, you always get something.$(br2)On a fish bite, the real fish is pulled to your feet and you have to kill it for the drops; $(bold)junk and treasure$() need no nearby fish and can still be caught (lily pads, leather boots, bones; or name tags, saddles, books, nautilus shells).$(br2)Luck and open water still affect your haul."
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:wheat_seeds",
       "title": "Feeding Fish",
-      "text": "Drop seeds or crops into natural water to feed the fish. After 0.5~1 in-game day, 2~5 fish will spawn at that spot. This lets you build your own fishing grounds!"
+      "text": "Dropping $(bold)almost anything edible$() into natural water works as fish bait: seeds, crops and ordinary food all count, and the item tooltip will tell you so. Bait disappears once it hits the water.$(br2)After 0.5~1 in-game day, 2-5 fish appear nearby - and they only spawn in natural water.$(br2)This lets you build your own fishing grounds!"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Maid Fishing",
+      "text": "With Touhou Little Maid installed, the maid's fishing task follows exactly the same rules: $(bold)natural water only, and a real fish nearby$(), or there is no bite.$(br2)The difference is that a maid lands the fish herself and collects the drops, while you have to kill the fish pulled to your feet.$(br2)See $(l:animalflee:integration/integration_overview)Mod Integration$()."
     }
   ]
 }

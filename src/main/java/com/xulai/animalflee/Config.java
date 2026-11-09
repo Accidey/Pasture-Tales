@@ -140,12 +140,14 @@ public class Config {
                 .comment(
                         "钓鱼时扫描鱼实体的半径（格）",
                         "Radius to scan for fish entities when fishing",
-                        "鱼漂周围这个范围内必须有真实的鱼实体才能钓到鱼，",
+                        "鱼漂周围这个范围内没有真实鱼实体时，这一杆不会咬钩（而不是咬钩后空手）；",
+                        "垃圾与宝藏不受这条限制，随时可能上钩。",
                         "每钓上一条鱼，范围内就会减少一条鱼实体，直到钓完。",
-                        "Fishing only works when real fish entities exist within this radius around the hook;",
-                        "each caught fish removes one fish entity from the area until none remain.",
-                        "女仆钓上来的鱼同样从这个范围内消耗一条鱼实体。",
-                        "Maid catches consume one fish entity from this radius too.",
+                        "女仆的渔获取自这条鱼本身，钓上来的就是水里那条鱼的掉落物。",
+                        "No real fish within this radius of the bobber means that cast never bites",
+                        "(instead of biting with an empty hook); junk and treasure are unaffected.",
+                        "Each caught fish removes one fish entity from the area until none remain.",
+                        "Maid catches yield that same fish's own drops, so the species matches the water.",
                         "Default: 16 / 默认：16",
                         "Range: 4 ~ 64"
                 )
@@ -389,13 +391,18 @@ public class Config {
                         "列入的生物会被模组完全忽略，只遵循原版行为（不逃跑、无饥饿/性别/怀孕/成长、Jade 不显示模组信息）。",
                         "Mobs in this list are completely ignored by this mod and follow vanilla behavior only",
                         "(no fleeing, no hunger/gender/pregnancy/growth, no mod Jade info).",
-                        "Default: [\"minecraft:turtle\", \"minecraft:frog\"]",
+                        "默认三项的原因：海龟与青蛙在原版的繁殖产出是卵/蝌蚪而非幼崽，嗅探兽掉的是嗅探兽蛋，",
+                        "三者都不走通用幼崽路径，接进怀孕系统只会产出错误结果。",
+                        "Defaults are excluded because turtles lay eggs, frogs produce frogspawn and sniffers drop",
+                        "sniffer eggs instead of a vanilla chick-style cub, so the pregnancy system cannot replace them.",
+                        "Default: [\"minecraft:turtle\", \"minecraft:frog\", \"minecraft:sniffer\"]",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
                 .defineListAllowEmpty("excludedMobs", List.of(
                         "minecraft:turtle",
-                        "minecraft:frog"
+                        "minecraft:frog",
+                        "minecraft:sniffer"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");

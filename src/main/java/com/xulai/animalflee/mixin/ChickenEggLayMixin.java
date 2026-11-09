@@ -1,9 +1,9 @@
 package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.logic.GenderLogic;
+import com.xulai.animalflee.logic.OviparousLayHandler;
 import com.xulai.animalflee.logic.PregnancySystem;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -18,10 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Chicken.class)
 public class ChickenEggLayMixin {
 
-    private static final long DAY_TICKS = 24000L;
-    private static final long HOUR_TICKS = 1000L;
-    private static final long MIN_FLOAT = 1L * HOUR_TICKS;
-    private static final long MAX_FLOAT = 3L * HOUR_TICKS;
     private static final long DISPLAY_LIMIT = 48000L;
     private static final int MALE_NO_EGG_TIMER = Integer.MAX_VALUE;
     private static final String NBT_NEXT_EGG = "af_next_egg_daytime";
@@ -38,14 +34,14 @@ public class ChickenEggLayMixin {
             GenderLogic.initGender(self);
         }
         if (!data.contains(NBT_NEXT_FEATHER)) {
-            data.putLong(NBT_NEXT_FEATHER, nextEggInterval(self, self.level().getDayTime()));
+            data.putLong(NBT_NEXT_FEATHER, OviparousLayHandler.nextEggInterval(self, self.level().getDayTime()));
         }
 
         long dayTime = self.level().getDayTime();
 
         if (GenderLogic.isFemale(self)) {
             if (!data.contains(NBT_NEXT_EGG)) {
-                data.putLong(NBT_NEXT_EGG, nextEggInterval(self, dayTime));
+                data.putLong(NBT_NEXT_EGG, OviparousLayHandler.nextEggInterval(self, dayTime));
             }
             long remain = data.getLong(NBT_NEXT_EGG) - dayTime;
             self.eggTime = (int) Math.min(Math.max(remain, 0L), DISPLAY_LIMIT - 1L);
@@ -55,7 +51,7 @@ public class ChickenEggLayMixin {
 
         if (dayTime < data.getLong(NBT_NEXT_FEATHER)) return;
 
-        data.putLong(NBT_NEXT_FEATHER, nextEggInterval(self, dayTime));
+        data.putLong(NBT_NEXT_FEATHER, OviparousLayHandler.nextEggInterval(self, dayTime));
         int count = 1 + self.getRandom().nextInt(2);
         self.spawnAtLocation(new ItemStack(Items.FEATHER, count));
     }
@@ -73,19 +69,10 @@ public class ChickenEggLayMixin {
         long dayTime = self.level().getDayTime();
         if (dayTime < data.getLong(NBT_NEXT_EGG)) return null;
 
-        data.putLong(NBT_NEXT_EGG, nextEggInterval(self, dayTime));
+        data.putLong(NBT_NEXT_EGG, OviparousLayHandler.nextEggInterval(self, dayTime));
 
         ItemStack egg = new ItemStack(Items.EGG);
-        Animal mate = PregnancySystem.findLayMate(self);
-        if (mate != null) {
-            PregnancySystem.markFertilizedEgg(egg, self, mate);
-        }
+        PregnancySystem.fertilizeEgg(egg, self);
         return self.spawnAtLocation(egg);
-    }
-
-    private static long nextEggInterval(Chicken self, long dayTime) {
-        long range = MAX_FLOAT - MIN_FLOAT + 1L;
-        long randomFloat = MIN_FLOAT + self.getRandom().nextInt((int) range);
-        return dayTime + DAY_TICKS + randomFloat;
     }
 }

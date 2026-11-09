@@ -1,0 +1,23 @@
+{
+  "name": "How Fleeing Works",
+  "icon": "minecraft:spyglass",
+  "category": "animalflee:getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Getting Closer",
+      "text": "Wild animals start fleeing when you come within about $(bold)10 blocks$(); $(bold)sneaking does not help$().$(br2)Drink an Invisibility potion and walk slowly without sprinting or jumping to get much closer - but stay too close and they may still smell you, with a message on screen. Jumping gives you away instantly, and sprinting makes them notice you sooner.$(br2)Fleeing animals steer around obstacles, step up one-block ledges, and re-route when stuck."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Who Never Runs",
+      "text": "Domesticated animals you have fed, tamed horses and pets with an owner, and animals being ridden (or just ridden) do not flee.$(br2)Animals boxed into a corner with no way out, or land animals with their head under water, will not run either.$(br2)A few individuals are $(bold)born fearless$() (about 10% by default, adjustable in the config) and never flee for their whole lives; this is decided once per animal, so changing the config will not affect animals already decided.$(br2)Turtles, frogs and sniffers are completely unaffected by this mod by default."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Flocks and Panic",
+      "text": "The moment one animal is startled into fleeing, every other animal ($(bold)of any species$()) within $(bold)10 blocks$() joins in - but that single wave does not spread any further.$(br2)With $(bold)flock fleeing$() enabled, fleeing animals also bunch together and head in roughly the same direction.$(br2)To stop a species from fleeing, or to make it completely unaffected by this mod, use the $(l:animalflee:commands/commands_overview)blacklist commands$(); trigger distance, panic spread radius, and whether passive/aquatic mobs flee are all adjustable in $(l:animalflee:commands/config_overview)Common Settings$()."
+    }
+  ]
+}
