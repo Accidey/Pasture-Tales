@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Herbivore / Carnivore / Omnivore",
-      "text": "Every animal has a diet:$(br)$(bold)Herbivores$() eat only plants — crops, seeds, hay, apples, sugar.$(br2)$(bold)Carnivores$() eat only meat and fish.$(br2)$(bold)Omnivores$() eat everything."
+      "text": "Every animal has a diet:$(br)$(bold)Herbivores$() eat only plants — crops, seeds, hay, apples, sugar.$(br2)$(bold)Carnivores$() eat only meat and fish.$(br2)$(bold)Omnivores$() eat everything.$(br2)Not sure what a mob eats? With Jade installed, look at it to see its diet; admins can also check and change diets with the $(l:animalflee:commands/commands_overview)diet commands$()."
     },
     {
       "type": "patchouli:spotlight",

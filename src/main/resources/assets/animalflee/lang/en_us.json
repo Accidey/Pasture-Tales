@@ -67,6 +67,7 @@
   "book.animalflee.animal_husbandry_guide.landing": "$(bold)Welcome to the Animal Husbandry Guide!$()\n\nThis book will teach you how to run a ranch: tame wild animals, learn their genders and diets, feed your livestock, let them breed, and master fishing and fish farming.\n\n$(bold)Before you start:$()\nAnimals will flee from you! Hold food and right-click an animal to feed and tame it.",
   "item.animalflee.animal_husbandry_guide.name": "Animal Husbandry Guide",
   "item.animalflee.animal_husbandry_guide.subtitle": "Complete Manual of Livestock Breeding",
+  "jade.animalflee.diet": "Diet: %s",
   "jade.animalflee.gender": "Gender: %s",
   "jade.animalflee.gender.male": "Male",
   "jade.animalflee.gender.female": "Female",

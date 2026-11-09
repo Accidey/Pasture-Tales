@@ -361,7 +361,10 @@ public class Config {
                         "Blacklist of mob IDs that will never flee.",
                         "这些生物即使属于被动/水生类别也不会逃跑。",
                         "Mobs in this list will not flee even if they are passive/aquatic.",
-                        "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:guardian\", \"minecraft:elder_guardian\", \"minecraft:sniffer\", \"minecraft:skeleton_horse\", \"minecraft:zombie_horse\", \"minecraft:trader_llama\", \"minecraft:dolphin\", \"minecraft:polar_bear\", \"minecraft:bee\", \"minecraft:axolotl\", \"minecraft:iron_golem\", \"minecraft:snow_golem\"]",
+                        "默认包含原版 14 种，以及 Alex 的生物中会攻击玩家、不该掉头逃跑的掠食者。",
+                        "Defaults cover 14 vanilla mobs plus Alex's Mobs predators that fight instead of fleeing.",
+                        "Default: [\"minecraft:wolf\", \"minecraft:cat\", \"minecraft:guardian\", \"minecraft:elder_guardian\", \"minecraft:sniffer\", \"minecraft:skeleton_horse\", \"minecraft:zombie_horse\", \"minecraft:trader_llama\", \"minecraft:dolphin\", \"minecraft:polar_bear\", \"minecraft:bee\", \"minecraft:axolotl\", \"minecraft:iron_golem\", \"minecraft:snow_golem\",",
+                        "           \"alexsmobs:alligator_snapping_turtle\", \"alexsmobs:anaconda\", \"alexsmobs:bald_eagle\", \"alexsmobs:frilled_shark\", \"alexsmobs:froststalker\", \"alexsmobs:giant_squid\", \"alexsmobs:grizzly_bear\", \"alexsmobs:hammerhead_shark\", \"alexsmobs:komodo_dragon\", \"alexsmobs:orca\", \"alexsmobs:rattlesnake\", \"alexsmobs:sea_bear\", \"alexsmobs:snow_leopard\", \"alexsmobs:tasmanian_devil\", \"alexsmobs:tiger\"]",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
@@ -379,7 +382,22 @@ public class Config {
                         "minecraft:bee",
                         "minecraft:axolotl",
                         "minecraft:iron_golem",
-                        "minecraft:snow_golem"
+                        "minecraft:snow_golem",
+                        "alexsmobs:alligator_snapping_turtle",
+                        "alexsmobs:anaconda",
+                        "alexsmobs:bald_eagle",
+                        "alexsmobs:frilled_shark",
+                        "alexsmobs:froststalker",
+                        "alexsmobs:giant_squid",
+                        "alexsmobs:grizzly_bear",
+                        "alexsmobs:hammerhead_shark",
+                        "alexsmobs:komodo_dragon",
+                        "alexsmobs:orca",
+                        "alexsmobs:rattlesnake",
+                        "alexsmobs:sea_bear",
+                        "alexsmobs:snow_leopard",
+                        "alexsmobs:tasmanian_devil",
+                        "alexsmobs:tiger"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");
@@ -391,18 +409,32 @@ public class Config {
                         "列入的生物会被模组完全忽略，只遵循原版行为（不逃跑、无饥饿/性别/怀孕/成长、Jade 不显示模组信息）。",
                         "Mobs in this list are completely ignored by this mod and follow vanilla behavior only",
                         "(no fleeing, no hunger/gender/pregnancy/growth, no mod Jade info).",
-                        "默认三项的原因：海龟与青蛙在原版的繁殖产出是卵/蝌蚪而非幼崽，嗅探兽掉的是嗅探兽蛋，",
-                        "三者都不走通用幼崽路径，接进怀孕系统只会产出错误结果。",
-                        "Defaults are excluded because turtles lay eggs, frogs produce frogspawn and sniffers drop",
-                        "sniffer eggs instead of a vanilla chick-style cub, so the pregnancy system cannot replace them.",
-                        "Default: [\"minecraft:turtle\", \"minecraft:frog\", \"minecraft:sniffer\"]",
+                        "默认值分两组：原版三项，以及 Alex 的生物中产蛋、产卵、变态发育或多部件的巨兽。",
+                        "Defaults come in two groups: three vanilla mobs, plus Alex's Mobs species that lay eggs,",
+                        "metamorphose or use multi-part bodies.",
+                        "海龟与青蛙的繁殖产出是卵/蝌蚪而非幼崽，嗅探兽掉的是嗅探兽蛋，",
+                        "Alex 的上述生物同样不走通用幼崽路径，接进怀孕系统只会产出错误结果。",
+                        "Turtles lay eggs, frogs produce frogspawn and sniffers drop sniffer eggs instead of a cub;",
+                        "the listed Alex's Mobs species follow the same non-cub path, so pregnancy cannot replace them.",
+                        "Default: [\"minecraft:turtle\", \"minecraft:frog\", \"minecraft:sniffer\", \"alexsmobs:caiman\", \"alexsmobs:crocodile\", \"alexsmobs:platypus\", \"alexsmobs:terrapin\", \"alexsmobs:triops\", \"alexsmobs:emu\", \"alexsmobs:cockroach\", \"alexsmobs:mungus\", \"alexsmobs:stradpole\", \"alexsmobs:cachalot_whale\", \"alexsmobs:laviathan\"]",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
                 .defineListAllowEmpty("excludedMobs", List.of(
                         "minecraft:turtle",
                         "minecraft:frog",
-                        "minecraft:sniffer"
+                        "minecraft:sniffer",
+                        "alexsmobs:caiman",
+                        "alexsmobs:crocodile",
+                        "alexsmobs:platypus",
+                        "alexsmobs:terrapin",
+                        "alexsmobs:triops",
+                        "alexsmobs:emu",
+                        "alexsmobs:cockroach",
+                        "alexsmobs:mungus",
+                        "alexsmobs:stradpole",
+                        "alexsmobs:cachalot_whale",
+                        "alexsmobs:laviathan"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");
@@ -441,6 +473,8 @@ public class Config {
                         "Herbivores can only eat vegetarian food (no meat or fish): crops, seeds, hay, apples, sugar, etc.",
                         "未出现在草食或肉食列表中的动物默认为杂食。",
                         "Animals in neither list default to omnivore.",
+                        "默认包含原版 14 种，以及 Alex 的生物中以植物、果实、花蜜为主食的物种。",
+                        "Defaults cover 14 vanilla mobs plus Alex's Mobs species that feed on plants, fruit and nectar.",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
@@ -458,7 +492,24 @@ public class Config {
                         "minecraft:panda",
                         "minecraft:parrot",
                         "minecraft:bee",
-                        "minecraft:sniffer"
+                        "minecraft:sniffer",
+                        "alexsmobs:banana_slug",
+                        "alexsmobs:bison",
+                        "alexsmobs:elephant",
+                        "alexsmobs:endergrade",
+                        "alexsmobs:flutter",
+                        "alexsmobs:gazelle",
+                        "alexsmobs:gelada_monkey",
+                        "alexsmobs:gorilla",
+                        "alexsmobs:hummingbird",
+                        "alexsmobs:kangaroo",
+                        "alexsmobs:leafcutter_ant",
+                        "alexsmobs:moose",
+                        "alexsmobs:rhinoceros",
+                        "alexsmobs:sugar_glider",
+                        "alexsmobs:sunbird",
+                        "alexsmobs:toucan",
+                        "alexsmobs:tusklin"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");
@@ -471,6 +522,8 @@ public class Config {
                         "Carnivores can only eat meat and fish (raw/cooked meat, fish, rotten flesh, etc.).",
                         "未出现在草食或肉食列表中的动物默认为杂食。",
                         "Animals in neither list default to omnivore.",
+                        "默认包含原版 5 种，以及 Alex 的生物中的捕食者、食虫与食鱼物种。",
+                        "Defaults cover 5 vanilla mobs plus Alex's Mobs predators, insectivores and piscivores.",
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
@@ -479,7 +532,30 @@ public class Config {
                         "minecraft:wolf",
                         "minecraft:ocelot",
                         "minecraft:polar_bear",
-                        "minecraft:axolotl"
+                        "minecraft:axolotl",
+                        "alexsmobs:alligator_snapping_turtle",
+                        "alexsmobs:anaconda",
+                        "alexsmobs:anteater",
+                        "alexsmobs:bald_eagle",
+                        "alexsmobs:cosmaw",
+                        "alexsmobs:froststalker",
+                        "alexsmobs:komodo_dragon",
+                        "alexsmobs:maned_wolf",
+                        "alexsmobs:mantis_shrimp",
+                        "alexsmobs:mimic_octopus",
+                        "alexsmobs:mudskipper",
+                        "alexsmobs:orca",
+                        "alexsmobs:potoo",
+                        "alexsmobs:rain_frog",
+                        "alexsmobs:rattlesnake",
+                        "alexsmobs:roadrunner",
+                        "alexsmobs:seagull",
+                        "alexsmobs:seal",
+                        "alexsmobs:shoebill",
+                        "alexsmobs:snow_leopard",
+                        "alexsmobs:tasmanian_devil",
+                        "alexsmobs:tiger",
+                        "alexsmobs:warped_toad"
                 ), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");

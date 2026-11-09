@@ -67,6 +67,7 @@
   "book.animalflee.animal_husbandry_guide.landing": "$(bold)欢迎阅读《牧业指南》！$()\n\n本书将指导你如何在这片大陆上经营牧场：驯服野生动物、了解它们的性别与食性、喂养家畜、让它们繁衍后代，以及掌握钓鱼与鱼群养殖的秘诀。\n\n$(bold)开始之前：$()\n动物见到你会逃跑！手持饲料靠近并右键动物即可喂养并驯服它。",
   "item.animalflee.animal_husbandry_guide.name": "牧业指南",
   "item.animalflee.animal_husbandry_guide.subtitle": "动物养殖完全手册",
+  "jade.animalflee.diet": "食性：%s",
   "jade.animalflee.gender": "性别：%s",
   "jade.animalflee.gender.male": "雄性",
   "jade.animalflee.gender.female": "雌性",

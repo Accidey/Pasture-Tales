@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Who Never Runs",
-      "text": "Domesticated animals you have fed, tamed horses and pets with an owner, and animals being ridden (or just ridden) do not flee.$(br2)Animals boxed into a corner with no way out, or land animals with their head under water, will not run either.$(br2)A few individuals are $(bold)born fearless$() (about 10% by default, adjustable in the config) and never flee for their whole lives; this is decided once per animal, so changing the config will not affect animals already decided.$(br2)Turtles, frogs and sniffers are completely unaffected by this mod by default."
+      "text": "Domesticated animals you have fed, tamed horses and pets with an owner, and animals being ridden (or just ridden) do not flee.$(br2)Animals boxed into a corner with no way out, or land animals with their head under water, will not run either.$(br2)A few individuals are $(bold)born fearless$() (about 10% by default, adjustable in the config) and never flee for their whole lives; this is decided once per animal, so changing the config will not affect animals already decided.$(br2)A few mobs with unusual breeding are completely unaffected by this mod by default."
     },
     {
       "type": "patchouli:text",

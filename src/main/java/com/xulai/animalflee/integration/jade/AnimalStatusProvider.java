@@ -1,10 +1,12 @@
 package com.xulai.animalflee.integration.jade;
 
 import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
+import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.GenderLogic;
 import com.xulai.animalflee.logic.GrowthSystem;
 import com.xulai.animalflee.logic.HungerSystem;
 import com.xulai.animalflee.logic.PregnancySystem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +24,7 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
 
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("animalflee", "animal_status");
 
+    private static final String KEY_DIET = "af_diet";
     private static final String KEY_GENDER = "af_gender";
     private static final String KEY_PREGNANT = "af_pregnant";
     private static final String KEY_PREGNANCY_PROGRESS = "af_pregnancy_progress";
@@ -41,6 +44,9 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
         if (AnimalFleeEntityHelper.isMaidEntity(accessor.getEntity())) return;
 
         CompoundTag data = accessor.getServerData();
+        if (data.contains(KEY_DIET)) {
+            tooltip.add(Component.translatable("jade.animalflee.diet", dietText(data.getString(KEY_DIET))));
+        }
         if (!data.contains(KEY_GENDER)) {
             tooltip.add(Component.translatable("jade.animalflee.gender.unknown"));
             return;
@@ -115,6 +121,8 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
         if (AnimalFleeEntityHelper.isExcluded(animal)) return;
         if (AnimalFleeEntityHelper.isMaidEntity(animal)) return;
 
+        tag.putString(KEY_DIET, dietId(AnimalFoods.getDiet(animal)));
+
         GenderLogic.initGender(animal);
         String gender = GenderLogic.getGender(animal);
         if (!gender.isEmpty()) {
@@ -162,6 +170,23 @@ public enum AnimalStatusProvider implements IEntityComponentProvider, IServerDat
                 tag.putLong(KEY_FEATHER_REMAINING, remaining);
             }
         }
+    }
+
+    private static String dietId(AnimalFoods.Diet diet) {
+        return switch (diet) {
+            case HERBIVORE -> "herbivore";
+            case CARNIVORE -> "carnivore";
+            default -> "omnivore";
+        };
+    }
+
+    private static Component dietText(String id) {
+        boolean herbivore = "herbivore".equals(id);
+        boolean carnivore = "carnivore".equals(id);
+        String key = herbivore || carnivore ? id : "omnivore";
+        ChatFormatting color = herbivore ? ChatFormatting.GREEN
+                : carnivore ? ChatFormatting.RED : ChatFormatting.YELLOW;
+        return Component.translatable("animalflee.diet." + key).withStyle(color);
     }
 
     @Override

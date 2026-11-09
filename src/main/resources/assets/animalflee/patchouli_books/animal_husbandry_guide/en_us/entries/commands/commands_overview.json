@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Admin Commands",
-      "text": "All commands require permission level 2 and the right item in your hand.$(br2)$(bold)/pasturetales blacklist flee add|remove$() - hold a spawn egg to add/remove that mob from the never-flee list.$(br2)$(bold)/pasturetales blacklist exclude add|remove$() - hold a spawn egg to make that mob completely unaffected by this mod; turtles, frogs and sniffers are excluded by default."
+      "text": "All commands require permission level 2 and the right item in your hand.$(br2)$(bold)/pasturetales blacklist flee add|remove$() - hold a spawn egg to add/remove that mob from the never-flee list.$(br2)$(bold)/pasturetales blacklist exclude add|remove$() - hold a spawn egg to make that mob completely unaffected by this mod; some mobs with unusual breeding are excluded by default."
     },
     {
       "type": "patchouli:text",

@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "草食 / 肉食 / 杂食",
-      "text": "每种动物都有食性：$(br)$(bold)草食动物$()只吃植物——作物、种子、干草、苹果、糖。$(br2)$(bold)肉食动物$()只吃肉和鱼。$(br2)$(bold)杂食动物$()什么都吃。"
+      "text": "每种动物都有食性：$(br)$(bold)草食动物$()只吃植物——作物、种子、干草、苹果、糖。$(br2)$(bold)肉食动物$()只吃肉和鱼。$(br2)$(bold)杂食动物$()什么都吃。$(br2)拿不准某种动物吃什么？装了 Jade 时看向它就能看到食性；管理员也可以用$(l:animalflee:commands/commands_overview)食性命令$()查询和修改。"
     },
     {
       "type": "patchouli:spotlight",

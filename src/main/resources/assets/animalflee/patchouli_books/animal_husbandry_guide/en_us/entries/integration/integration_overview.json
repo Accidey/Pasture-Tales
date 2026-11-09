@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Jade Shows the Real State",
-      "text": "With Jade installed, looking at an animal shows its gender, domestication, pregnancy progress, post-birth cooldown, $(bold)next egg$() and $(bold)next feather$() countdowns, baby growth progress, hunger and starving status.$(br2)Looking at an incubating fertilized egg also shows its $(bold)incubation progress$().$(br2)This mod hides Jade's built-in \"time until grown\" countdown - vanilla growth timing no longer applies, so that number would be wrong."
+      "text": "With Jade installed, looking at an animal first shows its $(bold)diet$() - herbivore, carnivore or omnivore, so you know at a glance what to feed it. Below that are its gender, domestication, pregnancy progress, post-birth cooldown, $(bold)next egg$() and $(bold)next feather$() countdowns, baby growth progress, hunger and starving status.$(br2)Looking at an incubating fertilized egg also shows its $(bold)incubation progress$().$(br2)This mod hides Jade's built-in \"time until grown\" countdown - vanilla growth timing no longer applies, so that number would be wrong."
     },
     {
       "type": "patchouli:text",
