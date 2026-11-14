@@ -39,8 +39,8 @@ run/
 repo/
 !**/src/**/repo/
 
-### WorkBuddy 临时文件 ###
-.workbuddy/tmp/
+### WorkBuddy 项目数据（内部，不对外发布） ###
+.workbuddy/
 
 ### 本地构建依赖与第三方子仓库 ###
 libs/
@@ -49,4 +49,3 @@ boids-*/
 Fishing-Real-*/
 CrittersAndCompanions-*/
 0
-.workbuddy/renumber_doc.py
