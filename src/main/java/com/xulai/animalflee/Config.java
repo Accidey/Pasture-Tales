@@ -155,6 +155,41 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        BAIT_BLACKLIST = BUILDER
+                .comment(
+                        "鱼饵黑名单（物品ID列表）",
+                        "Fish bait blacklist (item ID list)",
+                        "列入的物品即使本身可食用，丢进水里也不会成为鱼饵、不会生成鱼群。",
+                        "Items in this list never work as fish bait, even if they are edible;",
+                        "dropping them into water will not spawn fish.",
+                        "用于防止珍贵食物被误丢；未列入的食物、种子与作物不受影响。",
+                        "Use this to keep valuable food from being thrown in by mistake;",
+                        "food, seeds and crops not listed here are unaffected.",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs.",
+                        "Default: [] / 默认：[]"
+                )
+                .defineListAllowEmpty("baitBlacklist", List.of(), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
+        BAIT_WHITELIST = BUILDER
+                .comment(
+                        "鱼饵白名单（物品ID列表）",
+                        "Fish bait whitelist (item ID list)",
+                        "列入的物品一律可以作为鱼饵，即使它本身不能吃（例如木棍、骨头、线）。",
+                        "Items in this list always work as fish bait, even if they are not edible",
+                        "(sticks, bones, string and the like).",
+                        "与鱼饵黑名单冲突时，黑名单优先。",
+                        "If an item appears in both lists, the blacklist wins.",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs.",
+                        "Default: [] / 默认：[]"
+                )
+                .defineListAllowEmpty("baitWhitelist", List.of(), () -> "", obj -> obj instanceof String);
+
+        BUILDER.comment(" ");
+
         HUNGER_ENABLED = BUILDER
                 .comment(
                         "是否启用动物饥饿系统",
@@ -584,6 +619,8 @@ public class Config {
     public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
     public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_BLACKLIST;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_WHITELIST;
     public static final ModConfigSpec.BooleanValue HUNGER_ENABLED;
     public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT;
     public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT;

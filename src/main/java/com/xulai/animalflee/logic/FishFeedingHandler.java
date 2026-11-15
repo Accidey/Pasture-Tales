@@ -1,8 +1,12 @@
 package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
+import com.xulai.animalflee.Config;
+import com.xulai.animalflee.integration.sereneseasons.SereneSeasonsCompat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,6 +24,9 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 @EventBusSubscriber(modid = AnimalFleeMod.MODID)
 public class FishFeedingHandler {
 
+    private static final String BAIT_TICKS_TAG = "af_bait_ticks";
+    private static final int BAIT_DELAY_TICKS = 200;
+
     @SubscribeEvent
     public static void onItemEntityTick(EntityTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) return;
@@ -31,6 +38,15 @@ public class FishFeedingHandler {
 
         ServerLevel level = (ServerLevel) itemEntity.level();
         BlockPos pos = itemEntity.blockPosition();
+        if (SereneSeasonsCompat.isWinter(level, pos)) return;
+
+        CompoundTag data = itemEntity.getPersistentData();
+        int soaked = data.getInt(BAIT_TICKS_TAG) + 1;
+        if (soaked < BAIT_DELAY_TICKS) {
+            data.putInt(BAIT_TICKS_TAG, soaked);
+            return;
+        }
+
         long startDayTime = level.getDayTime();
         int targetDelta = 12000 + level.random.nextInt(12001);
         int count = 2 + level.random.nextInt(4);
@@ -39,6 +55,16 @@ public class FishFeedingHandler {
     }
 
     public static boolean isFishBait(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+        String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        if (Config.BAIT_BLACKLIST.get().contains(id)) {
+            return false;
+        }
+        if (Config.BAIT_WHITELIST.get().contains(id)) {
+            return true;
+        }
         if (stack.is(ItemTags.VILLAGER_PLANTABLE_SEEDS)) {
             return true;
         }

@@ -67,7 +67,7 @@ Fishing now depends on where you cast and on what is actually swimming there.
 
 - **Natural water only.** Rivers, oceans and beaches always qualify; other water must be open to the sky with at least 64 connected source blocks. A decorative pond produces nothing.
 - **Real fish must be present.** With a fish nearby, a bite draws that fish to your feet — kill it for the drops. With no fish around, you will not get a fish bite at all: the bobber only twitches for junk and treasure. A bite never leaves you empty-handed.
-- **Stock your own water.** Drop almost any edible item into natural water as bait; half a day to a day later, two to five fish appear. Dig a lake, seed it, and fish it indefinitely.
+- **Stock your own water.** Drop almost any edible item into natural water as bait. It soaks for ten seconds before being consumed, so a mis-drop can still be scooped back out; half a day to a day later, two to five fish appear. Dig a lake, seed it, and fish it indefinitely.
 - Luck and open water still affect the haul exactly as they always have.
 
 ## 🩸 Fair Fall Loot
@@ -82,6 +82,7 @@ Your first join delivers the **Animal Husbandry Guide**, a Patchouli book that w
 
 - **Jade** — diet (colour-coded), gender, domestication, pregnancy progress, recovery cooldown, next egg and next moult countdowns, growth progress, hunger and starving state, plus incubation progress on eggs. Jade's own "time until grown" figure is hidden, because it no longer matches reality.
 - **Touhou Little Maid** — maids feed only domesticated animals that are actually hungry, only with food the animal's diet permits, and keep going until it is full. Their fishing follows the same water and live-fish rules.
+- **Serene Seasons** — bait dropped in winter attracts no fish at all, and the bait is left in the water rather than consumed. Tropical biomes, which have no winter, are unaffected.
 - **Breeding modifiers** — births and hatches announce themselves the standard way, so mods that add twins, birth bonuses or inherited stats apply to offspring produced here.
 
 ## ⚙️ Configuration & Commands
@@ -99,6 +100,8 @@ Species management is exposed in game as well. Every command requires operator p
 - `/pasturetales customfood remove` — unregisters the item in your hand.
 - `/pasturetales blacklist flee add|remove` — stops the creature whose spawn egg you hold from fleeing.
 - `/pasturetales blacklist exclude add|remove` — makes that creature completely ignored by this mod. That list exists for creatures whose breeding cannot be safely replaced.
+- `/pasturetales blacklist bait add|remove` — registers the item in your hand as forbidden bait; it will not attract fish even when dropped in water.
+- `/pasturetales bait add|remove` — registers the item in your hand as bait, even if it is not edible; the blacklist wins if an item is on both lists.
 
 ## ✅ Safe for Existing Worlds
 
@@ -175,7 +178,7 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 
 - **只限自然水域。**河流、海洋与海滩始终合格；其它水域必须露天，且连通水源至少 64 格。基地里的装饰水池什么也钓不到。
 - **附近必须有真鱼。**有鱼时，咬钩会把那条鱼拉到脚边，你得自己动手才有掉落物。附近没有鱼，就根本不会有鱼来咬钩——浮漂只会为垃圾与宝藏而动。只要咬钩，就不会空手。
-- **自己养鱼。**把几乎任何可食用物品丢进自然水域当鱼饵；半天到一天后，附近会出现二到五条鱼。挖一片湖、投几次饵，就能长期取用。
+- **自己养鱼。**把几乎任何可食用物品丢进自然水域当鱼饵；鱼饵要在水里泡满十秒才被消耗，误丢可以及时捞回，半天到一天后，附近会出现二到五条鱼。挖一片湖、投几次饵，就能长期取用。
 - 运气与开阔水域依旧照常影响收获。
 
 ## 🩸 摔死也有完整掉落
@@ -190,6 +193,7 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 
 - **Jade**——看向动物即可看到食性（带颜色）、性别、家养状态、怀孕进度、产后冷却、下次产蛋与下次掉毛倒计时、成长进度、饥饿与挨饿状态；看向受精蛋还能看到孵化进度。Jade 自带的「还有多久长大」会被隐藏，因为它已不再符合实际规则。
 - **东方 Little Maid（车万女仆）**——女仆只喂确实饿了的家养动物，只用该动物食性允许的食物，并且一直喂到吃饱；她们的钓鱼遵守同样的水域与真鱼规则。
+- **四季静谧**——冬天丢下的鱼饵不会引来任何鱼；鱼饵不会被消耗，留在水里可以捞回。热带群系没有冬天，不受影响。
 - **繁殖类模组**——出生与孵化按标准方式广播，因此添加双胞胎、出生奖励或属性继承的模组，对这里出生的后代同样生效。
 
 ## ⚙️ 配置与命令
@@ -207,6 +211,8 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 - `/pasturetales customfood remove`——取消手中物品的饲料登记。
 - `/pasturetales blacklist flee add|remove`——让手持刷怪蛋对应的生物不再逃跑，或恢复逃跑。
 - `/pasturetales blacklist exclude add|remove`——让该生物完全不受本模组影响，或恢复。这份名单留给那些繁殖方式无法安全替换的生物。
+- `/pasturetales blacklist bait add|remove`——把手中物品加入/移出鱼饵黑名单；名单里的物品丢进水里也不会引来鱼群。
+- `/pasturetales bait add|remove`——把手中物品设为鱼饵，即使它本身不能吃；与黑名单冲突时黑名单优先。
 
 ## ✅ 对已有存档安全
 

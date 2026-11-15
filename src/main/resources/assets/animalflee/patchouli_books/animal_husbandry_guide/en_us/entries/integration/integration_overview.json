@@ -18,6 +18,11 @@
       "type": "patchouli:text",
       "title": "Maid Fishing & Breeding",
       "text": "The maid's $(bold)fishing$() task follows the same limits as you: natural water, and a real fish near the bobber, or no bite. A maid lands the fish herself and collects the drops.$(br2)Breeding and hatching here also notify other mods: anything that changes breeding results - twins, breeding bonuses and the like - applies to babies born here and chicks hatched here.$(br2)See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Serene Seasons",
+      "text": "With Serene Seasons installed, bait dropped in $(bold)winter$() produces no fish, and the bait is not consumed - fish it back out and save it for spring.$(br2)Tropical biomes have no winter and are unaffected.$(br2)See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
     }
   ]
 }

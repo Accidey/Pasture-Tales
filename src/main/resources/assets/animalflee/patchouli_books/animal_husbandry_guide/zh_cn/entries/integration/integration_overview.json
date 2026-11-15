@@ -18,6 +18,11 @@
       "type": "patchouli:text",
       "title": "女仆钓鱼与繁殖联动",
       "text": "女仆的$(bold)钓鱼$()任务遵守和玩家一样的限制：自然水域、鱼漂附近有真鱼才会咬钩；女仆会直接把鱼收拾好并收走掉落物。$(br2)本模组的繁殖与孵化也会通知其它模组：装了改变繁殖结果的模组（例如双胞胎、繁育加成）时，对这里出生的幼崽和孵出的小鸡一样生效。$(br2)详见$(l:animalflee:fishing/fishing_overview)钓鱼与鱼群$()。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "四季静谧",
+      "text": "装了四季静谧，$(bold)冬天$()丢鱼饵不会有鱼群生成，鱼饵也不会被消耗，可以捞回来等开春再投。$(br2)热带群系没有冬天，不受影响。$(br2)详见$(l:animalflee:fishing/fishing_overview)钓鱼与鱼群$()。"
     }
   ]
 }

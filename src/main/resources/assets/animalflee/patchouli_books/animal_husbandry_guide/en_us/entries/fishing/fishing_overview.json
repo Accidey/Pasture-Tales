@@ -18,7 +18,12 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:wheat_seeds",
       "title": "Feeding Fish",
-      "text": "Dropping $(bold)almost anything edible$() into natural water works as fish bait: seeds, crops and ordinary food all count, and the item tooltip will tell you so. Bait disappears once it hits the water.$(br2)After 0.5~1 in-game day, 2-5 fish appear nearby - and they only spawn in natural water.$(br2)This lets you build your own fishing grounds!"
+      "text": "Dropping $(bold)almost anything edible$() into natural water works as fish bait: seeds, crops and ordinary food all count, and the item tooltip will tell you so.$(br2)Bait disappears about $(bold)10 seconds$() after it enters the water - long enough to scoop it back out if you dropped it by mistake.$(br2)Only after those 10 seconds is the bait eaten and the clock started: 0.5~1 in-game day later, 2-5 fish appear nearby, and they only spawn in natural water.$(br2)This lets you build your own fishing grounds!"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Winter & Fish",
+      "text": "With $(bold)Serene Seasons$() installed, bait dropped in winter attracts no fish at all - the water is too cold.$(br2)The good news is that bait is not consumed and the $(bold)10-second countdown never starts$(): it stays in the water, so you can scoop it back out and save it for spring.$(br2)Tropical biomes have no winter (deserts, jungles, warm oceans and the like), so bait works there all year round.$(br2)Bait already dropped before winter is unaffected and still produces fish on its original schedule."
     },
     {
       "type": "patchouli:text",

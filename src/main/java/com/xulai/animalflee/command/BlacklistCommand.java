@@ -23,6 +23,7 @@ public final class BlacklistCommand {
 
     private static final String PREFIX_FLEE = "animalflee.blacklist.flee.";
     private static final String PREFIX_EXCLUDE = "animalflee.blacklist.exclude.";
+    private static final String PREFIX_BAIT = "animalflee.blacklist.bait.";
 
     private BlacklistCommand() {
     }
@@ -40,7 +41,12 @@ public final class BlacklistCommand {
                                 .then(Commands.literal("add")
                                         .executes(ctx -> modify(ctx, false, false)))
                                 .then(Commands.literal("remove")
-                                        .executes(ctx -> modify(ctx, false, true))))));
+                                        .executes(ctx -> modify(ctx, false, true))))
+                        .then(Commands.literal("bait")
+                                .then(Commands.literal("add")
+                                        .executes(ctx -> modifyBait(ctx, false)))
+                                .then(Commands.literal("remove")
+                                        .executes(ctx -> modifyBait(ctx, true))))));
     }
 
     private static int modify(CommandContext<CommandSourceStack> ctx, boolean flee, boolean remove) {
@@ -92,6 +98,46 @@ public final class BlacklistCommand {
         }
 
         source.sendSuccess(() -> Component.translatable(remove ? prefix + "removed" : prefix + "added", id), true);
+        return 1;
+    }
+
+    private static int modifyBait(CommandContext<CommandSourceStack> ctx, boolean remove) {
+        CommandSourceStack source = ctx.getSource();
+        if (!(source.getEntity() instanceof ServerPlayer player)) {
+            source.sendFailure(Component.translatable(PREFIX_BAIT + "player_only"));
+            return 0;
+        }
+
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) {
+            source.sendFailure(Component.translatable(PREFIX_BAIT + "empty_hand"));
+            return 0;
+        }
+
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (key == null) {
+            source.sendFailure(Component.translatable(PREFIX_BAIT + "unknown_item"));
+            return 0;
+        }
+        String id = key.toString();
+
+        List<String> list = new ArrayList<>(Config.BAIT_BLACKLIST.get());
+        if (remove) {
+            if (!list.remove(id)) {
+                source.sendFailure(Component.translatable(PREFIX_BAIT + "not_present", id));
+                return 0;
+            }
+        } else {
+            if (list.contains(id)) {
+                source.sendFailure(Component.translatable(PREFIX_BAIT + "already_present", id));
+                return 0;
+            }
+            list.add(id);
+        }
+
+        Config.BAIT_BLACKLIST.set(list);
+        Config.SPEC.save();
+        source.sendSuccess(() -> Component.translatable(remove ? PREFIX_BAIT + "removed" : PREFIX_BAIT + "added", id), true);
         return 1;
     }
 }

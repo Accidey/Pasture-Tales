@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "管理命令",
-      "text": "所有命令都需要权限等级 2，并且要手持对应物品。$(br2)$(bold)/pasturetales blacklist flee add|remove$() —— 手持刷怪蛋，把这种生物加入/移出「不会逃跑」名单。$(br2)$(bold)/pasturetales blacklist exclude add|remove$() —— 手持刷怪蛋，让这种生物完全不受本模组影响；一些繁殖方式特别的生物默认已在其中。"
+      "text": "所有命令都需要权限等级 2，并且要手持对应物品。$(br2)$(bold)/pasturetales blacklist flee add|remove$() —— 手持刷怪蛋，把这种生物加入/移出「不会逃跑」名单。$(br2)$(bold)/pasturetales blacklist exclude add|remove$() —— 手持刷怪蛋，让这种生物完全不受本模组影响；一些繁殖方式特别的生物默认已在其中。$(br2)$(bold)/pasturetales blacklist bait add|remove$() —— 手持物品，把它加入/移出鱼饵黑名单；名单里的东西丢进水里也不会引来鱼群。$(br2)$(bold)/pasturetales bait add|remove$() —— 手持物品，把它加入/移出鱼饵白名单；名单里的东西即使不能吃也能当鱼饵，与黑名单冲突时黑名单优先。"
     },
     {
       "type": "patchouli:text",
