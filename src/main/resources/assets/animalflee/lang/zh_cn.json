@@ -40,6 +40,7 @@
   "animalflee.configuration.fishScanRadius": "钓鱼时扫描鱼实体的半径",
   "animalflee.configuration.baitBlacklist": "鱼饵黑名单",
   "animalflee.configuration.baitWhitelist": "鱼饵白名单",
+  "animalflee.configuration.winterBlocksBait": "冬天是否禁止鱼饵生出鱼群",
   "animalflee.configuration.hungerEnabled": "是否启用动物饥饿系统",
   "animalflee.configuration.breedMinHungerPercent": "动物可繁殖所需的最低饥饿百分比",
   "animalflee.configuration.dailyHungerDrainPercent": "家养动物每天消耗的饥饿值百分比",

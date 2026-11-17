@@ -82,7 +82,7 @@ Your first join delivers the **Animal Husbandry Guide**, a Patchouli book that w
 
 - **Jade** — diet (colour-coded), gender, domestication, pregnancy progress, recovery cooldown, next egg and next moult countdowns, growth progress, hunger and starving state, plus incubation progress on eggs. Jade's own "time until grown" figure is hidden, because it no longer matches reality.
 - **Touhou Little Maid** — maids feed only domesticated animals that are actually hungry, only with food the animal's diet permits, and keep going until it is full. Their fishing follows the same water and live-fish rules.
-- **Serene Seasons** — bait dropped in winter attracts no fish at all, and the bait is left in the water rather than consumed. Tropical biomes, which have no winter, are unaffected.
+- **Serene Seasons** — bait dropped in winter attracts no fish at all, and the bait is left in the water rather than consumed. Tropical biomes, which have no winter, are unaffected. The rule has its own toggle and is on by default.
 - **Breeding modifiers** — births and hatches announce themselves the standard way, so mods that add twins, birth bonuses or inherited stats apply to offspring produced here.
 
 ## ⚙️ Configuration & Commands
@@ -193,7 +193,7 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 
 - **Jade**——看向动物即可看到食性（带颜色）、性别、家养状态、怀孕进度、产后冷却、下次产蛋与下次掉毛倒计时、成长进度、饥饿与挨饿状态；看向受精蛋还能看到孵化进度。Jade 自带的「还有多久长大」会被隐藏，因为它已不再符合实际规则。
 - **东方 Little Maid（车万女仆）**——女仆只喂确实饿了的家养动物，只用该动物食性允许的食物，并且一直喂到吃饱；她们的钓鱼遵守同样的水域与真鱼规则。
-- **四季静谧**——冬天丢下的鱼饵不会引来任何鱼；鱼饵不会被消耗，留在水里可以捞回。热带群系没有冬天，不受影响。
+- **四季静谧**——冬天丢下的鱼饵不会引来任何鱼；鱼饵不会被消耗，留在水里可以捞回。热带群系没有冬天，不受影响。这条规则有独立开关，默认开启。
 - **繁殖类模组**——出生与孵化按标准方式广播，因此添加双胞胎、出生奖励或属性继承的模组，对这里出生的后代同样生效。
 
 ## ⚙️ 配置与命令

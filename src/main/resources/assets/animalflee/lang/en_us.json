@@ -40,6 +40,7 @@
   "animalflee.configuration.fishScanRadius": "Fish Scan Radius for Fishing",
   "animalflee.configuration.baitBlacklist": "Fish Bait Blacklist",
   "animalflee.configuration.baitWhitelist": "Fish Bait Whitelist",
+  "animalflee.configuration.winterBlocksBait": "Block Bait in Winter",
   "animalflee.configuration.hungerEnabled": "Enable Animal Hunger System",
   "animalflee.configuration.breedMinHungerPercent": "Minimum Hunger Percent to Breed",
   "animalflee.configuration.dailyHungerDrainPercent": "Daily Hunger Drain Percent",

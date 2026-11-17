@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Fishing",
-      "text": "$(bold)Natural water only$() (on by default; turn it off and even a small backyard pond works), the minimum water volume for a natural pool (default 64 connected water blocks), and the $(bold)fish scan radius$() (default 16 blocks).$(br2)Luck and Luck of the Sea still work as usual; dropping bait into natural water slowly builds up a fish stock.$(br2)You can also keep a $(bold)bait blacklist$() so listed items never attract fish - handy for protecting valuable food - and a $(bold)bait whitelist$() that lets otherwise inedible items (sticks, bones and the like) work as bait. If an item is on both lists, the blacklist wins. See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
+      "text": "$(bold)Natural water only$() (on by default; turn it off and even a small backyard pond works), the minimum water volume for a natural pool (default 64 connected water blocks), and the $(bold)fish scan radius$() (default 16 blocks).$(br2)Luck and Luck of the Sea still work as usual; dropping bait into natural water slowly builds up a fish stock.$(br2)You can also keep a $(bold)bait blacklist$() so listed items never attract fish - handy for protecting valuable food - and a $(bold)bait whitelist$() that lets otherwise inedible items (sticks, bones and the like) work as bait. If an item is on both lists, the blacklist wins.$(br2)With $(bold)Serene Seasons$() installed there is also a \"block bait in winter\" toggle, on by default; turn it off and bait works in winter as usual. See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
     },
     {
       "type": "patchouli:text",

@@ -23,7 +23,7 @@
     {
       "type": "patchouli:text",
       "title": "Winter & Fish",
-      "text": "With $(bold)Serene Seasons$() installed, bait dropped in winter attracts no fish at all - the water is too cold.$(br2)The good news is that bait is not consumed and the $(bold)10-second countdown never starts$(): it stays in the water, so you can scoop it back out and save it for spring.$(br2)Tropical biomes have no winter (deserts, jungles, warm oceans and the like), so bait works there all year round.$(br2)Bait already dropped before winter is unaffected and still produces fish on its original schedule."
+      "text": "With $(bold)Serene Seasons$() installed, bait dropped in winter attracts no fish at all - the water is too cold.$(br2)The good news is that bait is not consumed and the $(bold)10-second countdown never starts$(): it stays in the water, so you can scoop it back out and save it for spring.$(br2)Tropical biomes have no winter (deserts, jungles, warm oceans and the like), so bait works there all year round.$(br2)Bait already dropped before winter is unaffected and still produces fish on its original schedule.$(br2)Don't want winter to stop you? Operators can switch this rule off in the config; it is on by default."
     },
     {
       "type": "patchouli:text",

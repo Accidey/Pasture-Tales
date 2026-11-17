@@ -38,7 +38,7 @@ public class FishFeedingHandler {
 
         ServerLevel level = (ServerLevel) itemEntity.level();
         BlockPos pos = itemEntity.blockPosition();
-        if (SereneSeasonsCompat.isWinter(level, pos)) return;
+        if (Config.WINTER_BLOCKS_BAIT.get() && SereneSeasonsCompat.isWinter(level, pos)) return;
 
         CompoundTag data = itemEntity.getPersistentData();
         int soaked = data.getInt(BAIT_TICKS_TAG) + 1;

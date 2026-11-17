@@ -190,6 +190,23 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        WINTER_BLOCKS_BAIT = BUILDER
+                .comment(
+                        "冬天是否禁止鱼饵生出鱼群（需安装四季静谧）",
+                        "Whether winter blocks bait from spawning fish (requires Serene Seasons)",
+                        "开启后，冬天丢进水里的鱼饵不生成鱼、也不被消耗；热带群系没有冬天，不受影响。",
+                        "When enabled, bait dropped in winter spawns no fish and is not consumed;",
+                        "tropical biomes have no winter and are unaffected.",
+                        "关闭后冬天照常投喂、照常出鱼。",
+                        "Disable this to let bait work normally in winter.",
+                        "只有在安装了四季静谧时才会生效；未安装时该选项不起作用。",
+                        "Only takes effect when Serene Seasons is installed; otherwise it does nothing.",
+                        "Default: true / 默认：true"
+                )
+                .define("winterBlocksBait", true);
+
+        BUILDER.comment(" ");
+
         HUNGER_ENABLED = BUILDER
                 .comment(
                         "是否启用动物饥饿系统",
@@ -621,6 +638,7 @@ public class Config {
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_BLACKLIST;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_WHITELIST;
+    public static final ModConfigSpec.BooleanValue WINTER_BLOCKS_BAIT;
     public static final ModConfigSpec.BooleanValue HUNGER_ENABLED;
     public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT;
     public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT;
