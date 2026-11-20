@@ -1,5 +1,6 @@
 package com.xulai.animalflee.logic;
 
+import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -10,35 +11,47 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public final class OviparousRegistry {
 
     private static volatile Map<String, String> eggItemCache = Map.of();
+    private static volatile Set<Item> eggItems = Set.of();
     private static volatile boolean cacheReady = false;
+    private static final Set<String> warnedEntries = new HashSet<>();
 
     private OviparousRegistry() {
     }
 
     public static void resetCache() {
-        eggItemCache = buildCache();
+        Map<String, String> map = new HashMap<>();
+        Set<Item> items = new HashSet<>();
+        for (String entry : Config.OVIPAROUS_MOBS.get()) {
+            String[] parts = entry.split(",", 2);
+            String mobId = parts.length == 2 ? parts[0].trim() : "";
+            String eggId = parts.length == 2 ? parts[1].trim() : "";
+            ResourceLocation mobKey = mobId.isEmpty() ? null : ResourceLocation.tryParse(mobId);
+            ResourceLocation eggKey = eggId.isEmpty() ? null : ResourceLocation.tryParse(eggId);
+            if (mobKey != null && eggKey != null
+                    && BuiltInRegistries.ENTITY_TYPE.containsKey(mobKey)
+                    && BuiltInRegistries.ITEM.containsKey(eggKey)) {
+                map.put(mobId, eggId);
+                items.add(BuiltInRegistries.ITEM.get(eggKey));
+            } else {
+                warnInvalid(entry);
+            }
+        }
+        eggItemCache = Map.copyOf(map);
+        eggItems = Set.copyOf(items);
         cacheReady = true;
     }
 
-    private static Map<String, String> buildCache() {
-        Map<String, String> map = new HashMap<>();
-        for (String entry : Config.OVIPAROUS_MOBS.get()) {
-            String[] parts = entry.split(",", 2);
-            if (parts.length != 2) continue;
-            String mobId = parts[0].trim();
-            String eggId = parts[1].trim();
-            if (mobId.isEmpty() || eggId.isEmpty()) continue;
-            if (BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(mobId))
-                    && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(eggId))) {
-                map.put(mobId, eggId);
-            }
+    private static void warnInvalid(String entry) {
+        if (warnedEntries.add(entry)) {
+            AnimalFleeMod.LOGGER.warn("[AnimalFlee] Skipping invalid oviparousMobs entry: {}", entry);
         }
-        return Map.copyOf(map);
     }
 
     private static void ensureInitialized() {
@@ -58,6 +71,11 @@ public final class OviparousRegistry {
         ensureInitialized();
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         return key != null && eggItemCache.containsKey(key.toString());
+    }
+
+    public static boolean isConfiguredEgg(Item item) {
+        ensureInitialized();
+        return eggItems.contains(item);
     }
 
     public static ItemStack createEgg(Animal mother) {

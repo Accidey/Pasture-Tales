@@ -36,7 +36,8 @@ public class FertilizedEggTooltipHandler {
                 }
             }
             event.getToolTip().add(Component.translatable("tooltip.animalflee.fertilized_egg"));
-        } else if (stack.is(Items.EGG) && Config.BLOCK_NORMAL_EGG_HATCHING.get()) {
+        } else if ((stack.is(Items.EGG) || OviparousRegistry.isConfiguredEgg(stack.getItem()))
+                && Config.BLOCK_NORMAL_EGG_HATCHING.get()) {
             event.getToolTip().add(Component.translatable("tooltip.animalflee.normal_egg"));
         }
     }
