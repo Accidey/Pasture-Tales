@@ -11,6 +11,7 @@
     "ThrownEggHatchMixin",
     "AbstractHorseFeedMixin",
     "ChickenEggLayMixin",
+    "OviparousEggLayMixin",
     "FollowParentGoalMixin",
     "AgeableMobGrowthMixin"
   ],
