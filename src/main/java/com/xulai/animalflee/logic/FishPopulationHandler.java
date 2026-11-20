@@ -36,11 +36,11 @@ public final class FishPopulationHandler {
         return fish.isAlive() && fish.isInWater();
     }
 
-    private static AbstractFish findCatchableFish(ServerLevel level, BlockPos pos, double radius) {
+    private static AbstractFish findCatchableFish(ServerLevel level, BlockPos pos, double radius, @Nullable Entity excluded) {
         AABB box = new AABB(pos).inflate(radius, radius, radius);
         AbstractFish[] found = new AbstractFish[1];
         level.getEntities().get(FISH_TYPE, box, (AbortableIterationConsumer<AbstractFish>) fish -> {
-            if (isCatchable(fish)) {
+            if (fish != excluded && isCatchable(fish)) {
                 found[0] = fish;
                 return AbortableIterationConsumer.Continuation.ABORT;
             }
@@ -50,7 +50,11 @@ public final class FishPopulationHandler {
     }
 
     public static AbstractFish pickFishNearby(ServerLevel level, BlockPos pos) {
-        return findCatchableFish(level, pos, Config.FISH_FISH_SCAN_RADIUS.get());
+        return findCatchableFish(level, pos, Config.FISH_FISH_SCAN_RADIUS.get(), null);
+    }
+
+    public static AbstractFish pickFishNearby(ServerLevel level, BlockPos pos, @Nullable Entity excluded) {
+        return findCatchableFish(level, pos, Config.FISH_FISH_SCAN_RADIUS.get(), excluded);
     }
 
     public static boolean containsFishItem(List<ItemStack> stacks) {

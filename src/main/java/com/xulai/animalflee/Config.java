@@ -155,6 +155,86 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        FISHING_MINIGAME_ENABLED = BUILDER
+                .comment(
+                        "是否启用钓鱼小游戏",
+                        "Whether the fishing minigame is enabled",
+                        "开启后，鱼咬钩收杆时会弹出转盘小游戏：",
+                        "指针停在高亮区才能收下渔获，落在暴击区战利品翻倍，",
+                        "没点中还有下一次机会，时间耗尽则鱼跑掉、什么都得不到。",
+                        "关闭后回到原版「咬钩即收杆得渔获」的流程。",
+                        "车万女仆的钓鱼任务不使用小游戏，始终按原版流程取鱼。",
+                        "When enabled, reeling in a biting fish opens a spinning-wheel minigame:",
+                        "click while the pointer is inside a highlighted zone to land the catch,",
+                        "hitting the crit zone doubles the loot, and running out of time loses the fish.",
+                        "Disable this to return to the vanilla bite-and-reel flow.",
+                        "Maid fishing from Touhou Little Maid never uses the minigame.",
+                        "Default: true / 默认：true"
+                )
+                .define("fishingMinigameEnabled", true);
+
+        BUILDER.comment(" ");
+
+        FISHING_MINIGAME_CATCH_WINDOW = BUILDER
+                .comment(
+                        "小游戏成功区宽度",
+                        "Minigame catch window width",
+                        "成功区占整个转盘圆周的比例，也就是指针落在可收杆角度内的机会。",
+                        "数值越大越容易，0.1 表示圆周上共 10% 的角度可以收下渔获。",
+                        "The fraction of the wheel that counts as a successful catch.",
+                        "Higher is easier; 0.1 means 10% of the wheel lands the fish.",
+                        "Default: 0.1 / 默认：0.1",
+                        "Range: 0.02 ~ 0.5"
+                )
+                .defineInRange("fishingMinigameCatchWindow", 0.1, 0.02, 0.5);
+
+        BUILDER.comment(" ");
+
+        FISHING_MINIGAME_CRIT_RATE = BUILDER
+                .comment(
+                        "小游戏暴击区占比",
+                        "Minigame crit zone share",
+                        "成功区中暴击区所占的比例，落在暴击区战利品翻倍。",
+                        "0 表示没有暴击区，只剩普通成功区。",
+                        "How much of the success window also counts as crit; a crit doubles the loot.",
+                        "Set to 0 to remove the crit zone entirely.",
+                        "Default: 0.3 / 默认：0.3",
+                        "Range: 0.0 ~ 1.0"
+                )
+                .defineInRange("fishingMinigameCritRate", 0.3, 0.0, 1.0);
+
+        BUILDER.comment(" ");
+
+        FISHING_MINIGAME_SPEED = BUILDER
+                .comment(
+                        "小游戏指针速度倍率",
+                        "Minigame pointer speed multiplier",
+                        "指针绕转盘转动的速度倍率，1.0 为基准速度。",
+                        "调低更容易跟住指针，调高更考验反应。",
+                        "How fast the pointer spins around the wheel; 1.0 is the base speed.",
+                        "Lower is easier to track, higher demands faster reflexes.",
+                        "Default: 1.0 / 默认：1.0",
+                        "Range: 0.2 ~ 4.0"
+                )
+                .defineInRange("fishingMinigameSpeed", 1.0, 0.2, 4.0);
+
+        BUILDER.comment(" ");
+
+        FISHING_MINIGAME_SECONDS = BUILDER
+                .comment(
+                        "小游戏限时（秒）",
+                        "Minigame time limit in seconds",
+                        "限时内没有点中成功区，鱼就会脱钩跑掉。",
+                        "每次点空还会额外扣掉约一成的剩余时间。",
+                        "If the success zone is not hit within this time, the fish escapes.",
+                        "Each missed click also burns roughly a tenth of the remaining time.",
+                        "Default: 9 / 默认：9",
+                        "Range: 3 ~ 60"
+                )
+                .defineInRange("fishingMinigameSeconds", 9, 3, 60);
+
+        BUILDER.comment(" ");
+
         BAIT_BLACKLIST = BUILDER
                 .comment(
                         "鱼饵黑名单（物品ID列表）",
@@ -312,6 +392,23 @@ public class Config {
                         "Range: 1 ~ 1440"
                 )
                 .defineInRange("cooldownMinutes", 120, 1, 1440);
+
+        BUILDER.comment(" ");
+
+        COW_MAX_HEALTH = BUILDER
+                .comment(
+                        "牛的生命值上限（体形缩放基准）",
+                        "Base max health of a cow, used as the body-size reference",
+                        "所有动物按当前体形（宽×高）等比换算生命值，牛为基准值。",
+                        "Every animal scales its max health by current body volume (width x height), with the cow as reference.",
+                        "只提高不降低：原本上限更高的生物保持原值。",
+                        "Only raises the cap: mobs that already have more health keep it.",
+                        "幼崽按成年体形的四分之一计算，最低 4 点。",
+                        "Babies use a quarter of the adult volume, with a minimum of 4 health.",
+                        "Default: 40 / 默认：40",
+                        "Range: 4 ~ 200"
+                )
+                .defineInRange("cowMaxHealth", 40, 4, 200);
 
         BUILDER.comment(" ");
 
@@ -636,6 +733,11 @@ public class Config {
     public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
     public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;
+    public static final ModConfigSpec.BooleanValue FISHING_MINIGAME_ENABLED;
+    public static final ModConfigSpec.DoubleValue FISHING_MINIGAME_CATCH_WINDOW;
+    public static final ModConfigSpec.DoubleValue FISHING_MINIGAME_CRIT_RATE;
+    public static final ModConfigSpec.DoubleValue FISHING_MINIGAME_SPEED;
+    public static final ModConfigSpec.IntValue FISHING_MINIGAME_SECONDS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_BLACKLIST;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BAIT_WHITELIST;
     public static final ModConfigSpec.BooleanValue WINTER_BLOCKS_BAIT;
@@ -647,6 +749,7 @@ public class Config {
     public static final ModConfigSpec.IntValue PREGNANCY_FLOAT_MINUTES;
     public static final ModConfigSpec.DoubleValue MISCARRIAGE_CHANCE;
     public static final ModConfigSpec.IntValue COOLDOWN_MINUTES;
+    public static final ModConfigSpec.IntValue COW_MAX_HEALTH;
     public static final ModConfigSpec.IntValue COW_GROWTH_DAYS;
     public static final ModConfigSpec.IntValue GROWTH_FLOAT_DAYS;
     public static final ModConfigSpec.IntValue GROWTH_MIN_HUNGER_PERCENT;

@@ -39,6 +39,9 @@ Feed an animal once and it becomes domesticated — permanently. From then on, i
 - **Starving is lethal but reversible.** At zero hunger an animal loses health over three days and may lose a pregnancy. Feed it in time and it recovers.
 - **Well-fed animals heal.** Above 80% hunger, an injured animal slowly regenerates.
 - **Wild animals look after themselves.** Animals you have never fed — including wild newborns — never burn hunger and never starve. Keeping livestock is something you opt into by taming them.
+- **Size sets health and appetite.** Max health scales by body size, with an adult cow as the 40-point reference, and a bigger frame means a bigger stomach. Babies have about a quarter of the adult values, never below 4 health and 4 hunger.
+- **Babies grow visibly.** A baby's body expands with growth progress — fast at first, slower near maturity — then switches to the adult model at full size without a jump.
+- **Feed in hand, they follow.** Domestication also means they come to you: hold a feed that matches their diet and any domesticated animal within 10 blocks walks over. Wild animals ignore it, and so do animals in courtship.
 
 ## 💞 Courtship, Pregnancy, Birth
 
@@ -83,6 +86,7 @@ Your first join delivers the **Animal Husbandry Guide**, a Patchouli book that w
 - **Jade** — diet (colour-coded), gender, domestication, pregnancy progress, recovery cooldown, next egg and next moult countdowns, growth progress, hunger and starving state, plus incubation progress on eggs. Jade's own "time until grown" figure is hidden, because it no longer matches reality.
 - **Touhou Little Maid** — maids feed only domesticated animals that are actually hungry, only with food the animal's diet permits, and keep going until it is full. Their fishing follows the same water and live-fish rules.
 - **Serene Seasons** — bait dropped in winter attracts no fish at all, and the bait is left in the water rather than consumed. Tropical biomes, which have no winter, are unaffected. The rule has its own toggle and is on by default.
+- **Majrusz's Accessories** — animal accessories work on livestock here: Idol of Fertility, Nature Rune and Soul of Minecraft can produce twins, and the young inherit their parents' accessory-granted attributes. The first feeding that domesticates a wild animal counts as taming, so Certificate of Taming, Nature Rune and Soul of Minecraft apply their attribute bonus and may drop a Certificate. Fishing accessories (Angler Rune, Angler Trophy, Metal Lure, Unbreakable Fishing Line) work as usual — but they cannot create a bite where there is no real fish.
 - **Breeding modifiers** — births and hatches announce themselves the standard way, so mods that add twins, birth bonuses or inherited stats apply to offspring produced here.
 
 ## ⚙️ Configuration & Commands
@@ -102,6 +106,8 @@ Species management is exposed in game as well. Every command requires operator p
 - `/pasturetales blacklist exclude add|remove` — makes that creature completely ignored by this mod. That list exists for creatures whose breeding cannot be safely replaced.
 - `/pasturetales blacklist bait add|remove` — registers the item in your hand as forbidden bait; it will not attract fish even when dropped in water.
 - `/pasturetales bait add|remove` — registers the item in your hand as bait, even if it is not edible; the blacklist wins if an item is on both lists.
+- `/pasturetales oviparous add` — hold that mob's spawn egg in your main hand and the egg it lays in your off hand to register it as egg-laying; it then lays eggs on a cycle instead of getting pregnant.
+- `/pasturetales oviparous remove` — hold just the spawn egg in your main hand to take that mob off the egg-laying list.
 
 ## ✅ Safe for Existing Worlds
 
@@ -150,6 +156,9 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 - **挨饿会死，但救得回来。**饥饿归零后，动物在三天内持续掉血，还可能流产；及时喂食即可恢复。
 - **吃饱会回血。**饥饿高于八成时，受伤的动物会缓慢恢复生命。
 - **野生动物自给自足。**你从未喂过的动物——包括野外出生的幼崽——不消耗饥饿，也不会饿死。养牲畜是你选择驯服之后才要承担的事。
+- **体型决定血量与饭量。**生命上限按体型缩放，以成年牛的 40 点为基准；体格越大，胃也越大。幼崽约为成年值的四分之一，最低 4 点生命、4 点饥饿。
+- **幼崽会肉眼可见地长大。**体型随成长进度一点点变大，前期快、后期慢；长成那一刻换成成年外观，尺寸不跳变。
+- **手持饲料，家养动物会跟来。**手持适合它食性的饲料时，10 格内的家养动物会主动走近。野生动物完全不理，发情中的动物也不会跟。
 
 ## 💞 求偶、怀孕与生产
 
@@ -194,6 +203,7 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 - **Jade**——看向动物即可看到食性（带颜色）、性别、家养状态、怀孕进度、产后冷却、下次产蛋与下次掉毛倒计时、成长进度、饥饿与挨饿状态；看向受精蛋还能看到孵化进度。Jade 自带的「还有多久长大」会被隐藏，因为它已不再符合实际规则。
 - **东方 Little Maid（车万女仆）**——女仆只喂确实饿了的家养动物，只用该动物食性允许的食物，并且一直喂到吃饱；她们的钓鱼遵守同样的水域与真鱼规则。
 - **四季静谧**——冬天丢下的鱼饵不会引来任何鱼；鱼饵不会被消耗，留在水里可以捞回。热带群系没有冬天，不受影响。这条规则有独立开关，默认开启。
+- **玛珠斯的饰品**——动物类饰品对这里的家畜生效：繁育神像、自然符文与世界之魂可以让家养动物产下双胞胎，幼崽还会继承父母因饰品得到的属性。第一次喂食把野生动物变成家养时视同驯化，驯化之证、自然符文与世界之魂的属性加成与驯化之证掉落都会生效。钓鱼类饰品（垂钓者符文、垂钓者勋章、金属诱饵、强力鱼线）照常工作——但附近没有真鱼时，它们也无法让鱼漂咬钩。
 - **繁殖类模组**——出生与孵化按标准方式广播，因此添加双胞胎、出生奖励或属性继承的模组，对这里出生的后代同样生效。
 
 ## ⚙️ 配置与命令
@@ -213,6 +223,8 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 - `/pasturetales blacklist exclude add|remove`——让该生物完全不受本模组影响，或恢复。这份名单留给那些繁殖方式无法安全替换的生物。
 - `/pasturetales blacklist bait add|remove`——把手中物品加入/移出鱼饵黑名单；名单里的物品丢进水里也不会引来鱼群。
 - `/pasturetales bait add|remove`——把手中物品设为鱼饵，即使它本身不能吃；与黑名单冲突时黑名单优先。
+- `/pasturetales oviparous add`——主手持该生物刷怪蛋、副手持它产下的蛋，把它登记为卵生动物；之后它按周期产蛋，不再怀孕。
+- `/pasturetales oviparous remove`——只需主手持刷怪蛋，把它移出卵生名单。
 
 ## ✅ 对已有存档安全
 

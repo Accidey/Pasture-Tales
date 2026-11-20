@@ -3,6 +3,8 @@ package com.xulai.animalflee.logic;
 import com.xulai.animalflee.Config;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,6 +18,8 @@ public final class GrowthSystem {
 
     private static final long DAY_TICKS = 24000L;
     private static final double COW_REFERENCE_VOLUME = 0.9 * 1.4;
+    private static final int SIZE_SYNC_INTERVAL = 600;
+    private static final double SCALE_EPSILON = 0.001;
 
     private GrowthSystem() {
     }
@@ -35,6 +39,10 @@ public final class GrowthSystem {
         if (!animal.isBaby()) return;
 
         initGrowth(animal);
+        updateScale(animal);
+        if (animal.tickCount % SIZE_SYNC_INTERVAL == 0) {
+            SizeHealthSystem.apply(animal);
+        }
 
         CompoundTag data = animal.getPersistentData();
         long dayTime = animal.level().getDayTime();
@@ -69,6 +77,14 @@ public final class GrowthSystem {
         return HungerSystem.getHunger(animal) >= maxHunger * growthThreshold();
     }
 
+    private static void updateScale(Animal animal) {
+        AttributeInstance attribute = animal.getAttribute(Attributes.SCALE);
+        if (attribute == null) return;
+        double expected = GenderLogic.getExpectedScale(animal);
+        if (Math.abs(attribute.getBaseValue() - expected) < SCALE_EPSILON) return;
+        GenderLogic.applyScale(animal, expected);
+    }
+
     private static void growUp(Animal animal) {
         animal.setAge(0);
         CompoundTag data = animal.getPersistentData();
@@ -76,6 +92,8 @@ public final class GrowthSystem {
         data.remove(NBT_GROWTH_ACCUM);
         data.remove(NBT_GROWTH_TARGET);
         data.remove(NBT_GROWTH_LAST);
+        GenderLogic.applyScale(animal, GenderLogic.getExpectedScale(animal));
+        SizeHealthSystem.apply(animal);
     }
 
     private static long calculateGrowthTarget(Animal animal) {

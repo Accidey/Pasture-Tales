@@ -16,6 +16,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "卵生动物命令",
+      "text": "$(bold)/pasturetales oviparous add$() —— $(bold)主手$()持这种生物的刷怪蛋、$(bold)副手$()持它产下的蛋，把它登记为卵生动物；之后它不再怀孕，而是像鸡一样周期性产蛋。$(br2)$(bold)/pasturetales oviparous remove$() —— 只需主手持刷怪蛋，把它移出卵生名单，恢复为胎生怀孕。$(br2)改动会直接写入配置文件。被登记的必须是动物，且同一种生物只能对应一种蛋。"
+    },
+    {
+      "type": "patchouli:text",
       "title": "配置",
       "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)可调整的内容见$(l:animalflee:commands/config_overview)常用设置$()。$(br2)绝大多数选项改完立即生效；但动物「天生不怕人」是每只只判定一次的，改比例不会影响已经判定的个体。"
     }

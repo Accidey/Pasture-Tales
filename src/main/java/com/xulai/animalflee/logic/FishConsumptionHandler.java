@@ -25,7 +25,13 @@ public class FishConsumptionHandler {
         if (hook == null) return;
         if (!(hook.level() instanceof ServerLevel serverLevel)) return;
 
-        AbstractFish fish = FishPopulationHandler.pickFishNearby(serverLevel, hook.blockPosition());
+        AbstractFish fish = null;
+        if (hook instanceof FishingMinigameHook minigameHook) {
+            fish = minigameHook.animalflee$getMinigameTargetFish();
+        }
+        if (fish == null || !fish.isAlive()) {
+            fish = FishPopulationHandler.pickFishNearby(serverLevel, hook.blockPosition());
+        }
         if (fish != null) {
             pullFishToPlayer(fish, event.getEntity(), hook);
         }
@@ -37,7 +43,7 @@ public class FishConsumptionHandler {
         }
     }
 
-    private static void pullFishToPlayer(AbstractFish fish, Player player, FishingHook hook) {
+    public static void pullFishToPlayer(AbstractFish fish, Player player, FishingHook hook) {
         Vec3 hookPos = hook.position();
         fish.setPos(hookPos.x, hookPos.y, hookPos.z);
         Vec3 toPlayer = player.position().subtract(hookPos);

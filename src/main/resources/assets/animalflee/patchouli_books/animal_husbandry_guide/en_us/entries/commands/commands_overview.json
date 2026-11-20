@@ -16,6 +16,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Oviparous Commands",
+      "text": "$(bold)/pasturetales oviparous add$() - hold that mob's spawn egg in your $(bold)main hand$() and the egg it lays in your $(bold)off hand$() to register it as oviparous; it no longer gets pregnant and instead lays eggs on a cycle like a chicken.$(br2)$(bold)/pasturetales oviparous remove$() - just hold the spawn egg in your main hand to remove it, and it goes back to live birth.$(br2)Changes are written straight to the config file. The mob must be an animal, and one mob can only map to one egg."
+    },
+    {
+      "type": "patchouli:text",
       "title": "Configuration",
       "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)See $(l:animalflee:commands/config_overview)Common Settings$() for what you can change.$(br2)Most options apply immediately. One exception: whether an animal is born fearless is decided once per animal, so changing the ratio will not affect animals already decided."
     }

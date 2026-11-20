@@ -27,6 +27,17 @@
   "animalflee.bait.not_present": "%s 不在鱼饵白名单中",
   "animalflee.bait.added": "已将 %s 加入鱼饵白名单，该物品可作为鱼饵",
   "animalflee.bait.removed": "已将 %s 移出鱼饵白名单",
+  "animalflee.oviparous.player_only": "此命令必须由玩家执行（需要读取双手物品）",
+  "animalflee.oviparous.not_spawn_egg": "主手必须持有该生物的刷怪蛋",
+  "animalflee.oviparous.unknown_type": "无法识别刷怪蛋的实体类型",
+  "animalflee.oviparous.not_animal": "%s 不是动物，无法列入卵生动物列表",
+  "animalflee.oviparous.offhand_empty": "副手必须持有该生物产下的蛋",
+  "animalflee.oviparous.offhand_spawn_egg": "副手必须持有该生物产下的蛋，而不是刷怪蛋",
+  "animalflee.oviparous.unknown_egg": "无法识别副手物品",
+  "animalflee.oviparous.already_present": "%s 已在卵生动物列表中",
+  "animalflee.oviparous.not_present": "%s 不在卵生动物列表中",
+  "animalflee.oviparous.added": "已将 %s 加入卵生动物列表，产蛋：%s",
+  "animalflee.oviparous.removed": "已将 %s 移出卵生动物列表",
   "animalflee.configuration.title": "Pasture Tales 配置",
   "animalflee.configuration.section.pasturetales.common.toml": "Pasture Tales 配置",
   "animalflee.configuration.section.pasturetales.common.toml.title": "Pasture Tales 配置",
@@ -49,6 +60,7 @@
   "animalflee.configuration.pregnancyFloatMinutes": "孕期浮动（分钟）",
   "animalflee.configuration.miscarriageChance": "怀孕期间受伤导致流产的概率",
   "animalflee.configuration.cooldownMinutes": "产后冷却基准（分钟）",
+  "animalflee.configuration.cowMaxHealth": "牛的生命值上限（体形缩放基准）",
   "animalflee.configuration.cowGrowthDays": "牛幼崽基准成长天数",
   "animalflee.configuration.growthFloatDays": "幼崽成长天数浮动",
   "animalflee.configuration.growthMinHungerPercent": "幼崽成长所需的最低饥饿百分比",
@@ -105,5 +117,6 @@
   "tooltip.animalflee.fertilized_egg": "受精蛋：放在不见天日的干草块上，约 1 个 MC 天后孵化",
   "tooltip.animalflee.fertilized_egg_species": "受精蛋（%s）：放在不见天日的干草块上，约 1 个 MC 天后孵化",
   "tooltip.animalflee.normal_egg": "普通蛋：无法孵化",
-  "msg.animalflee.smell": "动物发现了你，受惊逃走了"
+  "msg.animalflee.smell": "动物发现了你，受惊逃走了",
+  "screen.animalflee.fishing_minigame": "钓鱼"
 }

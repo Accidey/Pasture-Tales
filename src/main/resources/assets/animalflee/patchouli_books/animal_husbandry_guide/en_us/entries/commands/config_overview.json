@@ -22,7 +22,7 @@
     {
       "type": "patchouli:text",
       "title": "Breeding, Eggs & More",
-      "text": "Pregnancy baseline (default 120 minutes) and its random spread, miscarriage chance, post-birth cooldown, $(bold)egg incubation time$() (default 20 minutes), and the $(bold)stop normal eggs from hatching$() toggle.$(br2)Also: the $(bold)full loot on fall deaths$() toggle, custom animal food, herbivore/carnivore lists, the oviparous mob list and the fully excluded mob list.$(br2)Number options apply immediately; the one exception is animals already born fearless."
+      "text": "Pregnancy baseline (default 120 minutes) and its random spread, miscarriage chance, post-birth cooldown, $(bold)egg incubation time$() (default 20 minutes), the $(bold)stop normal eggs from hatching$() toggle, and the $(bold)cow max health$() reference (default 40; other animals scale by body size).$(br2)Also: the $(bold)full loot on fall deaths$() toggle, custom animal food, herbivore/carnivore lists, the oviparous mob list and the fully excluded mob list.$(br2)Number options apply immediately; the one exception is animals already born fearless."
     }
   ]
 }

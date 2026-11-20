@@ -27,6 +27,17 @@
   "animalflee.bait.not_present": "%s is not in the bait whitelist",
   "animalflee.bait.added": "Added %s to the bait whitelist; it can now be used as fish bait",
   "animalflee.bait.removed": "Removed %s from the bait whitelist",
+  "animalflee.oviparous.player_only": "This command must be run by a player (it reads both hands)",
+  "animalflee.oviparous.not_spawn_egg": "Main hand must hold that mob's spawn egg",
+  "animalflee.oviparous.unknown_type": "Could not identify the entity type of this spawn egg",
+  "animalflee.oviparous.not_animal": "%s is not an animal and cannot be listed as oviparous",
+  "animalflee.oviparous.offhand_empty": "Off hand must hold the egg that mob lays",
+  "animalflee.oviparous.offhand_spawn_egg": "Off hand must hold the egg that mob lays, not a spawn egg",
+  "animalflee.oviparous.unknown_egg": "Could not identify the off-hand item",
+  "animalflee.oviparous.already_present": "%s is already in the oviparous list",
+  "animalflee.oviparous.not_present": "%s is not in the oviparous list",
+  "animalflee.oviparous.added": "Added %s to the oviparous list, laying %s",
+  "animalflee.oviparous.removed": "Removed %s from the oviparous list",
   "animalflee.configuration.title": "Pasture Tales Configs",
   "animalflee.configuration.section.pasturetales.common.toml": "Pasture Tales Configs",
   "animalflee.configuration.section.pasturetales.common.toml.title": "Pasture Tales Configs",
@@ -49,6 +60,7 @@
   "animalflee.configuration.pregnancyFloatMinutes": "Pregnancy Random Float (minutes)",
   "animalflee.configuration.miscarriageChance": "Miscarriage Chance When Hurt",
   "animalflee.configuration.cooldownMinutes": "Post-Birth Cooldown (minutes)",
+  "animalflee.configuration.cowMaxHealth": "Cow Max Health (body-size reference)",
   "animalflee.configuration.cowGrowthDays": "Base Calf Growth (MC days)",
   "animalflee.configuration.growthFloatDays": "Growth Random Float (days)",
   "animalflee.configuration.growthMinHungerPercent": "Minimum Hunger Percent for Growth",
@@ -105,5 +117,6 @@
   "tooltip.animalflee.fertilized_egg": "Fertilized egg: place on a sheltered hay block to hatch in about 1 MC day",
   "tooltip.animalflee.fertilized_egg_species": "Fertilized %s egg: place on a sheltered hay block to hatch in about 1 MC day",
   "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch",
-  "msg.animalflee.smell": "An animal noticed you and fled"
+  "msg.animalflee.smell": "An animal noticed you and fled",
+  "screen.animalflee.fishing_minigame": "Fishing"
 }

@@ -15,6 +15,11 @@
       "text": "There must be a $(bold)living fish$() near your bobber for a bite to happen. With no fish around, that cast $(bold)never gets a bite at all$() - once you do get a bite, you always get something.$(br2)On a fish bite, the real fish is pulled to your feet and you have to kill it for the drops; $(bold)junk and treasure$() need no nearby fish and can still be caught (lily pads, leather boots, bones; or name tags, saddles, books, nautilus shells).$(br2)Luck and open water still affect your haul."
     },
     {
+      "type": "patchouli:text",
+      "title": "The Reeling Minigame",
+      "text": "Reeling in a biting fish pops up a $(bold)spinning wheel$(): the pointer circles around, and you click the moment it passes through a $(bold)highlighted sector$().$(br2)Hit a highlighted sector and the catch is yours; hit the darker $(bold)crit sector$() inside it and your haul doubles.$(br2)A missed click does not fail you right away, but it burns a chunk of time. Once the outer progress ring runs out, the fish shakes free and you get nothing; pressing ESC counts as a miss too.$(br2)Not a fan of the wheel? Operators can switch the minigame off in the config and go back to plain bite-and-reel.$(br2)Maid fishing is unaffected - she has no talent for it."
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "minecraft:wheat_seeds",
       "title": "Feeding Fish",

@@ -21,6 +21,11 @@
       "text": "With Jade installed, look at a baby to see its growth progress percentage. If it says \"Too hungry, growth paused\", it is time to feed it.$(br2)Babies also follow their own mother instead of any random adult of their kind - keep mother and child together."
     },
     {
+      "type": "patchouli:text",
+      "title": "Growing Bigger",
+      "text": "A baby does not stay the same size. As growth progresses its $(bold)body grows a little at a time$() - fast at first, slower near the end.$(br2)At the moment it matures it switches to the adult model, with no jump in size.$(br2)Max health and stomach grow along with the body, so a half-grown calf is already much tougher than a newborn.$(br2)Watch tight pens: a growing baby may get squeezed out as its hitbox expands."
+    },
+    {
       "type": "patchouli:entity",
       "entity": "minecraft:cow",
       "text": "Keep hay bales or wheat stocked in the pen so babies can always eat. They only take part in breeding once fully grown."

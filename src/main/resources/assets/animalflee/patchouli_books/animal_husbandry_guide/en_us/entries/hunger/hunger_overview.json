@@ -19,6 +19,16 @@
       "type": "patchouli:text",
       "title": "Why Keep Them Full",
       "text": "An injured animal fed past 80% hunger slowly heals; a starving one gives off clear signs, and Jade will show a starving status directly.$(br2)Wild animals and wild babies never burn hunger - only domesticated animals need regular care."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Size Sets Health and Appetite",
+      "text": "Bigger animals have $(bold)more max health and a bigger stomach$(). A cow is the reference: an adult cow has 40 health and about 20 max hunger.$(br2)Within the same species, males are sturdier than females and eat a little more.$(br2)$(bold)Babies start at a quarter of the adult values$() - a calf about 10 health, a chick only 4. Both climb toward the adult numbers as the body grows.$(br2)Small animals are not hungrier: their drain scales down with their stomach."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Hold Their Food and They Follow",
+      "text": "Domesticated animals know their food. Hold a $(bold)feed that matches their diet$() - crops or hay for herbivores, meat or fish for carnivores - and any domesticated animal within 10 blocks walks over and stops about two blocks away.$(br2)Wild animals and wild-born babies $(bold)ignore you$() - they are not domesticated yet.$(br2)An animal in courtship will not follow either; let it finish finding its mate.$(br2)They follow whether or not they are hungry, so a full animal still comes over."
     }
   ]
 }

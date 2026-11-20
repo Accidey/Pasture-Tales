@@ -14,5 +14,6 @@ public class CommandRegistrationHandler {
         BaitCommand.register(event.getDispatcher());
         CustomFoodCommand.register(event.getDispatcher());
         DietCommand.register(event.getDispatcher());
+        OviparousCommand.register(event.getDispatcher());
     }
 }

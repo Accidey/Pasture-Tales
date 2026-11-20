@@ -2,6 +2,7 @@ package com.xulai.animalflee.mixin;
 
 import com.xulai.animalflee.Config;
 import com.xulai.animalflee.logic.FishPopulationHandler;
+import com.xulai.animalflee.logic.FishingMinigameHook;
 import com.xulai.animalflee.logic.NaturalWaterHelper;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -117,12 +118,15 @@ public class FishingRestrictionMixin {
         List<ItemStack> pending = this.animalflee$pendingLoot;
         this.animalflee$pendingLoot = null;
         List<ItemStack> loot = pending != null ? pending : table.getRandomItems(params);
-        if (!(hook.level() instanceof ServerLevel serverLevel)
-                || !FishPopulationHandler.containsFishItem(loot)
-                || FishPopulationHandler.pickFishNearby(serverLevel, hook.blockPosition()) != null) {
-            return new ObjectArrayList<>(loot);
+        if (hook.level() instanceof ServerLevel serverLevel
+                && FishPopulationHandler.containsFishItem(loot)
+                && FishPopulationHandler.pickFishNearby(serverLevel, hook.blockPosition()) == null) {
+            loot = FishPopulationHandler.rollJunkOrTreasure(serverLevel, params, hook.isOpenWaterFishing());
         }
-        return new ObjectArrayList<>(
-                FishPopulationHandler.rollJunkOrTreasure(serverLevel, params, hook.isOpenWaterFishing()));
+        ObjectArrayList<ItemStack> delivered = new ObjectArrayList<>(loot);
+        if (hook instanceof FishingMinigameHook minigameHook) {
+            minigameHook.animalflee$acceptLoot(delivered, params);
+        }
+        return delivered;
     }
 }

@@ -29,7 +29,7 @@ public class GenderLogic {
             data.putString(NBT_GENDER, gender);
             data.putDouble(NBT_BABY_SCALE, randomScale(gender));
         }
-        applyScale(animal, getBabyScale(animal));
+        applyScale(animal, getExpectedScale(animal));
     }
 
     private static boolean isDnfKaiLiPig(Animal animal) {
@@ -68,9 +68,15 @@ public class GenderLogic {
         return data.contains(NBT_BABY_SCALE) ? data.getDouble(NBT_BABY_SCALE) : 1.0;
     }
 
+    public static double getExpectedScale(Animal animal) {
+        double base = getBabyScale(animal);
+        if (!animal.isBaby()) return base;
+        return base * (1.0 + Math.sqrt(GrowthSystem.getProgress(animal)));
+    }
+
     public static boolean isScaleApplied(Animal animal) {
         AttributeInstance attr = animal.getAttribute(Attributes.SCALE);
         if (attr == null) return true;
-        return Math.abs(attr.getBaseValue() - getBabyScale(animal)) < 0.0001;
+        return Math.abs(attr.getBaseValue() - getExpectedScale(animal)) < 0.001;
     }
 }

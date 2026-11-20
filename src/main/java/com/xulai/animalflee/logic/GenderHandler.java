@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 @EventBusSubscriber(modid = AnimalFleeMod.MODID)
 public class GenderHandler {
 
-    private static final int SCALE_RECHECK_INTERVAL = 20;
+    private static final int SCALE_RECHECK_INTERVAL = 100;
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {

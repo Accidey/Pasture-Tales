@@ -23,6 +23,16 @@
       "type": "patchouli:text",
       "title": "Serene Seasons",
       "text": "With Serene Seasons installed, bait dropped in $(bold)winter$() produces no fish, and the bait is not consumed - fish it back out and save it for spring.$(br2)Tropical biomes have no winter and are unaffected.$(br2)See $(l:animalflee:fishing/fishing_overview)Fishing & Fish Farming$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Accessories: Breeding & Taming",
+      "text": "With $(bold)Majrusz's Accessories$() installed, your livestock benefit from its animal bonuses:$(br2)$(bold)Idol of Fertility / Nature Rune / Soul of Minecraft$() - domesticated animals may give birth to twins, and the young inherit the attributes their parents gained from the accessory.$(br2)$(bold)Certificate of Taming / Nature Rune / Soul of Minecraft$() - the first time you feed a wild animal and make it domesticated counts as taming: the animal grows stronger on the spot and may drop a Certificate of Taming.$(br2)Wild babies and other players' animals are unaffected."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Accessories: Fishing",
+      "text": "$(bold)Angler Rune / Angler Trophy / Metal Lure / Unbreakable Fishing Line$() work as usual when fishing: more luck, shorter waits, extra treasure and extra fish.$(br2)One rule does not change: the bobber only gets a bite when there is a $(bold)real fish nearby$(). Accessories make you better at fishing, they cannot conjure fish from empty water.$(br2)To fish in barren water, seed it with bait first."
     }
   ]
 }

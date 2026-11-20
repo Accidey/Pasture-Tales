@@ -1,6 +1,7 @@
 package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.Config;
+import com.xulai.animalflee.integration.majruszsaccessories.MajruszAccessoriesCompat;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -25,8 +26,8 @@ public final class HungerSystem {
 
     public static final float MAX_HUNGER = 20.0F;
     public static final float MIN_HUNGER = 0.0F;
-    private static final float PLAYER_REFERENCE_VOLUME = 0.9F * 1.4F;
-    private static final float MIN_CAPACITY = 8.0F;
+    private static final float COW_REFERENCE_VOLUME = 0.9F * 1.4F;
+    private static final float MIN_CAPACITY = 4.0F;
     private static final float PREGNANT_HUNGER_MULTIPLIER = 1.5F;
     private static final float FULL_HUNGER_EPSILON = 1.0F;
     private static final int TICK_INTERVAL = 20;
@@ -106,9 +107,13 @@ public final class HungerSystem {
 
     public static float feed(Animal animal, ItemStack stack, Player feeder) {
         initHunger(animal);
+        boolean wasDomesticated = isDomesticated(animal);
         setDomesticated(animal);
         if (feeder != null) {
             animal.getPersistentData().putUUID(NBT_LAST_FED_BY, feeder.getUUID());
+            if (!wasDomesticated) {
+                MajruszAccessoriesCompat.notifyAnimalTamed(animal, feeder);
+            }
         }
         MobFleeLogic.stopFlee(animal);
         float current = getHunger(animal);
@@ -202,11 +207,11 @@ public final class HungerSystem {
                 0.0D);
     }
 
-    private static float calculateCapacity(Animal animal) {
-        EntityDimensions dims = animal.getType().getDimensions();
+    public static float calculateCapacity(Animal animal) {
+        EntityDimensions dims = animal.getDimensions(animal.getPose());
         float volume = dims.width() * dims.height();
         if (volume <= 0.0F) return MAX_HUNGER;
-        float capacity = MAX_HUNGER * (volume / PLAYER_REFERENCE_VOLUME);
+        float capacity = MAX_HUNGER * (volume / COW_REFERENCE_VOLUME);
         return Math.max(MIN_CAPACITY, capacity);
     }
 }
