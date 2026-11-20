@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.xulai.animalflee.mixin.untitledduck",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LayEggProviderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
