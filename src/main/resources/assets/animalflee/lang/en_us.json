@@ -131,5 +131,7 @@
   "item.minecraft.tipped_arrow.effect.beast_taming": "Arrow of Beast Taming",
   "item.minecraft.tipped_arrow.effect.beast_taming_2": "Arrow of Beast Taming",
   "item.minecraft.tipped_arrow.effect.beast_taming_3": "Arrow of Beast Taming",
-  "effect.pasture-tales.beast_taming": "Beast Taming"
+  "effect.pasture-tales.beast_taming": "Beast Taming",
+  "block.pasture-tales.feeding_trough": "Feeding Trough",
+  "item.pasture-tales.feeding_trough": "Feeding Trough"
 }

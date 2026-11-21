@@ -131,5 +131,7 @@
   "item.minecraft.tipped_arrow.effect.beast_taming": "驯兽之箭",
   "item.minecraft.tipped_arrow.effect.beast_taming_2": "驯兽之箭",
   "item.minecraft.tipped_arrow.effect.beast_taming_3": "驯兽之箭",
-  "effect.pasture-tales.beast_taming": "驯兽"
+  "effect.pasture-tales.beast_taming": "驯兽",
+  "block.pasture-tales.feeding_trough": "饲料槽",
+  "item.pasture-tales.feeding_trough": "饲料槽"
 }

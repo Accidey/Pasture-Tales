@@ -6,15 +6,18 @@ import com.xulai.animalflee.logic.FishingMinigameServerHandler;
 import com.xulai.animalflee.network.FishingMinigameOpenPacket;
 import com.xulai.animalflee.network.FishingMinigameResultPacket;
 import com.xulai.animalflee.registry.BrewingRecipes;
+import com.xulai.animalflee.registry.ModBlocks;
 import com.xulai.animalflee.registry.PotionEffects;
 import com.xulai.animalflee.registry.PotionPatcher;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -28,13 +31,21 @@ public class AnimalFleeMod {
     public AnimalFleeMod(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC, "pasturetales-common.toml");
         PotionEffects.init(modEventBus);
+        ModBlocks.init(modEventBus);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerPayloads);
+        modEventBus.addListener(this::addToCreativeTab);
         NeoForge.EVENT_BUS.addListener(BrewingRecipes::onRegisterBrewingRecipes);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(PotionPatcher::apply);
+    }
+
+    private void addToCreativeTab(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.FEEDING_TROUGH_ITEM.get());
+        }
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {

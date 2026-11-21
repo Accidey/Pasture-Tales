@@ -1,0 +1,45 @@
+{
+  "textures": {
+    "0": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks"
+  },
+  "elements": [
+    {
+      "name": "floor",
+      "from": [0, 0, 3],
+      "to": [16, 2, 13],
+      "faces": {
+        "down":  {"uv": [0, 8, 16, 16], "texture": "#0", "cullface": "down"},
+        "up":    {"uv": [0, 0, 16, 10], "texture": "#0"},
+        "north": {"uv": [0, 14, 16, 16], "texture": "#0"},
+        "south": {"uv": [0, 14, 16, 16], "texture": "#0"},
+        "west":  {"uv": [0, 14, 3, 16], "texture": "#0"},
+        "east":  {"uv": [13, 14, 16, 16], "texture": "#0"}
+      }
+    },
+    {
+      "name": "wall_north",
+      "from": [0, 2, 3],
+      "to": [16, 6, 5],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 4], "texture": "#0"},
+        "south": {"uv": [0, 4, 16, 8], "texture": "#0"},
+        "up":    {"uv": [0, 0, 16, 2], "texture": "#0"},
+        "west":  {"uv": [0, 0, 2, 4], "texture": "#0"},
+        "east":  {"uv": [14, 0, 16, 4], "texture": "#0"}
+      }
+    },
+    {
+      "name": "wall_south",
+      "from": [0, 2, 11],
+      "to": [16, 6, 13],
+      "faces": {
+        "south": {"uv": [0, 0, 16, 4], "texture": "#0"},
+        "north": {"uv": [0, 4, 16, 8], "texture": "#0"},
+        "up":    {"uv": [0, 14, 16, 16], "texture": "#0"},
+        "west":  {"uv": [0, 0, 2, 4], "texture": "#0"},
+        "east":  {"uv": [14, 0, 16, 4], "texture": "#0"}
+      }
+    }
+  ]
+}

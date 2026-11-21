@@ -1,0 +1,18 @@
+{
+  "multipart": [
+    {"when": {"facing": "north|south"}, "apply": {"model": "pasture-tales:block/feeding_trough_body"}},
+    {"when": {"facing": "east|west"}, "apply": {"model": "pasture-tales:block/feeding_trough_body", "y": 90}},
+    {"when": {"facing": "north|south", "cap_west": "true"}, "apply": {"model": "pasture-tales:block/feeding_trough_cap_west"}},
+    {"when": {"facing": "north|south", "cap_east": "true"}, "apply": {"model": "pasture-tales:block/feeding_trough_cap_east"}},
+    {"when": {"facing": "east|west", "cap_north": "true"}, "apply": {"model": "pasture-tales:block/feeding_trough_cap_west", "y": 90}},
+    {"when": {"facing": "east|west", "cap_south": "true"}, "apply": {"model": "pasture-tales:block/feeding_trough_cap_east", "y": 90}},
+    {"when": {"level": "1"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_1"}},
+    {"when": {"level": "2"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_2"}},
+    {"when": {"level": "3"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_3"}},
+    {"when": {"level": "4"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_4"}},
+    {"when": {"level": "5"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_5"}},
+    {"when": {"level": "6"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_6"}},
+    {"when": {"level": "7"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_7"}},
+    {"when": {"level": "8"}, "apply": {"model": "pasture-tales:block/feeding_trough_feed_8"}}
+  ]
+}
