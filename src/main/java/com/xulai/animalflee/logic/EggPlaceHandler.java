@@ -63,6 +63,7 @@ public class EggPlaceHandler {
             egg.setDeltaMovement(Vec3.ZERO);
             EggGridHelper.setSlot(egg, slot);
             egg.setUnlimitedLifetime();
+            EggIncubationHandler.restoreElapsed(egg, stack);
             level.addFreshEntity(egg);
             placed++;
         }

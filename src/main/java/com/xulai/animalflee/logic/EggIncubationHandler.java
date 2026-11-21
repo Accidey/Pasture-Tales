@@ -45,8 +45,11 @@ public class EggIncubationHandler {
 
         CompoundTag data = itemEntity.getPersistentData();
         if (!isIncubating(itemEntity)) {
-            data.remove(NBT_ELAPSED);
-            data.remove(NBT_LAST_DAY_TIME);
+            if (data.contains(NBT_ELAPSED)) {
+                writeElapsedToItem(stack, data.getLong(NBT_ELAPSED));
+                data.remove(NBT_ELAPSED);
+                data.remove(NBT_LAST_DAY_TIME);
+            }
             return;
         }
 
@@ -86,6 +89,10 @@ public class EggIncubationHandler {
         event.setCancellationResult(InteractionResult.SUCCESS);
         Player player = event.getEntity();
         ItemStack stack = egg.getItem().copy();
+        CompoundTag data = egg.getPersistentData();
+        if (data.contains(NBT_ELAPSED)) {
+            writeElapsedToItem(stack, data.getLong(NBT_ELAPSED));
+        }
         egg.discard();
         if (!player.addItem(stack)) {
             player.drop(stack, false);
@@ -109,6 +116,10 @@ public class EggIncubationHandler {
         event.setCancellationResult(InteractionResult.SUCCESS);
         Player player = event.getEntity();
         ItemStack picked = existing.getItem().copy();
+        CompoundTag eggData = existing.getPersistentData();
+        if (eggData.contains(NBT_ELAPSED)) {
+            writeElapsedToItem(picked, eggData.getLong(NBT_ELAPSED));
+        }
         existing.discard();
         if (!player.addItem(picked)) {
             player.drop(picked, false);
@@ -234,5 +245,23 @@ public class EggIncubationHandler {
             }
         }
         return null;
+    }
+
+    public static void writeElapsedToItem(ItemStack stack, long elapsed) {
+        if (elapsed <= 0L) return;
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        tag.putLong(NBT_ELAPSED, elapsed);
+        CustomData.set(DataComponents.CUSTOM_DATA, stack, tag);
+    }
+
+    public static long readElapsedFromItem(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getLong(NBT_ELAPSED);
+    }
+
+    public static void restoreElapsed(ItemEntity egg, ItemStack stack) {
+        long elapsed = readElapsedFromItem(stack);
+        if (elapsed > 0L) {
+            egg.getPersistentData().putLong(NBT_ELAPSED, elapsed);
+        }
     }
 }

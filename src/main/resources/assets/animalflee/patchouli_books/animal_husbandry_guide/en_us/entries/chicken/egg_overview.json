@@ -24,12 +24,12 @@
       "type": "patchouli:spotlight",
       "item": "minecraft:hay_block",
       "title": "Getting Them Back",
-      "text": "Right-click the top face of the hay block with an $(bold)empty hand or any item$() to $(bold)take back one egg$() (the nearest one). It goes into your inventory, or drops at your feet if you are full.$(br2)You can also right-click the egg itself. Incubating eggs are never auto-picked-up."
+      "text": "Right-click the top face of the hay block with an $(bold)empty hand or any item$() to $(bold)take back one egg$() (the nearest one). It goes into your inventory, or drops at your feet if you are full.$(br2)You can also right-click the egg itself. Incubating eggs are never auto-picked-up.$(br2)A taken egg $(bold)keeps its incubation progress$() and resumes hatching once placed back on a sheltered hay block - no need to start over."
     },
     {
       "type": "patchouli:text",
       "title": "Important Notes",
-      "text": "Normal eggs never hatch when thrown. $(bold)Fertilized eggs can also be thrown$(), but they will never hatch either - only placing them on a sheltered hay block will hatch them.$(br2)A fertilized egg stops incubating and can be taken back if exposed to the sky or if the hay block is removed.$(br2)The hay block must be $(bold)out of sight of the sky$() - an open-air block will never hatch anything, so build a roof over it."
+      "text": "Normal eggs never hatch when thrown. $(bold)Fertilized eggs can also be thrown$(), but they will never hatch either - only placing them on a sheltered hay block will hatch them.$(br2)A fertilized egg $(bold)pauses$() incubating and can be taken back if exposed to the sky or if the hay block is removed; its progress is never lost, and it resumes once placed back on a sheltered hay block.$(br2)The hay block must be $(bold)out of sight of the sky$() - an open-air block will never hatch anything, so build a roof over it."
     }
   ]
 }
