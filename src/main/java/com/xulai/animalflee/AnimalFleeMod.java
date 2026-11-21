@@ -18,6 +18,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -33,8 +34,8 @@ public class AnimalFleeMod {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC, "pasturetales-common.toml");
         ModRegistry.init(modEventBus);
         modEventBus.addListener(this::registerPayloads);
-        modEventBus.addListener(this::registerBrewingRecipes);
         modEventBus.addListener(this::addToCreativeTab);
+        NeoForge.EVENT_BUS.addListener(this::registerBrewingRecipes);
     }
 
     private void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
