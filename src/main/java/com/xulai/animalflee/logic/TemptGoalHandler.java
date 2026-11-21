@@ -14,5 +14,6 @@ public class TemptGoalHandler {
         if (event.getLevel().isClientSide) return;
         if (!AnimalFleeEntityHelper.isSupportedAnimal(event.getEntity())) return;
         TemptGoalRegistry.ensure((Animal) event.getEntity());
+        TroughGoalRegistry.ensure((Animal) event.getEntity());
     }
 }

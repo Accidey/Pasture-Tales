@@ -7,6 +7,7 @@
     "FishingRestrictionMixin",
     "FishingMinigameMixin",
     "minecraft.PotionAccessor",
+    "minecraft.LivingEntityEatParticlesAccessor",
     "AnimalMobInteractMixin",
     "AnimalBreedCollisionMixin",
     "ThrownEggHatchMixin",

@@ -415,6 +415,43 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        HUNGER_TROUGH_EATING = BUILDER
+                .comment(
+                        "是否允许饥饿的家养动物自己走到饲料槽进食",
+                        "Whether hungry domesticated animals may walk to a feeding trough and eat by themselves",
+                        "开启后，家养动物饥饿值低于 troughSeekHungerPercent 时会寻找附近的饲料槽进食，",
+                        "一直吃到饱，或槽里没有它能吃的食物为止。",
+                        "When enabled, domesticated animals whose hunger drops below troughSeekHungerPercent",
+                        "search for a nearby trough and eat until full or the trough runs out of food they can eat.",
+                        "Default: true / 默认：true"
+                )
+                .define("troughEatingEnabled", true);
+
+        BUILDER.comment(" ");
+
+        HUNGER_TROUGH_SEEK_PERCENT = BUILDER
+                .comment(
+                        "饥饿值低于最大值的该百分比时才主动寻找饲料槽",
+                        "Animals only seek troughs when hunger is below this percentage of their max hunger",
+                        "Default: 50 / 默认：50",
+                        "Range: 1 ~ 100"
+                )
+                .defineInRange("troughSeekHungerPercent", 50, 1, 100);
+
+        BUILDER.comment(" ");
+
+        HUNGER_TROUGH_SEARCH_RANGE = BUILDER
+                .comment(
+                        "寻找饲料槽的水平搜索范围（格）",
+                        "Horizontal search range in blocks for finding a feeding trough",
+                        "修改后需重新进入世界生效 / takes effect after re-entering the world",
+                        "Default: 16 / 默认：16",
+                        "Range: 4 ~ 32"
+                )
+                .defineInRange("troughSearchRange", 16, 4, 32);
+
+        BUILDER.comment(" ");
+
         COW_PREGNANCY_MINUTES = BUILDER
                 .comment(
                         "牛基准孕期（分钟）",
@@ -823,6 +860,9 @@ public class Config {
     public static final ModConfigSpec.IntValue BREED_MIN_HUNGER_PERCENT;
     public static final ModConfigSpec.IntValue HUNGER_DAILY_DRAIN_PERCENT;
     public static final ModConfigSpec.IntValue HUNGER_STARVE_DAYS;
+    public static final ModConfigSpec.BooleanValue HUNGER_TROUGH_EATING;
+    public static final ModConfigSpec.IntValue HUNGER_TROUGH_SEEK_PERCENT;
+    public static final ModConfigSpec.IntValue HUNGER_TROUGH_SEARCH_RANGE;
     public static final ModConfigSpec.IntValue COW_PREGNANCY_MINUTES;
     public static final ModConfigSpec.IntValue PREGNANCY_FLOAT_MINUTES;
     public static final ModConfigSpec.DoubleValue MISCARRIAGE_CHANCE;

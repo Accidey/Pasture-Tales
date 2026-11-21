@@ -11,6 +11,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 
+import java.util.function.Predicate;
+
 public class FeedingTroughBlockEntity extends BlockEntity {
 
     public static final int SLOTS = 4;
@@ -64,10 +66,17 @@ public class FeedingTroughBlockEntity extends BlockEntity {
         return remainder;
     }
 
-    public ItemStack extractOne() {
+    public boolean hasFood(Predicate<ItemStack> filter) {
+        for (ItemStack slot : items) {
+            if (!slot.isEmpty() && filter.test(slot)) return true;
+        }
+        return false;
+    }
+
+    public ItemStack extractOne(Predicate<ItemStack> filter) {
         for (int i = 0; i < items.size(); i++) {
             ItemStack slot = items.get(i);
-            if (!slot.isEmpty()) {
+            if (!slot.isEmpty() && filter.test(slot)) {
                 ItemStack taken = slot.split(1);
                 if (slot.isEmpty()) items.set(i, ItemStack.EMPTY);
                 setChanged();
