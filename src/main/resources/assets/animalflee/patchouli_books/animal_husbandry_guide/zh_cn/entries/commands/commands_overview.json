@@ -7,22 +7,22 @@
     {
       "type": "patchouli:text",
       "title": "管理命令",
-      "text": "所有命令都需要权限等级 2，并且要手持对应物品。$(br2)$(bold)/pasturetales blacklist flee add|remove$() —— 手持刷怪蛋，把这种生物加入/移出「不会逃跑」名单。$(br2)$(bold)/pasturetales blacklist exclude add|remove$() —— 手持刷怪蛋，让这种生物完全不受本模组影响；一些繁殖方式特别的生物默认已在其中。$(br2)$(bold)/pasturetales blacklist bait add|remove$() —— 手持物品，把它加入/移出鱼饵黑名单；名单里的东西丢进水里也不会引来鱼群。$(br2)$(bold)/pasturetales bait add|remove$() —— 手持物品，把它加入/移出鱼饵白名单；名单里的东西即使不能吃也能当鱼饵，与黑名单冲突时黑名单优先。"
+      "text": "所有命令都需要权限等级 2，并且要手持对应物品。$(br2)$(bold)/pasturetales mob flee add|remove|list$() —— 手持刷怪蛋，把这种生物加入/移出「不会逃跑」名单。$(br2)$(bold)/pasturetales mob exclude add|remove|list$() —— 手持刷怪蛋，让这种生物完全不受本模组影响；一些繁殖方式特别的生物默认已在其中。"
     },
     {
       "type": "patchouli:text",
       "title": "食性命令",
-      "text": "$(bold)/pasturetales customfood add [数值]|remove$() —— 手持任意物品，把它设为动物饲料；不写数值就按食物本身的营养计算。$(br2)$(bold)/pasturetales diet$() —— 手持$(bold)刷怪蛋$()，查看该生物的食性。$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() —— 移出名单（变回杂食）。"
+      "text": "$(bold)/pasturetales item food add [数值]|remove|list$() —— 手持任意物品，把它设为动物饲料；不写数值就按食物本身的营养计算。$(br2)$(bold)/pasturetales mob diet$() —— 手持$(bold)刷怪蛋$()，查看该生物的食性。$(br2)$(bold)/pasturetales mob diet add herbivore|carnivore|omnivore$() —— 设置食性。$(br2)$(bold)/pasturetales mob diet remove herbivore|carnivore$() —— 移出名单（变回杂食）。$(br2)$(bold)/pasturetales mob diet list$() —— 列出草食与肉食名单。"
     },
     {
       "type": "patchouli:text",
-      "title": "卵生动物命令",
-      "text": "$(bold)/pasturetales oviparous add$() —— $(bold)主手$()持这种生物的刷怪蛋、$(bold)副手$()持它产下的蛋，把它登记为卵生动物；之后它不再怀孕，而是像鸡一样周期性产蛋。$(br2)$(bold)/pasturetales oviparous remove$() —— 只需主手持刷怪蛋，把它移出卵生名单，恢复为胎生怀孕。$(br2)改动会直接写入配置文件。被登记的必须是动物，且同一种生物只能对应一种蛋。"
+      "title": "卵生、鱼饵与饲料槽",
+      "text": "$(bold)/pasturetales mob oviparous add$() —— $(bold)主手$()持这种生物的刷怪蛋、$(bold)副手$()持它产下的蛋，把它登记为卵生动物；之后它不再怀孕，而是像鸡一样周期性产蛋。$(br2)$(bold)/pasturetales mob oviparous remove|list$() —— 主手持刷怪蛋移出名单，或列出当前名单。$(br2)鱼饵：$(bold)/pasturetales item bait allow add|remove|list$() 管理白名单（不能吃也能当饵），$(bold)/pasturetales item bait ban add|remove|list$() 管理黑名单（丢进水里也不引鱼）；冲突时黑名单优先。$(br2)饲料槽：$(bold)/pasturetales item trough ban add|remove|list$() —— 手持物品，禁止/允许它放进饲料槽。"
     },
     {
       "type": "patchouli:text",
       "title": "配置",
-      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)可调整的内容见$(l:animalflee:commands/config_overview)常用设置$()。$(br2)绝大多数选项改完立即生效；但动物「天生不怕人」是每只只判定一次的，改比例不会影响已经判定的个体。"
+      "text": "从模组菜单打开配置界面，或编辑 config 文件夹中的 $(bold)pasturetales-common.toml$()。$(br2)可调整的内容见$(l:animalflee:commands/config_overview)常用设置$()。$(br2)绝大多数选项改完立即生效；但动物「天生不怕人」是每只只判定一次的，改比例不会影响已经判定的个体；饲料槽的搜索范围也要重进世界才生效。"
     }
   ]
 }

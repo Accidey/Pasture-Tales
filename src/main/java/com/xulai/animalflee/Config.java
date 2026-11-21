@@ -452,6 +452,22 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        TROUGH_ITEM_BLACKLIST = BUILDER
+                .comment(
+                        "饲料槽黑名单（物品ID列表）",
+                        "Trough blacklist (item ID list)",
+                        "列入的物品无法放入饲料槽，默认禁放干草块、西瓜、南瓜这类方块形态的食物。",
+                        "Items in this list cannot be put into feeding troughs; hay block, melon and",
+                        "pumpkin are banned by default.",
+                        "可用命令 /pasturetales item trough ban add|remove 在游戏内增删（手持物品）。",
+                        "Use /pasturetales item trough ban add|remove in game to edit the list.",
+                        "格式：每个ID用双引号包裹，逗号分隔。",
+                        "Format: comma-separated quoted IDs."
+                )
+                .define("troughItemBlacklist", List.of("minecraft:hay_block", "minecraft:melon", "minecraft:pumpkin"));
+
+        BUILDER.comment(" ");
+
         COW_PREGNANCY_MINUTES = BUILDER
                 .comment(
                         "牛基准孕期（分钟）",
@@ -863,6 +879,7 @@ public class Config {
     public static final ModConfigSpec.BooleanValue HUNGER_TROUGH_EATING;
     public static final ModConfigSpec.IntValue HUNGER_TROUGH_SEEK_PERCENT;
     public static final ModConfigSpec.IntValue HUNGER_TROUGH_SEARCH_RANGE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> TROUGH_ITEM_BLACKLIST;
     public static final ModConfigSpec.IntValue COW_PREGNANCY_MINUTES;
     public static final ModConfigSpec.IntValue PREGNANCY_FLOAT_MINUTES;
     public static final ModConfigSpec.DoubleValue MISCARRIAGE_CHANCE;

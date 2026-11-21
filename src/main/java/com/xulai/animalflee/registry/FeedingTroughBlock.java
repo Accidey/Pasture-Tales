@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,6 +34,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import com.xulai.animalflee.Config;
 import com.xulai.animalflee.logic.AnimalFoods;
 
 import java.util.List;
@@ -117,6 +119,10 @@ public class FeedingTroughBlock extends Block implements EntityBlock {
     }
 
     private static boolean isFood(ItemStack stack) {
+        if (Config.TROUGH_ITEM_BLACKLIST.get()
+                .contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString())) {
+            return false;
+        }
         return stack.has(DataComponents.FOOD) || AnimalFoods.getSaturation(stack) > 0.0F;
     }
 

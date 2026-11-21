@@ -10,10 +10,7 @@ public class CommandRegistrationHandler {
 
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
-        BlacklistCommand.register(event.getDispatcher());
-        BaitCommand.register(event.getDispatcher());
-        CustomFoodCommand.register(event.getDispatcher());
-        DietCommand.register(event.getDispatcher());
-        OviparousCommand.register(event.getDispatcher());
+        MobCommands.register(event.getDispatcher());
+        ItemCommands.register(event.getDispatcher());
     }
 }

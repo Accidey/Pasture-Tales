@@ -91,23 +91,25 @@ Your first join delivers the **Animal Husbandry Guide**, a Patchouli book that w
 
 ## ⚙️ Configuration & Commands
 
-Flee distance, panic radius, the chance of a fearless animal, hunger drain, pregnancy and growth length, miscarriage chance, minimum water size, fish scan radius and more are all adjustable. Settings live in `config/pasturetales-common.toml`, and the same options appear in the in-game mod config screen — no file editing required. **Nothing needs a restart.** Numbers, toggles and species lists apply the moment they are saved, and any animal that happens to be fleeing at that moment is released immediately, so it never keeps running on stale parameters.
+Flee distance, panic radius, the chance of a fearless animal, hunger drain, pregnancy and growth length, miscarriage chance, minimum water size, fish scan radius and more are all adjustable. Settings live in `config/pasturetales-common.toml`, and the same options appear in the in-game mod config screen — no file editing required. **Nothing needs a restart.** Most numbers, toggles and species lists apply the moment they are saved, and any animal that happens to be fleeing at that moment is released immediately, so it never keeps running on stale parameters.
 
-One exception is worth knowing: the fearless trait is rolled once, when an animal first appears, so changing that percentage only affects animals that have not been rolled yet.
+Two exceptions are worth knowing: the fearless trait is rolled once, when an animal first appears, so changing that percentage only affects animals that have not been rolled yet; and the feeding trough search range applies only after re-entering the world.
 
 Species management is exposed in game as well. Every command requires operator permission (level 2), and every one of them writes straight into the config file:
 
-- `/pasturetales diet` — shows the diet of the creature whose spawn egg you are holding.
-- `/pasturetales diet add herbivore|carnivore|omnivore` — sets that creature's diet, removing it from the opposing list.
-- `/pasturetales diet remove herbivore|carnivore` — takes it off a list, returning it to omnivore.
-- `/pasturetales customfood add [value]` — registers the item in your hand as feed; leave the value out to use its vanilla nutrition, or supply one to force a specific value.
-- `/pasturetales customfood remove` — unregisters the item in your hand.
-- `/pasturetales blacklist flee add|remove` — stops the creature whose spawn egg you hold from fleeing.
-- `/pasturetales blacklist exclude add|remove` — makes that creature completely ignored by this mod. That list exists for creatures whose breeding cannot be safely replaced.
-- `/pasturetales blacklist bait add|remove` — registers the item in your hand as forbidden bait; it will not attract fish even when dropped in water.
-- `/pasturetales bait add|remove` — registers the item in your hand as bait, even if it is not edible; the blacklist wins if an item is on both lists.
-- `/pasturetales oviparous add` — hold that mob's spawn egg in your main hand and the egg it lays in your off hand to register it as egg-laying; it then lays eggs on a cycle instead of getting pregnant.
-- `/pasturetales oviparous remove` — hold just the spawn egg in your main hand to take that mob off the egg-laying list.
+- `/pasturetales mob diet` — shows the diet of the creature whose spawn egg you are holding.
+- `/pasturetales mob diet add herbivore|carnivore|omnivore` — sets that creature's diet, removing it from the opposing list.
+- `/pasturetales mob diet remove herbivore|carnivore` — takes it off a list, returning it to omnivore.
+- `/pasturetales mob diet list` — prints the herbivore and carnivore lists.
+- `/pasturetales mob oviparous add` — hold that mob's spawn egg in your main hand and the egg it lays in your off hand to register it as egg-laying; it then lays eggs on a cycle instead of getting pregnant.
+- `/pasturetales mob oviparous remove` — hold just the spawn egg in your main hand to take that mob off the egg-laying list.
+- `/pasturetales mob oviparous list` — prints the egg-laying registry.
+- `/pasturetales mob flee add|remove|list` — stops the creature whose spawn egg you hold from fleeing; `list` prints the current blacklist.
+- `/pasturetales mob exclude add|remove|list` — makes that creature completely ignored by this mod. That list exists for creatures whose breeding cannot be safely replaced.
+- `/pasturetales item food add [value]|remove|list` — registers the item in your hand as feed; leave the value out to use its vanilla nutrition, or supply one to force a specific value.
+- `/pasturetales item bait allow add|remove|list` — registers the item in your hand as bait, even if it is not edible; the blacklist wins if an item is on both lists.
+- `/pasturetales item bait ban add|remove|list` — registers the item in your hand as forbidden bait; it will not attract fish even when dropped in water.
+- `/pasturetales item trough ban add|remove|list` — items in your hand that may never be put into feeding troughs (hay block, melon and pumpkin are banned by default).
 
 ## ✅ Safe for Existing Worlds
 
@@ -209,23 +211,25 @@ Nothing is regenerated or replaced. Animals already in your world are adopted in
 
 ## ⚙️ 配置与命令
 
-逃跑距离、受惊半径、天生不怕人的比例、饥饿消耗、孕期与成长时长、流产概率、最小水域、找鱼半径等等，都可以调整。配置写在 `config/pasturetales-common.toml`，同样的选项在游戏内的模组配置界面里也能改，不必手动编辑文件。**全程不需要重启游戏**：数值、开关与物种名单保存即生效，当时正在逃跑的动物会立即解除逃跑状态，不会带着旧参数继续跑。
+逃跑距离、受惊半径、天生不怕人的比例、饥饿消耗、孕期与成长时长、流产概率、最小水域、找鱼半径等等，都可以调整。配置写在 `config/pasturetales-common.toml`，同样的选项在游戏内的模组配置界面里也能改，不必手动编辑文件。**全程不需要重启游戏**：绝大多数数值、开关与物种名单保存即生效，当时正在逃跑的动物会立即解除逃跑状态，不会带着旧参数继续跑。
 
-有一处例外值得记住：天生不怕人是一次性判定的，改比例只影响尚未判定的动物。
+有两处例外值得记住：天生不怕人是一次性判定的，改比例只影响尚未判定的动物；饲料槽的搜索范围要重进世界才生效。
 
 物种管理也做成了游戏内命令。所有命令需要管理员权限（权限等级 2），并且都会直接写入配置文件：
 
-- `/pasturetales diet`——查看手持刷怪蛋对应生物的食性。
-- `/pasturetales diet add herbivore|carnivore|omnivore`——设置该生物的食性，并从相对的名单中移除。
-- `/pasturetales diet remove herbivore|carnivore`——从名单中移除，回到杂食。
-- `/pasturetales customfood add [value]`——把手中物品登记为饲料；省略数值时采用原版营养值，填写数值则强制使用该值。
-- `/pasturetales customfood remove`——取消手中物品的饲料登记。
-- `/pasturetales blacklist flee add|remove`——让手持刷怪蛋对应的生物不再逃跑，或恢复逃跑。
-- `/pasturetales blacklist exclude add|remove`——让该生物完全不受本模组影响，或恢复。这份名单留给那些繁殖方式无法安全替换的生物。
-- `/pasturetales blacklist bait add|remove`——把手中物品加入/移出鱼饵黑名单；名单里的物品丢进水里也不会引来鱼群。
-- `/pasturetales bait add|remove`——把手中物品设为鱼饵，即使它本身不能吃；与黑名单冲突时黑名单优先。
-- `/pasturetales oviparous add`——主手持该生物刷怪蛋、副手持它产下的蛋，把它登记为卵生动物；之后它按周期产蛋，不再怀孕。
-- `/pasturetales oviparous remove`——只需主手持刷怪蛋，把它移出卵生名单。
+- `/pasturetales mob diet`——查看手持刷怪蛋对应生物的食性。
+- `/pasturetales mob diet add herbivore|carnivore|omnivore`——设置该生物的食性，并从相对的名单中移除。
+- `/pasturetales mob diet remove herbivore|carnivore`——从名单中移除，回到杂食。
+- `/pasturetales mob diet list`——列出草食与肉食名单。
+- `/pasturetales mob oviparous add`——主手持该生物刷怪蛋、副手持它产下的蛋，把它登记为卵生动物；之后它按周期产蛋，不再怀孕。
+- `/pasturetales mob oviparous remove`——只需主手持刷怪蛋，把它移出卵生名单。
+- `/pasturetales mob oviparous list`——列出当前卵生名单。
+- `/pasturetales mob flee add|remove|list`——让手持刷怪蛋对应的生物不再逃跑，或恢复逃跑。
+- `/pasturetales mob exclude add|remove|list`——让该生物完全不受本模组影响，或恢复。这份名单留给那些繁殖方式无法安全替换的生物。
+- `/pasturetales item food add [value]|remove|list`——把手中物品登记为饲料；省略数值时采用原版营养值，填写数值则强制使用该值。
+- `/pasturetales item bait allow add|remove|list`——把手中物品设为鱼饵，即使它本身不能吃；与黑名单冲突时黑名单优先。
+- `/pasturetales item bait ban add|remove|list`——把手中物品加入/移出鱼饵黑名单；名单里的物品丢进水里也不会引来鱼群。
+- `/pasturetales item trough ban add|remove|list`——把手中物品加入/移出饲料槽黑名单；默认禁放干草块、西瓜与南瓜。
 
 ## ✅ 对已有存档安全
 

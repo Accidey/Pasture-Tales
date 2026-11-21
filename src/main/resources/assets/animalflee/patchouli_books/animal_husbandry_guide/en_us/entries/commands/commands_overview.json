@@ -7,22 +7,22 @@
     {
       "type": "patchouli:text",
       "title": "Admin Commands",
-      "text": "All commands require permission level 2 and the right item in your hand.$(br2)$(bold)/pasturetales blacklist flee add|remove$() - hold a spawn egg to add/remove that mob from the never-flee list.$(br2)$(bold)/pasturetales blacklist exclude add|remove$() - hold a spawn egg to make that mob completely unaffected by this mod; some mobs with unusual breeding are excluded by default.$(br2)$(bold)/pasturetales blacklist bait add|remove$() - hold an item to add/remove it from the bait blacklist; listed items will not attract fish even if dropped in water.$(br2)$(bold)/pasturetales bait add|remove$() - hold an item to add/remove it from the bait whitelist; listed items work as bait even if they are not edible, and the blacklist wins if an item is on both."
+      "text": "All commands require permission level 2 and the right item in your hand.$(br2)$(bold)/pasturetales mob flee add|remove|list$() - hold a spawn egg to add/remove that mob from the never-flee list.$(br2)$(bold)/pasturetales mob exclude add|remove|list$() - hold a spawn egg to make that mob completely unaffected by this mod; some mobs with unusual breeding are excluded by default."
     },
     {
       "type": "patchouli:text",
       "title": "Diet Commands",
-      "text": "$(bold)/pasturetales customfood add [value]|remove$() - hold any item to make it animal food; without a value, its own nutrition is used.$(br2)$(bold)/pasturetales diet$() - hold a $(bold)spawn egg$() to see that mob's diet.$(br2)$(bold)/pasturetales diet add herbivore|carnivore|omnivore$() - set its diet.$(br2)$(bold)/pasturetales diet remove herbivore|carnivore$() - remove it from a diet list (back to omnivore)."
+      "text": "$(bold)/pasturetales item food add [value]|remove|list$() - hold any item to make it animal food; without a value, its own nutrition is used.$(br2)$(bold)/pasturetales mob diet$() - hold a $(bold)spawn egg$() to see that mob's diet.$(br2)$(bold)/pasturetales mob diet add herbivore|carnivore|omnivore$() - set its diet.$(br2)$(bold)/pasturetales mob diet remove herbivore|carnivore$() - remove it from a diet list (back to omnivore).$(br2)$(bold)/pasturetales mob diet list$() - print the herbivore and carnivore lists."
     },
     {
       "type": "patchouli:text",
-      "title": "Oviparous Commands",
-      "text": "$(bold)/pasturetales oviparous add$() - hold that mob's spawn egg in your $(bold)main hand$() and the egg it lays in your $(bold)off hand$() to register it as oviparous; it no longer gets pregnant and instead lays eggs on a cycle like a chicken.$(br2)$(bold)/pasturetales oviparous remove$() - just hold the spawn egg in your main hand to remove it, and it goes back to live birth.$(br2)Changes are written straight to the config file. The mob must be an animal, and one mob can only map to one egg."
+      "title": "Eggs, Bait & Troughs",
+      "text": "$(bold)/pasturetales mob oviparous add$() - hold that mob's spawn egg in your $(bold)main hand$() and the egg it lays in your $(bold)off hand$() to register it as oviparous; it no longer gets pregnant and instead lays eggs on a cycle like a chicken.$(br2)$(bold)/pasturetales mob oviparous remove|list$() - hold the spawn egg to remove it, or print the current list.$(br2)Bait: $(bold)/pasturetales item bait allow add|remove|list$() edits the whitelist (works even if inedible), $(bold)/pasturetales item bait ban add|remove|list$() edits the blacklist (no fish even in water); the blacklist wins if an item is on both.$(br2)Troughs: $(bold)/pasturetales item trough ban add|remove|list$() - hold an item to forbid/allow it in feeding troughs."
     },
     {
       "type": "patchouli:text",
       "title": "Configuration",
-      "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)See $(l:animalflee:commands/config_overview)Common Settings$() for what you can change.$(br2)Most options apply immediately. One exception: whether an animal is born fearless is decided once per animal, so changing the ratio will not affect animals already decided."
+      "text": "Open the config screen from the Mods menu, or edit $(bold)pasturetales-common.toml$() in the config folder.$(br2)See $(l:animalflee:commands/config_overview)Common Settings$() for what you can change.$(br2)Most options apply immediately. Two exceptions: whether an animal is born fearless is decided once per animal, and the trough search range only takes effect after re-entering the world."
     }
   ]
 }

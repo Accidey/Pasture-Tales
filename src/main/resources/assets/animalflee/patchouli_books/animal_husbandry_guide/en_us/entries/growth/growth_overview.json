@@ -18,7 +18,7 @@
     {
       "type": "patchouli:text",
       "title": "Checking Growth Progress",
-      "text": "With Jade installed, look at a baby to see its growth progress percentage. If it says \"Too hungry, growth paused\", it is time to feed it.$(br2)Babies also follow their own mother instead of any random adult of their kind - keep mother and child together."
+      "text": "With Jade installed, look at a baby to see its growth progress percentage. If it says \"Too hungry, growth paused\", it is time to feed it.$(br2)Babies only follow $(bold)adult females of their kind$(), never a random adult male - usually that is their mother, so keep mother and child together."
     },
     {
       "type": "patchouli:text",

@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Automatic Mating",
-      "text": "Domesticated animals mate automatically!$(br2)When a domesticated female and male are both well fed (at least 80% hunger) and the female is not in post-birth cooldown, she will approach the male to mate, and only then can she become pregnant.$(br2)The male must also be $(bold)domesticated, well fed and off cooldown$() - a wild bull will not do."
+      "text": "Domesticated animals mate automatically!$(br2)When a domesticated female and male are both well fed (at least 80% hunger) and the female is not in post-birth cooldown, she will approach the male to mate, and only then can she become pregnant.$(br2)For $(bold)live-bearing animals$() the male must also be $(bold)domesticated, well fed and off cooldown$() - a wild bull will not do.$(br2)Oviparous animals (like chickens) are the exception: any adult male nearby is enough for a domesticated hen."
     },
     {
       "type": "patchouli:text",

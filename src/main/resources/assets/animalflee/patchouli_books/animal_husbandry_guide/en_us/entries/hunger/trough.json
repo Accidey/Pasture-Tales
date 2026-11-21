@@ -1,0 +1,34 @@
+{
+  "name": "Feeding Trough",
+  "icon": "pasture-tales:feeding_trough",
+  "category": "animalflee:hunger",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Let Them Feed Themselves",
+      "text": "No time to feed everyone by hand? Craft a few $(bold)feeding troughs$(), fill them with feed, and hungry domesticated animals will walk over and help themselves.$(br2)Only $(bold)domesticated$() animals use troughs; wild animals and wild-born babies ignore them.$(br2)A female in courtship is busy finding a mate and will not come to eat."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "pasture-tales:feeding_trough",
+      "title": "Crafting",
+      "text": "Five $(bold)planks$() (any wood) in a trough shape: one in each top corner and a full row underneath.$(br2)A trough needs a solid block below it and cannot be placed in mid-air."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Filling and Emptying",
+      "text": "Right-click the trough with feed in hand to put in the whole stack; anything that does not fit stays in your hand instead of vanishing.$(br2)Right-click with an $(bold)empty hand$() to take everything back out.$(br2)A trough holds up to $(bold)64 items$(); the fuller it is, the higher the feed piles look, in 8 steps.$(br2)With Jade installed, looking at a trough also shows the main foods inside and how many of each."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "What Goes In",
+      "text": "Anything an animal can eat can go in: crops, seeds, meat, fish.$(br2)$(bold)Hay bales, melons and pumpkins$() are blocked by default because they are block-shaped food; admins can change that blacklist in the config or with a command.$(br2)Mixing is fine - herbivores only take what suits them, and carnivores only pick meat and fish."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "When They Come to Eat",
+      "text": "A domesticated animal only looks for a trough when its hunger is below $(bold)50%$() of its maximum, within $(bold)16 blocks$(); both values can be changed in the config.$(br2)At the trough it takes a bite about every 1.5 seconds and keeps eating until full or until nothing edible is left.$(br2)Line several troughs up and the inner end caps open, forming one long trough.$(br2)Breaking a trough drops both the trough and the food inside."
+    }
+  ]
+}

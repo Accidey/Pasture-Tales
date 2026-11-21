@@ -18,7 +18,7 @@
     {
       "type": "patchouli:text",
       "title": "Why Keep Them Full",
-      "text": "An injured animal fed past 80% hunger slowly heals; a starving one gives off clear signs, and Jade will show a starving status directly.$(br2)Wild animals and wild babies never burn hunger - only domesticated animals need regular care."
+      "text": "An injured animal fed past 80% hunger slowly heals; a starving one gives off clear signs, and Jade will show a starving status directly.$(br2)Wild animals and wild babies never burn hunger - only domesticated animals need regular care.$(br2)When you are busy, set up a $(l:animalflee:hunger/trough)feeding trough$() and they will help themselves."
     },
     {
       "type": "patchouli:text",
