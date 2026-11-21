@@ -3,11 +3,14 @@
   "category": "misc",
   "pattern": [
     "P P",
-    "PPP"
+    "PSP"
   ],
   "key": {
     "P": {
       "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "minecraft:wooden_slabs"
     }
   },
   "result": {

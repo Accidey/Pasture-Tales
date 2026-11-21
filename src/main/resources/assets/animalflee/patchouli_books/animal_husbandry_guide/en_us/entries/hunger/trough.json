@@ -13,7 +13,7 @@
       "type": "patchouli:crafting",
       "recipe": "pasture-tales:feeding_trough",
       "title": "Crafting",
-      "text": "Five $(bold)planks$() (any wood) in a trough shape: one in each top corner and a full row underneath.$(br2)A trough needs a solid block below it and cannot be placed in mid-air."
+      "text": "Four $(bold)planks$() and one $(bold)wooden slab$() (any wood) in a trough shape: a plank in each top corner, and a bottom row of plank-slab-plank.$(br2)A trough needs a solid block below it and cannot be placed in mid-air."
     },
     {
       "type": "patchouli:text",

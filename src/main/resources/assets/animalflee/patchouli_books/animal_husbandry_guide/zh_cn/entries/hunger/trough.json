@@ -13,7 +13,7 @@
       "type": "patchouli:crafting",
       "recipe": "pasture-tales:feeding_trough",
       "title": "合成",
-      "text": "五块$(bold)木板$()（任意木材）在工作台摆成凹形：上面两角各一块，下面一整排。$(br2)下方必须是实心方块，不能悬空放置。"
+      "text": "四块$(bold)木板$()加一块$(bold)木台阶$()（任意木材）在工作台摆成凹形：上面两角各一块木板，下面一排是「木板—台阶—木板」。$(br2)下方必须是实心方块，不能悬空放置。"
     },
     {
       "type": "patchouli:text",
