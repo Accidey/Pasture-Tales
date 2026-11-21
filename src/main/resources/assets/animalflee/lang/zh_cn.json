@@ -119,9 +119,17 @@
   "tooltip.animalflee.normal_egg": "普通蛋：无法孵化",
   "msg.animalflee.smell": "动物发现了你，受惊逃走了",
   "screen.animalflee.fishing_minigame": "钓鱼",
-  "item.pasture-tales.beast_taming_potion": "驯兽药水 I",
-  "item.pasture-tales.beast_taming_potion_2": "驯兽药水 II",
-  "item.pasture-tales.beast_taming_potion_3": "驯兽药水 III",
-  "effect.pasture-tales.beast_taming": "驯兽",
-  "tooltip.animalflee.beast_taming": "动物警觉降低 %s%%，持续 %s 分钟"
+  "item.minecraft.potion.effect.beast_taming": "驯兽药水",
+  "item.minecraft.potion.effect.beast_taming_2": "驯兽药水",
+  "item.minecraft.potion.effect.beast_taming_3": "驯兽药水",
+  "item.minecraft.splash_potion.effect.beast_taming": "喷溅型驯兽药水",
+  "item.minecraft.splash_potion.effect.beast_taming_2": "喷溅型驯兽药水",
+  "item.minecraft.splash_potion.effect.beast_taming_3": "喷溅型驯兽药水",
+  "item.minecraft.lingering_potion.effect.beast_taming": "滞留型驯兽药水",
+  "item.minecraft.lingering_potion.effect.beast_taming_2": "滞留型驯兽药水",
+  "item.minecraft.lingering_potion.effect.beast_taming_3": "滞留型驯兽药水",
+  "item.minecraft.tipped_arrow.effect.beast_taming": "驯兽之箭",
+  "item.minecraft.tipped_arrow.effect.beast_taming_2": "驯兽之箭",
+  "item.minecraft.tipped_arrow.effect.beast_taming_3": "驯兽之箭",
+  "effect.pasture-tales.beast_taming": "驯兽"
 }

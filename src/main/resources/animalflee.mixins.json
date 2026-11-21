@@ -6,6 +6,7 @@
   "mixins": [
     "FishingRestrictionMixin",
     "FishingMinigameMixin",
+    "minecraft.PotionAccessor",
     "AnimalMobInteractMixin",
     "AnimalBreedCollisionMixin",
     "ThrownEggHatchMixin",

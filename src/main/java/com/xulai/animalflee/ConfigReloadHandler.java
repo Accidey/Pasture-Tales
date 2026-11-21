@@ -4,6 +4,7 @@ import com.xulai.animalflee.logic.AnimalFleeEntityHelper;
 import com.xulai.animalflee.logic.AnimalFoods;
 import com.xulai.animalflee.logic.MobFleeLogic;
 import com.xulai.animalflee.logic.OviparousRegistry;
+import com.xulai.animalflee.registry.PotionPatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +18,9 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 public class ConfigReloadHandler {
 
     @SubscribeEvent
-    public static void onConfigReload(ModConfigEvent.Reloading event) {
+    public static void onConfigReload(ModConfigEvent event) {
+        if (event instanceof ModConfigEvent.Unloading) return;
+        if (PotionPatcher.isPatched()) PotionPatcher.apply();
         MobFleeLogic.resetBlacklistCache();
         AnimalFoods.resetCustomFoodCache();
         AnimalFoods.resetDietCache();

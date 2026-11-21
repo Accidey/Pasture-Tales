@@ -1,6 +1,6 @@
 {
   "name": "Beast Taming Potion",
-  "icon": "pasture-tales:beast_taming_potion_3",
+  "icon": "minecraft:potion",
   "category": "animalflee:getting_started",
   "sortnum": 3,
   "pages": [
@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Brewing",
-      "text": "Brewed in the brewing stand from an $(bold)awkward potion$(): add a $(bold)rabbit's foot$() for level I, a $(bold)cornflower$() for level II, and a $(bold)lily of the valley$() for level III. $(br2)The reduction percentages and durations of all three tiers are configurable, and the potions appear in the brewing item tab."
+      "text": "Brewed in the brewing stand from an $(bold)awkward potion$(): add $(bold)wheat$() for level I, a $(bold)cornflower$() for level II, and a $(bold)lily of the valley$() for level III. $(br2)The reduction percentages and durations of all three tiers are configurable, and the potions appear under the $(bold)food and drinks$() tab."
     }
   ]
 }

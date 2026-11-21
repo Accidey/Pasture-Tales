@@ -119,9 +119,17 @@
   "tooltip.animalflee.normal_egg": "Normal egg: cannot hatch",
   "msg.animalflee.smell": "An animal noticed you and fled",
   "screen.animalflee.fishing_minigame": "Fishing",
-  "item.pasture-tales.beast_taming_potion": "Beast Taming Potion I",
-  "item.pasture-tales.beast_taming_potion_2": "Beast Taming Potion II",
-  "item.pasture-tales.beast_taming_potion_3": "Beast Taming Potion III",
-  "effect.pasture-tales.beast_taming": "Beast Taming",
-  "tooltip.animalflee.beast_taming": "Animal wariness reduced by %s%% for %s min"
+  "item.minecraft.potion.effect.beast_taming": "Potion of Beast Taming",
+  "item.minecraft.potion.effect.beast_taming_2": "Potion of Beast Taming",
+  "item.minecraft.potion.effect.beast_taming_3": "Potion of Beast Taming",
+  "item.minecraft.splash_potion.effect.beast_taming": "Splash Potion of Beast Taming",
+  "item.minecraft.splash_potion.effect.beast_taming_2": "Splash Potion of Beast Taming",
+  "item.minecraft.splash_potion.effect.beast_taming_3": "Splash Potion of Beast Taming",
+  "item.minecraft.lingering_potion.effect.beast_taming": "Lingering Potion of Beast Taming",
+  "item.minecraft.lingering_potion.effect.beast_taming_2": "Lingering Potion of Beast Taming",
+  "item.minecraft.lingering_potion.effect.beast_taming_3": "Lingering Potion of Beast Taming",
+  "item.minecraft.tipped_arrow.effect.beast_taming": "Arrow of Beast Taming",
+  "item.minecraft.tipped_arrow.effect.beast_taming_2": "Arrow of Beast Taming",
+  "item.minecraft.tipped_arrow.effect.beast_taming_3": "Arrow of Beast Taming",
+  "effect.pasture-tales.beast_taming": "Beast Taming"
 }

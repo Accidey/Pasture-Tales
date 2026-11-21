@@ -1,6 +1,6 @@
 {
   "name": "驯兽药水",
-  "icon": "pasture-tales:beast_taming_potion_3",
+  "icon": "minecraft:potion",
   "category": "animalflee:getting_started",
   "sortnum": 3,
   "pages": [
@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "酿造",
-      "text": "在酿造台从$(bold)粗制药水$()起步：加入$(bold)兔子脚$()得 Ⅰ 级，再加$(bold)矢车菊$()升 Ⅱ 级，最后加$(bold)铃兰$()升到 Ⅲ 级。$(br2)三级药的减免比例与持续时间都可以在配置里调整，药水会出现在酿造物品栏中。"
+      "text": "在酿造台从$(bold)粗制药水$()起步：加入$(bold)小麦$()得 Ⅰ 级，再加$(bold)矢车菊$()升 Ⅱ 级，最后加$(bold)铃兰$()升到 Ⅲ 级。$(br2)三级药的减免比例与持续时间都可以在配置里调整，药水会出现在物品栏的$(bold)食物与饮品$()分类中。"
     }
   ]
 }
