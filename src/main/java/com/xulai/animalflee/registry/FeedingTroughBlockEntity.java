@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
-import net.minecraft.world.ContainerHelper;
 
 public class FeedingTroughBlockEntity extends BlockEntity {
 
@@ -41,13 +40,14 @@ public class FeedingTroughBlockEntity extends BlockEntity {
     }
 
     public ItemStack insert(ItemStack stack) {
-        int allowed = Math.min(stack.getCount(), MAX_ITEMS - getTotalCount());
-        if (allowed <= 0) return stack;
-        ItemStack toInsert = stack.copyWithCount(allowed);
+        int storedBefore = getTotalCount();
+        int allowed = Math.min(stack.getCount(), MAX_ITEMS - storedBefore);
+        ItemStack toInsert = allowed > 0 ? stack.copyWithCount(allowed) : ItemStack.EMPTY;
         for (int i = 0; i < items.size() && !toInsert.isEmpty(); i++) {
             ItemStack slot = items.get(i);
             if (slot.isEmpty()) {
-                items.set(i, toInsert.split(toInsert.getCount()));
+                int move = Math.min(toInsert.getMaxStackSize(), toInsert.getCount());
+                items.set(i, toInsert.split(move));
             } else if (ItemStack.isSameItemSameComponents(slot, toInsert)) {
                 int space = slot.getMaxStackSize() - slot.getCount();
                 int move = Math.min(space, toInsert.getCount());
@@ -57,8 +57,11 @@ public class FeedingTroughBlockEntity extends BlockEntity {
                 }
             }
         }
-        setChanged();
-        return toInsert;
+        ItemStack remainder = stack.copyWithCount(stack.getCount() - allowed + toInsert.getCount());
+        if (remainder.getCount() != stack.getCount()) {
+            setChanged();
+        }
+        return remainder;
     }
 
     public ItemStack extractOne() {

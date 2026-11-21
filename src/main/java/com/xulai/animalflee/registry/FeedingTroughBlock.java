@@ -125,7 +125,7 @@ public class FeedingTroughBlock extends Block implements EntityBlock {
         if (level.getBlockEntity(pos) instanceof FeedingTroughBlockEntity trough && isFood(stack)) {
             ItemStack remaining = trough.insert(stack);
             if (remaining.getCount() != stack.getCount()) {
-                player.setItemInHand(hand, remaining);
+                player.setItemInHand(hand, remaining.isEmpty() ? ItemStack.EMPTY : remaining);
                 trough.syncLevel();
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             }
