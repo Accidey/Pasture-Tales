@@ -20,6 +20,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -35,7 +36,16 @@ public class AnimalFleeMod {
         ModRegistry.init(modEventBus);
         modEventBus.addListener(this::registerPayloads);
         modEventBus.addListener(this::addToCreativeTab);
+        modEventBus.addListener(this::registerItemColors);
         NeoForge.EVENT_BUS.addListener(this::registerBrewingRecipes);
+    }
+
+    private void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.getItemColors().register(
+                (stack, tintIndex) -> tintIndex == 1 ? 0xB8860B : -1,
+                ModRegistry.BEAST_TAMING_POTION_1.get(),
+                ModRegistry.BEAST_TAMING_POTION_2.get(),
+                ModRegistry.BEAST_TAMING_POTION_3.get());
     }
 
     private void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {

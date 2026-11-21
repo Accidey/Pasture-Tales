@@ -10,8 +10,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModRegistry {
 
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, AnimalFleeMod.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, AnimalFleeMod.MODID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, "pasture-tales");
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, "pasture-tales");
 
     public static final DeferredHolder<MobEffect, BeastTamingEffect> BEAST_TAMING = MOB_EFFECTS.register("beast_taming", BeastTamingEffect::new);
 

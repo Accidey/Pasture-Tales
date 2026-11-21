@@ -27,6 +27,11 @@ public class BeastTamingPotionItem extends PotionItem {
     }
 
     @Override
+    public String getDescriptionId(ItemStack stack) {
+        return super.getDescriptionId();
+    }
+
+    @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         Player player = entity instanceof Player drinker ? drinker : null;
         if (player instanceof ServerPlayer serverPlayer) {
