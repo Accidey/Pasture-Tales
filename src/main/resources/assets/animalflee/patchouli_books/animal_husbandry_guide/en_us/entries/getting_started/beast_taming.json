@@ -1,0 +1,18 @@
+{
+  "name": "Beast Taming Potion",
+  "icon": "animalflee:beast_taming_potion_3",
+  "category": "animalflee:getting_started",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Beast Taming Potion",
+      "text": "Drink a $(bold)Beast Taming Potion$() and the distance at which wild animals start fleeing shortens by its tier: level I $(bold)25%$(), level II $(bold)50%$(), level III $(bold)80%$(), lasting 3 / 5 / 8 minutes respectively.$(br2)At level III you can walk right up to wild animals. Domesticated animals never flee from you anyway, so this potion only matters out in the wild."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Brewing",
+      "text": "Brewed in the brewing stand from an $(bold)awkward potion$(): add a $(bold)rabbit's foot$() for level I, a $(bold)cornflower$() for level II, and a $(bold)lily of the valley$() for level III. $(br2)The reduction percentages and durations of all three tiers are configurable, and the potions appear in the brewing item tab."
+    }
+  ]
+}

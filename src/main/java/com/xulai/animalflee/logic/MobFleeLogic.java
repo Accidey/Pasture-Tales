@@ -2,6 +2,7 @@ package com.xulai.animalflee.logic;
 
 import com.xulai.animalflee.AnimalFleeMod;
 import com.xulai.animalflee.Config;
+import com.xulai.animalflee.registry.BeastTamingEffect;
 import com.xulai.animalflee.logic.boid.BoidsSimulation;
 import com.xulai.animalflee.logic.boid.NearbyMobTracker;
 
@@ -211,8 +212,9 @@ public class MobFleeLogic {
     }
 
     private static double effectiveTriggerDist(Player player, double baseDist) {
-        if (!isInvisible(player)) return baseDist;
-        return player.isSprinting() ? baseDist / 2.0 : SNIFF_DISTANCE;
+        double dist = baseDist * BeastTamingEffect.factor(player);
+        if (!isInvisible(player)) return dist;
+        return player.isSprinting() ? dist / 2.0 : SNIFF_DISTANCE;
     }
 
     private static boolean isBlacklisted(Mob mob) {

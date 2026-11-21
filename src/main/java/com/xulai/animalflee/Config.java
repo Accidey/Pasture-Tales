@@ -104,6 +104,78 @@ public class Config {
 
         BUILDER.comment(" ");
 
+        BEAST_TAMING_REDUCTION_1 = BUILDER
+                .comment(
+                        "驯兽药水Ⅰ级警觉减免（百分比）",
+                        "Beast Taming Potion I wariness reduction (percent)",
+                        "饮用驯兽药水Ⅰ级后，野生动物触发逃跑的距离按此比例缩短。",
+                        "After drinking a Beast Taming Potion I, the distance at which wild animals start fleeing is shortened by this percentage.",
+                        "Default: 25 / 默认：25",
+                        "Range: 0 ~ 95"
+                )
+                .defineInRange("beastTamingReduction1", 25, 0, 95);
+
+        BUILDER.comment(" ");
+
+        BEAST_TAMING_REDUCTION_2 = BUILDER
+                .comment(
+                        "驯兽药水Ⅱ级警觉减免（百分比）",
+                        "Beast Taming Potion II wariness reduction (percent)",
+                        "饮用驯兽药水Ⅱ级后，野生动物触发逃跑的距离按此比例缩短。",
+                        "After drinking a Beast Taming Potion II, the distance at which wild animals start fleeing is shortened by this percentage.",
+                        "Default: 50 / 默认：50",
+                        "Range: 0 ~ 95"
+                )
+                .defineInRange("beastTamingReduction2", 50, 0, 95);
+
+        BUILDER.comment(" ");
+
+        BEAST_TAMING_REDUCTION_3 = BUILDER
+                .comment(
+                        "驯兽药水Ⅲ级警觉减免（百分比）",
+                        "Beast Taming Potion III wariness reduction (percent)",
+                        "饮用驯兽药水Ⅲ级后，野生动物触发逃跑的距离按此比例缩短。",
+                        "After drinking a Beast Taming Potion III, the distance at which wild animals start fleeing is shortened by this percentage.",
+                        "Default: 80 / 默认：80",
+                        "Range: 0 ~ 95"
+                )
+                .defineInRange("beastTamingReduction3", 80, 0, 95);
+
+        BUILDER.comment(" ");
+
+        BEAST_TAMING_MINUTES_1 = BUILDER
+                .comment(
+                        "驯兽药水Ⅰ级持续时间（分钟）",
+                        "Beast Taming Potion I duration (minutes)",
+                        "Default: 3 / 默认：3",
+                        "Range: 1 ~ 60"
+                )
+                .defineInRange("beastTamingMinutes1", 3, 1, 60);
+
+        BUILDER.comment(" ");
+
+        BEAST_TAMING_MINUTES_2 = BUILDER
+                .comment(
+                        "驯兽药水Ⅱ级持续时间（分钟）",
+                        "Beast Taming Potion II duration (minutes)",
+                        "Default: 5 / 默认：5",
+                        "Range: 1 ~ 60"
+                )
+                .defineInRange("beastTamingMinutes2", 5, 1, 60);
+
+        BUILDER.comment(" ");
+
+        BEAST_TAMING_MINUTES_3 = BUILDER
+                .comment(
+                        "驯兽药水Ⅲ级持续时间（分钟）",
+                        "Beast Taming Potion III duration (minutes)",
+                        "Default: 8 / 默认：8",
+                        "Range: 1 ~ 60"
+                )
+                .defineInRange("beastTamingMinutes3", 8, 1, 60);
+
+        BUILDER.comment(" ");
+
         FISHING_REQUIRES_NATURAL_WATER = BUILDER
                 .comment(
                         "钓鱼是否要求自然水域",
@@ -730,6 +802,12 @@ public class Config {
     public static final ModConfigSpec.BooleanValue FLOCK_FLEE;
     public static final ModConfigSpec.DoubleValue PANIC_SPREAD_RADIUS;
     public static final ModConfigSpec.DoubleValue NEVER_FLEE_CHANCE;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_REDUCTION_1;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_REDUCTION_2;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_REDUCTION_3;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_MINUTES_1;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_MINUTES_2;
+    public static final ModConfigSpec.IntValue BEAST_TAMING_MINUTES_3;
     public static final ModConfigSpec.BooleanValue FISHING_REQUIRES_NATURAL_WATER;
     public static final ModConfigSpec.IntValue FISHING_MIN_WATER_VOLUME;
     public static final ModConfigSpec.IntValue FISH_FISH_SCAN_RADIUS;

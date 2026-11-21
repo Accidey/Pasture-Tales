@@ -1,0 +1,18 @@
+{
+  "name": "驯兽药水",
+  "icon": "animalflee:beast_taming_potion_3",
+  "category": "animalflee:getting_started",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "驯兽药水",
+      "text": "饮下一瓶$(bold)驯兽药水$()，野生动物触发逃跑的距离就会按药水等级缩短：Ⅰ级 $(bold)25%$()、Ⅱ级 $(bold)50%$()、Ⅲ级 $(bold)80%$()，持续时间分别为 3 / 5 / 8 分钟。$(br2)III 级之下，你几乎可以贴到野生动物身边。已家养的动物本来就不躲你，此药水只对野外生物有意义。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "酿造",
+      "text": "在酿造台从$(bold)粗制药水$()起步：加入$(bold)兔子脚$()得 Ⅰ 级，再加$(bold)矢车菊$()升 Ⅱ 级，最后加$(bold)铃兰$()升到 Ⅲ 级。$(br2)三级药的减免比例与持续时间都可以在配置里调整，药水会出现在酿造物品栏中。"
+    }
+  ]
+}
