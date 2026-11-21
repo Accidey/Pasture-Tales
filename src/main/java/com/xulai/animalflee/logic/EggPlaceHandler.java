@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,15 +27,25 @@ public class EggPlaceHandler {
         Level level = event.getLevel();
         Player player = event.getEntity();
         ItemStack stack = player.getItemInHand(event.getHand());
-        if (!PregnancySystem.isFertilizedEgg(stack)) return;
+        if (!PregnancySystem.isFertilizedEgg(stack)
+                && !stack.is(Items.EGG)
+                && !OviparousRegistry.isConfiguredEgg(stack.getItem())) {
+            return;
+        }
 
         HitResult hit = player.pick(5.0, 0.0F, false);
         if (hit.getType() != HitResult.Type.BLOCK || !(hit instanceof BlockHitResult blockHit)) return;
         if (blockHit.getDirection() != Direction.UP) return;
 
         BlockPos hay = blockHit.getBlockPos();
-        if (!level.getBlockState(hay).is(Blocks.HAY_BLOCK)
-                || !level.getBlockState(hay.above()).canBeReplaced()) return;
+        if (!level.getBlockState(hay).is(Blocks.HAY_BLOCK)) return;
+
+        if (!PregnancySystem.isFertilizedEgg(stack)) {
+            event.setCanceled(true);
+            return;
+        }
+
+        if (!level.getBlockState(hay.above()).canBeReplaced()) return;
 
         ItemEntity existing = EggGridHelper.findGridEgg(level, hay, hay.getX() + 0.5, hay.getZ() + 0.5);
         if (existing != null) return;
