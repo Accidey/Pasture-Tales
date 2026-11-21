@@ -464,7 +464,7 @@ public class Config {
                         "格式：每个ID用双引号包裹，逗号分隔。",
                         "Format: comma-separated quoted IDs."
                 )
-                .define("troughItemBlacklist", List.of("minecraft:hay_block", "minecraft:melon", "minecraft:pumpkin"));
+                .defineListAllowEmpty("troughItemBlacklist", List.of("minecraft:hay_block", "minecraft:melon", "minecraft:pumpkin"), () -> "", obj -> obj instanceof String);
 
         BUILDER.comment(" ");
 
